@@ -22,4 +22,17 @@ public final class Constants {
   }
 
 
+ 
+  public static class suckingMotor {
+    public static final int kSuckingMotorPort = 1;
+  }
+ 
+  
+ 
+  public static class visionSubsystem {
+    public static final int PDHCANID = 1;
+    public static final int CAM_WIDTH = 320;
+    public static final int CAM_HEIGHT = 240;
+    public static final int CAM_FPS = 15;
+  }
 }
