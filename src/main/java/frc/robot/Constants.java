@@ -17,6 +17,11 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
 
+  public static class ClimberSubsystem {
+    public static final int kClimberMotorPort = 0;
+  }
+
+
   public static class Shooter {
     public static final int kShootingMotorPort = 7;
   }
