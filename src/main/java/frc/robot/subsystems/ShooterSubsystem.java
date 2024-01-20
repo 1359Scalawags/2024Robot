@@ -4,14 +4,24 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
-public class ExampleSubsystem extends SubsystemBase {
+public class ShooterSubsystem extends SubsystemBase {
+
+private Spark shootingMotor;
+
+
   /** Creates a new ExampleSubsystem. */
-  public ExampleSubsystem() {}
+  public ShooterSubsystem() {
+      
+    shootingMotor = new Spark(Constants.Shooter.kShootingMotorPort);
 
-  //this is awsome
+
+
+  }
 
   /**
    * Example command factory method.

@@ -16,4 +16,23 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+  public static class Shooter {
+    public static final int kShootingMotorPort = 7;
+  }
+
+
+ 
+  public static class suckingMotor {
+    public static final int kSuckingMotorPort = 1;
+  }
+ 
+  
+ 
+  public static class visionSubsystem {
+    public static final int PDHCANID = 1;
+    public static final int CAM_WIDTH = 320;
+    public static final int CAM_HEIGHT = 240;
+    public static final int CAM_FPS = 15;
+  }
 }
