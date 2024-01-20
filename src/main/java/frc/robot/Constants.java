@@ -16,4 +16,10 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+  public static final class visionSubsystem {
+    public static final int PDHCANID = 1;
+    public static final int CAM_WIDTH = 320;
+    public static final int CAM_HEIGHT = 240;
+    public static final int CAM_FPS = 15;
+  }
 }
