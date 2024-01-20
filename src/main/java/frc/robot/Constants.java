@@ -40,4 +40,9 @@ public final class Constants {
     public static final int CAM_HEIGHT = 240;
     public static final int CAM_FPS = 15;
   }
+
+  public static class ExampleSubsystem {
+    public static final int exampleMotorID = 33;
+  }
+
 }
