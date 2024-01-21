@@ -24,6 +24,8 @@ public final class Constants {
 
   public static class Shooter {
     public static final int kShootingMotorPort = 7;
+    public static final double kShootingspeed = 0.5;
+    public static final int kShootingmotorRPort = 14;
   }
 
 

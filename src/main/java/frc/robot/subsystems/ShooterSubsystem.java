@@ -4,25 +4,33 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.extensions.SendableCANSparkMax;
 
 public class ShooterSubsystem extends SubsystemBase {
 
-private Spark shootingMotor;
+private SendableCANSparkMax shootingMotorL;
+private SendableCANSparkMax shootingMotorR;
+
 
 
   /** Creates a new ExampleSubsystem. */
   public ShooterSubsystem() {
-      
-    shootingMotor = new Spark(Constants.Shooter.kShootingMotorPort);
+      shootingMotorR = new SendableCANSparkMax(Constants.Shooter.kShootingmotorRPort, MotorType.kBrushless)
+    shootingMotorL = new SendableCANSparkMax(Constants.Shooter.kShootingMotorPort, MotorType.kBrushless);
 
 
 
   }
-
+ public void spinShootingMotor(){
+  shootingMotorL.set(Constants.Shooter.kShootingspeed);
+  shootingMotorR.set(-Constants.Shooter.kShootingspeed);
+ }
   /**
    * Example command factory method.
    *
