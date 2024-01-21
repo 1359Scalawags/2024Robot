@@ -28,8 +28,8 @@ public final class Constants {
 
 
  
-  public static class suckingMotor {
-    public static final int kSuckingMotorPort = 1;
+  public static class WheelMotor {
+    public static final int kWheelMotorPort = 1;
   }
  
   
