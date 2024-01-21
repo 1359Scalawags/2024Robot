@@ -21,7 +21,7 @@ private SendableCANSparkMax shootingMotorR;
 
   /** Creates a new ExampleSubsystem. */
   public ShooterSubsystem() {
-      shootingMotorR = new SendableCANSparkMax(Constants.Shooter.kShootingmotorRPort, MotorType.kBrushless)
+      shootingMotorR = new SendableCANSparkMax(Constants.Shooter.kShootingmotorRPort, MotorType.kBrushless);
     shootingMotorL = new SendableCANSparkMax(Constants.Shooter.kShootingMotorPort, MotorType.kBrushless);
 
 
