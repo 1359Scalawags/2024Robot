@@ -12,7 +12,7 @@ import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
  
-  private Spark suckingMotor;
+  private Spark WheelMotor;
  
  
  
@@ -20,12 +20,16 @@ public class IntakeSubsystem extends SubsystemBase {
  
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
- suckingMotor = new Spark(Constants.suckingMotor.kSuckingMotorPort);
+ WheelMotor = new Spark(Constants.WheelMotor.kWheelMotorPort);
 
 
 
 
   }
+
+
+
+
 
   /**
    * Example command factory method.
