@@ -30,8 +30,14 @@ public final class Constants {
 
 
  
-  public static class WheelMotor {
-    public static final int kWheelMotorPort = 1;
+  public static class Intake {
+    public static final int kNoteMotorPort = 1;
+    public static final int kPositionMotorPort = 2;
+    public static final double kEjectNoteSpeed = 0.5;
+    public static final double kInjectNoteSpeed = -0.5;
+    public static final int kStopNoteSpeed = 0;
+    public static final double kpositionUp = 0;
+    public static final double kpositionDown = 0;
   }
  
   

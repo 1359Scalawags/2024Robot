@@ -4,15 +4,28 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.extensions.SendableCANSparkMax;
 
 
 public class IntakeSubsystem extends SubsystemBase {
  
-  private Spark WheelMotor;
+enum IntakePositions{
+Up,
+Down
+}
+
+
+private IntakePositions intakePosition;
+  private SendableCANSparkMax noteMotor;
+  private SendableCANSparkMax positionMotor;
+  private RelativeEncoder positionEncoder;
  
  
  
@@ -20,13 +33,30 @@ public class IntakeSubsystem extends SubsystemBase {
  
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
- WheelMotor = new Spark(Constants.WheelMotor.kWheelMotorPort);
-
-
+ noteMotor = new SendableCANSparkMax(Constants.Intake.kNoteMotorPort, MotorType.kBrushless);
+ positionMotor = new SendableCANSparkMax(Constants.Intake.kPositionMotorPort, MotorType.kBrushless);
+ positionEncoder = positionMotor.getEncoder();
 
 
   }
 
+
+  public void ejectNote(){
+noteMotor.set(Constants.Intake.kEjectNoteSpeed);
+  }
+  public void injectNote(){
+noteMotor.set(Constants.Intake.kInjectNoteSpeed);
+  }
+public void stopNote(){
+  noteMotor.set(Constants.Intake.kStopNoteSpeed);
+
+}
+  public void positionUp(){
+intakePosition = IntakePositions.Up;
+  }
+  public void positionDown(){
+intakePosition = IntakePositions.Down;
+  }
 
 
 
@@ -57,7 +87,19 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    if(intakePosition == IntakePositions.Up){
+      if(positionEncoder.getPosition() < 238){
+        positionMotor.set(0.5);
+      } else{
+        positionMotor.set(0);
+      }
+    } else {
+      if(positionEncoder.getPosition() > -10){
+        positionMotor.set(-0.5);
+      } else{
+        positionMotor.set(0);
+      }
+    }
   }
 
   @Override
