@@ -47,6 +47,13 @@ public final class Constants {
     public static final int CAM_WIDTH = 320;
     public static final int CAM_HEIGHT = 240;
     public static final int CAM_FPS = 15;
+
+    // how many degrees back is your limelight rotated from perfectly vertical?
+    double limelightMountAngleDegrees = 0; 
+    // distance from the center of the Limelight lens to the floor
+    double limelightLensHeightInches = 0; 
+    // distance from the target to the floor
+    double goalHeightInches = 0; 
   }
 
   public static class ExampleSubsystem {
