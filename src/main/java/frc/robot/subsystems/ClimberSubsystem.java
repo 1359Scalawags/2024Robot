@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.extensions.SendableCANSparkMax;
+import edu.wpi.first.wpilibj.drive.RobotDriveBase.MotorType;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -11,13 +13,13 @@ import frc.robot.Constants;
 
 public class ClimberSubsystem extends SubsystemBase {
  
- private Spark climberMotor;
+ private SendableCANSparkMax climberMotor;
  
  
  
   /** Creates a new ExampleSubsystem. */
   public ClimberSubsystem() {
-    climberMotor = new Spark(Constants.ClimberSubsystem.kClimberMotorPort);
+//    climberMotor = new SendableCANSparkMax(Constants.ClimberSubsystem.kClimberMotorPort, MotorType.kBrushless);
 
 
 
