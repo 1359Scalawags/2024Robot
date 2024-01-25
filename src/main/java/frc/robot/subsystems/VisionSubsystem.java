@@ -39,13 +39,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class VisionSubsystem extends SubsystemBase {
 
     //TODO: Uncommnet when drive train is completed
-    private final SwereSubsystemSubsystem SwereSubsystemSubsystem;
+    private final SwereSubsystem SwereSubsystem;
     //TODO: intialize april tag feild map
     public final AprilTagFieldLayout aprilTagFieldLayout;
 
     private final SwerveSubsystem SwerveSubsystem;
 
     private static final Vector<N3> stateStdDevs = VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5));
+
+    private static final Vector<N3> visionMeasurementStdDevs = VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(10));
 
     private final SwerveDrivePoseEstimator poseEstimator;
 
@@ -88,7 +90,7 @@ public class VisionSubsystem extends SubsystemBase {
        AprilTagFieldLayout aprilTagFieldLayout;
         try {
       aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
-      TODO: fix alliance var
+      //TODO: fix alliance var
       var alliance = DriverStation.getAlliance();
       aprilTagFieldLayout.setOrigin(alliance == Alliance.Blue ?
           OriginPosition.kBlueAllianceWallRightSide : OriginPosition.kRedAllianceWallRightSide);
@@ -97,6 +99,7 @@ public class VisionSubsystem extends SubsystemBase {
       DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
       layout = null;
     }
+
         //TODO: make functions in SwereSubsystem to be used here
     poseEstimator =  new SwerveDrivePoseEstimator(
         SwereSubsystemConstants.KINEMATICS,
