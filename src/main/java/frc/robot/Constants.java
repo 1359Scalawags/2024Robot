@@ -24,12 +24,20 @@ public final class Constants {
 
   public static class Shooter {
     public static final int kShootingMotorPort = 7;
+    public static final double kShootingspeed = 0.5;
+    public static final int kShootingmotorRPort = 14;
   }
 
 
  
-  public static class suckingMotor {
-    public static final int kSuckingMotorPort = 1;
+  public static class Intake {
+    public static final int kNoteMotorPort = 1;
+    public static final int kPositionMotorPort = 2;
+    public static final double kEjectNoteSpeed = 0.5;
+    public static final double kInjectNoteSpeed = -0.5;
+    public static final int kStopNoteSpeed = 0;
+    public static final double kpositionUp = 0;
+    public static final double kpositionDown = 0;
   }
  
   
@@ -39,6 +47,13 @@ public final class Constants {
     public static final int CAM_WIDTH = 320;
     public static final int CAM_HEIGHT = 240;
     public static final int CAM_FPS = 15;
+
+    // how many degrees back is your limelight rotated from perfectly vertical?
+    double limelightMountAngleDegrees = 0; 
+    // distance from the center of the Limelight lens to the floor
+    double limelightLensHeightInches = 0; 
+    // distance from the target to the floor
+    double goalHeightInches = 0; 
   }
 
   public static class ExampleSubsystem {
