@@ -4,6 +4,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.Constants.SwereSubsystem;
 
 import java.io.IOException;
 
@@ -17,12 +18,18 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 //positive x value, right negative, left
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -32,10 +39,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class VisionSubsystem extends SubsystemBase {
 
     //TODO: Uncommnet when drive train is completed
-  //private final DrivetrainSubsystem drivetrainSubsystem;
+    private final SwereSubsystemSubsystem SwereSubsystemSubsystem;
     //TODO: intialize april tag feild map
-  public final AprilTagFieldLayout aprilTagFieldLayout;
+    public final AprilTagFieldLayout aprilTagFieldLayout;
 
+    private final SwerveSubsystem SwerveSubsystem;
+
+    private static final Vector<N3> stateStdDevs = VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5));
+
+    private final SwerveDrivePoseEstimator poseEstimator;
+
+    private final Field2d field2d = new Field2d();
+
+    private double previousPipelineTimestamp = 0;
+
+
+
+    
     public enum LimelightModes {
         vision,
         driver
@@ -59,7 +79,6 @@ public class VisionSubsystem extends SubsystemBase {
     NetworkTableEntry ty = getLimelightEntry("ty");
     NetworkTableEntry ta = getLimelightEntry("ta");
 
-     private SwerveDrivePoseEstimator poseEstimator;
 
     public VisionSubsystem() {
         AprilTagFieldLayout layout;
@@ -69,14 +88,27 @@ public class VisionSubsystem extends SubsystemBase {
        AprilTagFieldLayout aprilTagFieldLayout;
         try {
       aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
-      //TODO: fix alliance var
-      //var alliance = DriverStation.getAlliance();
-      //aprilTagFieldLayout.setOrigin(alliance == Alliance.Blue ?
-          //OriginPosition.kBlueAllianceWallRightSide : OriginPosition.kRedAllianceWallRightSide);
-    } catch(IOException e) {
+      TODO: fix alliance var
+      var alliance = DriverStation.getAlliance();
+      aprilTagFieldLayout.setOrigin(alliance == Alliance.Blue ?
+          OriginPosition.kBlueAllianceWallRightSide : OriginPosition.kRedAllianceWallRightSide);
+    } 
+        catch(IOException e) {
       DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
       layout = null;
     }
+        //TODO: make functions in SwereSubsystem to be used here
+    poseEstimator =  new SwerveDrivePoseEstimator(
+        SwereSubsystemConstants.KINEMATICS,
+        SwereSubsystem.getGyroscopeRotation(),
+        SwereSubsystem.getModulePositions(),
+        new Pose2d(),
+        stateStdDevs,
+        visionMeasurementStdDevs);
+
+    tab.addString("Pose", this::getFomattedPose).withPosition(0, 0).withSize(2, 0);
+    tab.add("Field", field2d).withPosition(2, 0).withSize(6, 4);
+
     
 
 
@@ -145,6 +177,16 @@ public class VisionSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("LimelightX", x);
         SmartDashboard.putNumber("LimelightY", y);
         SmartDashboard.putNumber("LimelightArea", area);
+    }
+
+    poseEstimator.update(
+        SwereSubsystemSubsystem.getGyroscopeRotation(),
+        SwereSubsystemSubsystem.getModulePositions());
+      
+        field2d.setRobotPose(getCurrentPose());
+        
+      
+
     }
 
     private static NetworkTableEntry getLimelightEntry(String key) {
