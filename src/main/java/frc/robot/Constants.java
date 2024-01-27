@@ -19,6 +19,9 @@ public final class Constants {
 
   public static class ClimberSubsystem {
     public static final int kClimberMotorPort = 0;
+    public static final int kClimberUperlimitswitchport = 1;
+    public static final int kClimberExtendRate = 0;
+    public static final int kClimberLowerlimitswitchport = 0;
   }
 
 
@@ -26,6 +29,8 @@ public final class Constants {
     public static final int kShootingMotorPort = 7;
     public static final double kShootingspeed = 0.5;
     public static final int kShootingmotorRPort = 14;
+    public static final int kIdleshootingspeed = 0;
+    public static final int kstopshootingspeed = 0;
   }
 
 
@@ -38,6 +43,16 @@ public final class Constants {
     public static final int kStopNoteSpeed = 0;
     public static final double kpositionUp = 0;
     public static final double kpositionDown = 0;
+
+    public static final double kMaxIntakePosition = 238.0;
+    public static final double kMinIntakePosition = -10.0;
+    public static final double kPositionMotorupSpeed = 0.5;
+    public static final double kPositionMotorDownSpeed = 0.5;
+
+
+
+
+
   }
  
   
