@@ -4,33 +4,39 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.extensions.SendableCANSparkMax;
 
-public class ShooterSubsystem extends SubsystemBase {
-
-private SendableCANSparkMax shootingMotorL;
-private SendableCANSparkMax shootingMotorR;
-
-
-
+public class DrivetrainSubsystem extends SubsystemBase {
+  
+  private CANSparkMax exampleMotor;
+  
   /** Creates a new ExampleSubsystem. */
-  public ShooterSubsystem() {
-      shootingMotorR = new SendableCANSparkMax(Constants.Shooter.kShootingmotorRPort, MotorType.kBrushless);
-    shootingMotorL = new SendableCANSparkMax(Constants.Shooter.kShootingMotorPort, MotorType.kBrushless);
+  public DrivetrainSubsystem() {
+    exampleMotor = new CANSparkMax(Constants.ExampleSubsystem.exampleMotorID, MotorType.kBrushless);
 
 
-
+    
   }
- public void spinShootingMotor(){
-  shootingMotorL.set(Constants.Shooter.kShootingspeed);
-  shootingMotorR.set(-Constants.Shooter.kShootingspeed);
- }
+
+  public final AHRS m_navx = new AHRS(SPI.Port.kMXP, (byte) 200); // NavX connected over MXP
+
+public Rotation2d getGyroscopeRotation() {
+      return m_navx.getRotation2d();
+  
+      // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
+      // return Rotation2d.fromDegrees(360.0 - navx.getYaw());
+    }
+
+  //this is awsome
+
   /**
    * Example command factory method.
    *

@@ -4,26 +4,38 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.extensions.SendableCANSparkMax;
 
 public class ClimberSubsystem extends SubsystemBase {
  
- private Spark climberMotor;
+ private SendableCANSparkMax climberMotor;
  
- 
- 
-  /** Creates a new ExampleSubsystem. */
-  public ClimberSubsystem() {
-    climberMotor = new Spark(Constants.ClimberSubsystem.kClimberMotorPort);
+ private RelativeEncoder positionEncoder;
 
+ 
+  /** Creates a new ClimberSubsystem. */
+  public ClimberSubsystem() {
+    climberMotor = new SendableCANSparkMax(Constants.ClimberSubsystem.kClimberMotorPort,MotorType.kBrushless);
+    positionEncoder = climberMotor.getEncoder();
 
 
 
 
   }
+  public void setSpeed (double speed){
+    climberMotor.set(speed);
+  }
+
+
+
+
 
   /**
    * Example command factory method.

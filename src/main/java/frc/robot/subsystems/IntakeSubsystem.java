@@ -4,15 +4,29 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.extensions.SendableCANSparkMax;
 
 
 public class IntakeSubsystem extends SubsystemBase {
  
-  private Spark WheelMotor;
+enum IntakePositions{
+  Up,
+  Down,
+  NotMoving
+}
+
+
+  private IntakePositions intakePosition;
+  private SendableCANSparkMax beltMotor;
+  private SendableCANSparkMax wheelMotor;
+  private SendableCANSparkMax positionMotor;
+  private RelativeEncoder positionEncoder;
  
  
  
@@ -20,13 +34,31 @@ public class IntakeSubsystem extends SubsystemBase {
  
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
- WheelMotor = new Spark(Constants.WheelMotor.kWheelMotorPort);
-
-
+  intakePosition = IntakePositions.Up;
+  beltMotor = new SendableCANSparkMax(Constants.Intake.kNoteMotorPort, MotorType.kBrushless);
+  positionMotor = new SendableCANSparkMax(Constants.Intake.kPositionMotorPort, MotorType.kBrushless);
+  positionEncoder = positionMotor.getEncoder();
 
 
   }
 
+
+  public void ejectNote(){
+beltMotor.set(Constants.Intake.kEjectNoteSpeed);
+  }
+  public void injectNote(){
+beltMotor.set(Constants.Intake.kInjectNoteSpeed);
+  }
+public void stopNote(){
+  beltMotor.set(Constants.Intake.kStopNoteSpeed);
+
+}
+  public void positionUp(){
+intakePosition = IntakePositions.Up;
+  }
+  public void positionDown(){
+intakePosition = IntakePositions.Down;
+  }
 
 
 
@@ -57,7 +89,19 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    if(intakePosition == IntakePositions.Up){
+      if(positionEncoder.getPosition() < Constants.Intake.kMaxIntakePosition){
+        positionMotor.set(Constants.Intake.kPositionMotorupSpeed);
+      } else{
+        positionMotor.set(0);
+      }
+    } else {
+      if(positionEncoder.getPosition() > Constants.Intake.kMinIntakePosition){
+        positionMotor.set(Constants.Intake.kPositionMotorDownSpeed);
+      } else{
+        positionMotor.set(0);
+      }
+    }
   }
 
   @Override

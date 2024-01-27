@@ -4,6 +4,12 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
+
+import java.io.IOException;
+
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFieldLayout.OriginPosition;
+import edu.wpi.first.apriltag.AprilTagFields;
 //import edu.wpi.first.wpilibj.DriverStation;
 //import edu.wpi.first.wpilibj.shuffleboard.SendableCameraWrapper;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -11,9 +17,12 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 //positive x value, right negative, left
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,6 +30,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class VisionSubsystem extends SubsystemBase {
+
+    //TODO: Uncommnet when drive train is completed
+  //private final DrivetrainSubsystem drivetrainSubsystem;
+    //TODO: intialize april tag feild map
+  public final AprilTagFieldLayout aprilTagFieldLayout;
 
     public enum LimelightModes {
         vision,
@@ -31,10 +45,10 @@ public class VisionSubsystem extends SubsystemBase {
         TopCamera,
         BottomCamera
     }
+    
 
     // variables for USB Cams
     private UsbCamera camera1;
-    //private UsbCamera camera2;
     private VideoSink server;
 
     // variables for Limelight
@@ -45,8 +59,27 @@ public class VisionSubsystem extends SubsystemBase {
     NetworkTableEntry ty = getLimelightEntry("ty");
     NetworkTableEntry ta = getLimelightEntry("ta");
 
+     private SwerveDrivePoseEstimator poseEstimator;
 
     public VisionSubsystem() {
+        AprilTagFieldLayout layout;
+        //april tag fmap intialization
+        //TODO: change fmap to 2024 feild, kavi has the file (add to constants).
+        this.aprilTagFieldLayout = layout;
+       AprilTagFieldLayout aprilTagFieldLayout;
+        try {
+      aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
+      //TODO: fix alliance var
+      //var alliance = DriverStation.getAlliance();
+      //aprilTagFieldLayout.setOrigin(alliance == Alliance.Blue ?
+          //OriginPosition.kBlueAllianceWallRightSide : OriginPosition.kRedAllianceWallRightSide);
+    } catch(IOException e) {
+      DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
+      layout = null;
+    }
+    
+
+
         // limelight initialization
         setCamMode(LimelightModes.vision);
 
