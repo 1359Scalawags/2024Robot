@@ -22,7 +22,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
  private DigitalInput climberLowerlimit; 
  private DigitalInput climberUperlimit; 
- 
+ private double climberSpeed = 0;
  
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
@@ -34,23 +34,8 @@ public class ClimberSubsystem extends SubsystemBase {
 
   }
   private void setSpeed (double speed){
+   climberSpeed = speed;
    
-    if(speed>0){
-      if(climberUperlimit.get()){
-        climberMotor.set(0);
-      }
-      else{
-        climberMotor.set(speed);
-      }
-    }
-    else if(speed<0){
-      if(climberLowerlimit.get()){
-        climberMotor.set(0);
-      }
-      else{
-        climberMotor.set(speed);
-      }
-    }
   }
 
   public void extendArm(){
@@ -89,6 +74,24 @@ public void stopArm(){
 
   @Override
   public void periodic() {
+    if(climberSpeed>0){
+      if(climberUperlimit.get()){
+        climberMotor.set(0);
+        climberSpeed = 0;
+      }
+      else{
+        climberMotor.set(climberSpeed);
+      }
+    }
+    else if(climberSpeed<0){
+      if(climberLowerlimit.get()){
+        climberMotor.set(0);
+        climberSpeed = 0;
+      }
+      else{
+        climberMotor.set(climberSpeed);
+      }
+    }
     // This method will be called once per scheduler run
   }
 
