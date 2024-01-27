@@ -34,7 +34,7 @@ public class VisionSubsystem extends SubsystemBase {
     //TODO: Uncommnet when drive train is completed
   //private final DrivetrainSubsystem drivetrainSubsystem;
     //TODO: intialize april tag feild map
-  public final AprilTagFieldLayout aprilTagFieldLayout;
+  public AprilTagFieldLayout aprilTagFieldLayout;
 
     public enum LimelightModes {
         vision,
