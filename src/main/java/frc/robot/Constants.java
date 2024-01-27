@@ -38,6 +38,16 @@ public final class Constants {
     public static final int kStopNoteSpeed = 0;
     public static final double kpositionUp = 0;
     public static final double kpositionDown = 0;
+
+    public static final double kMaxIntakePosition = 238.0;
+    public static final double kMinIntakePosition = -10.0;
+    public static final double kPositionMotorupSpeed = 0.5;
+    public static final double kPositionMotorDownSpeed = 0.5;
+
+
+
+
+
   }
  
   
