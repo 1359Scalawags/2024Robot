@@ -19,7 +19,7 @@ class testThread implements Runnable{
 
             if(i%20 == 0){
                 ByteBuffer buff = ByteBuffer.allocate(Long.BYTES).putDouble((double)i);
-                parent.putBuffer(buff);
+                parent.setBuffer(buff);
             }
 
             if(i >= 100){
@@ -32,7 +32,7 @@ class testThread implements Runnable{
 
 public class exampleRunnableThread extends RunnableThread{
     public exampleRunnableThread(){
-        putBuffer(ByteBuffer.allocate(Long.BYTES).putDouble(0.001));
+        setBuffer(ByteBuffer.allocate(Long.BYTES).putDouble(0.001));
 
         setMethod(new testThread(this));
     }

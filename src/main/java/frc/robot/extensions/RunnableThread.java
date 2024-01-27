@@ -41,12 +41,40 @@ public class RunnableThread{
         while(dataLock && counter > 0){counter--;}
     }
 
+    public ThreadErrorCodes setBuffer(ByteBuffer input){
+        waitforUnlock();
+
+        if(!dataLock){
+            dataLock = true;
+            byteBuffer.put(input);
+            dataLock = false;
+            
+            return ThreadErrorCodes.STATUS_OK;
+        }
+
+        return ThreadErrorCodes.STATUS_LOCKED;
+    }
+    
     public ThreadErrorCodes putBuffer(ByteBuffer input){
         waitforUnlock();
 
         if(!dataLock){
             dataLock = true;
             byteBuffer = input.duplicate();
+            dataLock = false;
+            
+            return ThreadErrorCodes.STATUS_OK;
+        }
+
+        return ThreadErrorCodes.STATUS_LOCKED;
+    }
+
+    public ThreadErrorCodes putBuffer(int i, ByteBuffer input, int inputOffset){
+        waitforUnlock();
+
+        if(!dataLock){
+            dataLock = true;
+            byteBuffer.put(i, input, inputOffset, input.capacity());
             dataLock = false;
             
             return ThreadErrorCodes.STATUS_OK;
