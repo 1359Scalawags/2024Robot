@@ -34,7 +34,7 @@ public class VisionSubsystem extends SubsystemBase {
     //TODO: Uncommnet when drive train is completed
   //private final DrivetrainSubsystem drivetrainSubsystem;
     //TODO: intialize april tag feild map
-  public final AprilTagFieldLayout aprilTagFieldLayout;
+  //public final AprilTagFieldLayout aprilTagFieldLayout;
 
     public enum LimelightModes {
         vision,
@@ -62,21 +62,21 @@ public class VisionSubsystem extends SubsystemBase {
      private SwerveDrivePoseEstimator poseEstimator;
 
     public VisionSubsystem() {
-        AprilTagFieldLayout layout;
+       // AprilTagFieldLayout layout;
         //april tag fmap intialization
         //TODO: change fmap to 2024 feild, kavi has the file (add to constants).
-        this.aprilTagFieldLayout = layout;
-       AprilTagFieldLayout aprilTagFieldLayout;
-        try {
-      aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
-      //TODO: fix alliance var
-      //var alliance = DriverStation.getAlliance();
-      //aprilTagFieldLayout.setOrigin(alliance == Alliance.Blue ?
-          //OriginPosition.kBlueAllianceWallRightSide : OriginPosition.kRedAllianceWallRightSide);
-    } catch(IOException e) {
-      DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
-      layout = null;
-    }
+    //     this.aprilTagFieldLayout = layout;
+    //    AprilTagFieldLayout aprilTagFieldLayout;
+    //     try {
+    //   aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
+    //   //TODO: fix alliance var
+    //   //var alliance = DriverStation.getAlliance();
+    //   //aprilTagFieldLayout.setOrigin(alliance == Alliance.Blue ?
+    //       //OriginPosition.kBlueAllianceWallRightSide : OriginPosition.kRedAllianceWallRightSide);
+    // } catch(IOException e) {
+    //   DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
+    //   layout = null;
+    // }
     
 
 
