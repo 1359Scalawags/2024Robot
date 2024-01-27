@@ -79,6 +79,9 @@ public final class Constants {
     public static final int shootButton = 1;
     public static final int extendArmButton = 2;
     public static final int retractArmButton = 3;
+    public static final int intakeBeltButton = 4;
+    public static final int intakeExtendButton = 5;
+    public static final int intakeWheelsOnbutton = 6;
 
 
   }
