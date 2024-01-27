@@ -20,21 +20,31 @@ public class ClimberSubsystem extends SubsystemBase {
  
  private RelativeEncoder positionEncoder;
 
- private DigitalInput climberlimit; 
+ private DigitalInput climberLowerlimit; 
+ private DigitalInput climberUperlimit; 
+ 
  
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
     climberMotor = new SendableCANSparkMax(Constants.ClimberSubsystem.kClimberMotorPort,MotorType.kBrushless);
     positionEncoder = climberMotor.getEncoder();
 
-    climberlimit = new DigitalInput(Constants.ClimberSubsystem.kClimberlimitswitchport);
-
+    climberUperlimit = new DigitalInput(Constants.ClimberSubsystem.kClimberUperlimitswitchport);
+    climberLowerlimit = new DigitalInput(Constants.ClimberSubsystem.kClimberLowerlimitswitchport);
 
   }
-  public void setSpeed (double speed){
-    // climberMotor.set(speed);
+  private void setSpeed (double speed){
+   
     if(speed>0){
-      if(limitSwitchState()){
+      if(climberUperlimit.get()){
+        climberMotor.set(0);
+      }
+      else{
+        climberMotor.set(speed);
+      }
+    }
+    else if(speed<0){
+      if(climberLowerlimit.get()){
         climberMotor.set(0);
       }
       else{
@@ -43,11 +53,15 @@ public class ClimberSubsystem extends SubsystemBase {
     }
   }
 
-
-boolean limitSwitchState(){
-  return climberlimit.get();
-} 
-
+  public void extendArm(){
+    setSpeed(Constants.ClimberSubsystem.kClimberExtendRate);
+  }
+  public void retractArm(){
+    setSpeed(-Constants.ClimberSubsystem.kClimberExtendRate);
+  }
+public void stopArm(){
+    setSpeed(0);
+  }
 
   /**
    * Example command factory method.

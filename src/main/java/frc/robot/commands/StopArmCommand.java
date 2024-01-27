@@ -27,7 +27,7 @@ public class StopArmCommand extends Command {
   @Override
   public void initialize() {
     // function doesn't exist yet, it is a guess.
-    m_ClimberSubsystem.stopMotor();
+    m_ClimberSubsystem.stopArm();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
