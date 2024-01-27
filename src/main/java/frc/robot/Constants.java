@@ -19,6 +19,7 @@ public final class Constants {
 
   public static class ClimberSubsystem {
     public static final int kClimberMotorPort = 0;
+    public static final int kClimberlimitswitchport = 1;
   }
 
 

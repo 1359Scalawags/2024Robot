@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,22 +20,33 @@ public class ClimberSubsystem extends SubsystemBase {
  
  private RelativeEncoder positionEncoder;
 
+ private DigitalInput climberlimit; 
  
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
     climberMotor = new SendableCANSparkMax(Constants.ClimberSubsystem.kClimberMotorPort,MotorType.kBrushless);
     positionEncoder = climberMotor.getEncoder();
 
-
+    climberlimit = new DigitalInput(Constants.ClimberSubsystem.kClimberlimitswitchport);
 
 
   }
   public void setSpeed (double speed){
-    climberMotor.set(speed);
+    // climberMotor.set(speed);
+    if(speed>0){
+      if(limitSwitchState()){
+        climberMotor.set(0);
+      }
+      else{
+        climberMotor.set(speed);
+      }
+    }
   }
 
 
-
+boolean limitSwitchState(){
+  return climberlimit.get();
+} 
 
 
   /**
