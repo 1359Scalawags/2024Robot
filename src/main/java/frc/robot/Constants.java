@@ -74,5 +74,19 @@ public final class Constants {
   public static class ExampleSubsystem {
     public static final int exampleMotorID = 33;
   }
+  public static class DriverJoystick{
+    public static final int joystick = 0;
+    public static final int shootButton = 1;
+    public static final int extendArmButton = 2;
+    public static final int retractArmButton = 3;
+
+
+  }
+  public static class AssistantJoystick{
+    public static final int joystick = 1;
+
+
+  }
+
 
 }
