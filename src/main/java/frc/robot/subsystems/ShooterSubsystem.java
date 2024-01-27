@@ -37,7 +37,7 @@ private SendableCANSparkMax shootingMotorR;
   shootingMotorR.set(-Constants.Shooter.kIdleshootingspeed);
 
  }
- public void idleSpinShootingMotor(){
+ public void stopSpinShootingMotor(){
   shootingMotorL.set(Constants.Shooter.kstopshootingspeed);
   shootingMotorR.set(-Constants.Shooter.kstopshootingspeed);
  } 
