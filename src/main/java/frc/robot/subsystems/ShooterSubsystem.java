@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -31,30 +30,17 @@ private SendableCANSparkMax shootingMotorR;
   shootingMotorL.set(Constants.Shooter.kShootingspeed);
   shootingMotorR.set(-Constants.Shooter.kShootingspeed);
  }
-  /**
-   * Example command factory method.
-   *
-   * @return a command
-   */
-  public Command exampleMethodCommand() {
-    // Inline construction of command goes here.
-    // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(
-        () -> {
-          /* one-time action goes here */
-        });
-  }
 
-  /**
-   * An example method querying a boolean state of the subsystem (for example, a digital sensor).
-   *
-   * @return value of some boolean subsystem state, such as a digital sensor.
-   */
-  public boolean exampleCondition() {
-    // Query some boolean state, such as a digital sensor.
-    return false;
-  }
 
+ public void idleSpinShootingMotor(){
+  shootingMotorL.set(Constants.Shooter.kIdleshootingspeed);
+  shootingMotorR.set(-Constants.Shooter.kIdleshootingspeed);
+
+ }
+ public void idleSpinShootingMotor(){
+  shootingMotorL.set(Constants.Shooter.kstopshootingspeed);
+  shootingMotorR.set(-Constants.Shooter.kstopshootingspeed);
+ } 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
