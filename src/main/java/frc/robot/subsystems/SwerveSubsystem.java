@@ -56,6 +56,8 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 public class SwerveSubsystem extends SubsystemBase
 {
 
+  private boolean isFeildCentric = false;
+
   /**
    * Swerve drive object.
    */
@@ -314,10 +316,17 @@ public class SwerveSubsystem extends SubsystemBase
 //   }
 
 
+public void SetfeildCentric (boolean state) {
+  isFeildCentric = state;
+}
 
+public void toggleFeildCentric() {
+  isFeildCentric = !isFeildCentric;
+}
 
-
-
+public boolean getFeildCentric () {
+  return isFeildCentric;
+}
 
 
 
@@ -528,5 +537,9 @@ public class SwerveSubsystem extends SubsystemBase
   public void addFakeVisionReading()
   {
     swerveDrive.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());
+  }
+
+  public double getMaxSpeed() {
+    return swerveDrive.getMaximumVelocity();
   }
 }

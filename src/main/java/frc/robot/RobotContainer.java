@@ -17,6 +17,7 @@ import frc.robot.commands.IntakeCommands.IntakeExtendCommand;
 import frc.robot.commands.IntakeCommands.IntakeRetractCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOnCommand;
+import frc.robot.commands.SwerveCommands.FeildCentricDrive;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -33,6 +34,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
+
+import java.util.function.DoubleSupplier;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -41,11 +45,12 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
 
-  private final SwerveSubsystem drivebase = new SwerveSubsystem(
-    new File(Filesystem.getDeployDirectory(), "YAGSLConfigJSON/swerve"));
+  
 
     
   // The robot's subsystems and commands are defined here...
+  private final SwerveSubsystem m_SwerveSubsystem = new SwerveSubsystem(
+    new File(Filesystem.getDeployDirectory(), "YAGSLConfigJSON/swerve"));
   private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -58,7 +63,48 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    setDefaultCommands(); 
+
   }
+    /*
+     * SwerveSubsystem swerve,
+     *  DoubleSupplier vX, 
+     * DoubleSupplier vY, 
+     * DoubleSupplier omega,
+     *  DoubleSupplier throttle, 
+     * BooleanSupplier feildRelitive,
+     *  boolean isOpenLoop
+     */
+  private void setDefaultCommands() {
+
+    m_SwerveSubsystem.setDefaultCommand(
+      new FeildCentricDrive(m_SwerveSubsystem,
+      this::driverGetX,
+      this::driverGetY,
+      this::driverGetZ,
+      this::driverGetThrottle,
+      m_SwerveSubsystem::getFeildCentric, 
+      false
+      ));
+
+  }
+
+  public double driverGetY() {
+    return driverJoystick.getY();
+  }
+
+  public double driverGetX() {
+    return driverJoystick.getX();
+  }
+
+  public double driverGetZ() {
+    return driverJoystick.getZ();
+  }
+  public double driverGetThrottle() {
+    return driverJoystick.getThrottle();
+  }
+  
+
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
