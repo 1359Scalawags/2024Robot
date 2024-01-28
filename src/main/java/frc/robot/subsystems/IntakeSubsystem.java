@@ -16,13 +16,15 @@ import frc.robot.extensions.SendableCANSparkMax;
 public class IntakeSubsystem extends SubsystemBase {
  
 enum IntakePositions{
-Up,
-Down
+  Up,
+  Down,
+  NotMoving
 }
 
 
-private IntakePositions intakePosition;
-  private SendableCANSparkMax noteMotor;
+  private IntakePositions intakePosition;
+  private SendableCANSparkMax beltMotor;
+  private SendableCANSparkMax wheelMotor;
   private SendableCANSparkMax positionMotor;
   private RelativeEncoder positionEncoder;
  
@@ -32,22 +34,23 @@ private IntakePositions intakePosition;
  
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
- noteMotor = new SendableCANSparkMax(Constants.Intake.kNoteMotorPort, MotorType.kBrushless);
- positionMotor = new SendableCANSparkMax(Constants.Intake.kPositionMotorPort, MotorType.kBrushless);
- positionEncoder = positionMotor.getEncoder();
+  intakePosition = IntakePositions.Up;
+  beltMotor = new SendableCANSparkMax(Constants.Intake.kNoteMotorPort, MotorType.kBrushless);
+  positionMotor = new SendableCANSparkMax(Constants.Intake.kPositionMotorPort, MotorType.kBrushless);
+  positionEncoder = positionMotor.getEncoder();
 
 
   }
 
 
   public void ejectNote(){
-noteMotor.set(Constants.Intake.kEjectNoteSpeed);
+beltMotor.set(Constants.Intake.kEjectNoteSpeed);
   }
   public void injectNote(){
-noteMotor.set(Constants.Intake.kInjectNoteSpeed);
+beltMotor.set(Constants.Intake.kInjectNoteSpeed);
   }
 public void stopNote(){
-  noteMotor.set(Constants.Intake.kStopNoteSpeed);
+  beltMotor.set(Constants.Intake.kStopNoteSpeed);
 
 }
   public void positionUp(){
@@ -87,14 +90,14 @@ intakePosition = IntakePositions.Down;
   @Override
   public void periodic() {
     if(intakePosition == IntakePositions.Up){
-      if(positionEncoder.getPosition() < 238){
-        positionMotor.set(0.5);
+      if(positionEncoder.getPosition() < Constants.Intake.kMaxIntakePosition){
+        positionMotor.set(Constants.Intake.kPositionMotorupSpeed);
       } else{
         positionMotor.set(0);
       }
     } else {
-      if(positionEncoder.getPosition() > -10){
-        positionMotor.set(-0.5);
+      if(positionEncoder.getPosition() > Constants.Intake.kMinIntakePosition){
+        positionMotor.set(Constants.Intake.kPositionMotorDownSpeed);
       } else{
         positionMotor.set(0);
       }

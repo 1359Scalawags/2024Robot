@@ -28,7 +28,7 @@ public class StopShootingCommand extends Command {
   @Override
   public void initialize() {
     //function doesnt exist yet, name is a guess
-   m_subsystem.stopShootingMotor();
+   m_subsystem.stopSpinShootingMotor();
 
 
 

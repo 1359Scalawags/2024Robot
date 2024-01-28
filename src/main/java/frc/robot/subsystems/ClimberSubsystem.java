@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,23 +20,33 @@ public class ClimberSubsystem extends SubsystemBase {
  
  private RelativeEncoder positionEncoder;
 
+ private DigitalInput climberLowerlimit; 
+ private DigitalInput climberUperlimit; 
+ private double climberSpeed = 0;
  
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
     climberMotor = new SendableCANSparkMax(Constants.ClimberSubsystem.kClimberMotorPort,MotorType.kBrushless);
     positionEncoder = climberMotor.getEncoder();
 
-
-
+    climberUperlimit = new DigitalInput(Constants.ClimberSubsystem.kClimberUperlimitswitchport);
+    climberLowerlimit = new DigitalInput(Constants.ClimberSubsystem.kClimberLowerlimitswitchport);
 
   }
-  public void setSpeed (double speed){
-    climberMotor.set(speed);
+  private void setSpeed (double speed){
+   climberSpeed = speed;
+   
   }
 
-
-
-
+  public void extendArm(){
+    setSpeed(Constants.ClimberSubsystem.kClimberExtendRate);
+  }
+  public void retractArm(){
+    setSpeed(-Constants.ClimberSubsystem.kClimberExtendRate);
+  }
+public void stopArm(){
+    setSpeed(0);
+  }
 
   /**
    * Example command factory method.
@@ -63,6 +74,24 @@ public class ClimberSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    if(climberSpeed>0){
+      if(climberUperlimit.get()){
+        climberMotor.set(0);
+        climberSpeed = 0;
+      }
+      else{
+        climberMotor.set(climberSpeed);
+      }
+    }
+    else if(climberSpeed<0){
+      if(climberLowerlimit.get()){
+        climberMotor.set(0);
+        climberSpeed = 0;
+      }
+      else{
+        climberMotor.set(climberSpeed);
+      }
+    }
     // This method will be called once per scheduler run
   }
 
