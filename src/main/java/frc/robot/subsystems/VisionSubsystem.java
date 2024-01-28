@@ -7,6 +7,7 @@ import frc.robot.Robot;
 import frc.robot.Constants.SwereSubsystem;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFieldLayout.OriginPosition;
@@ -38,22 +39,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionSubsystem extends SubsystemBase {
 
-    //TODO: Uncommnet when drive train is completed
-    private final SwereSubsystem SwereSubsystem;
-    //TODO: intialize april tag feild map
-    public final AprilTagFieldLayout aprilTagFieldLayout;
+    // //TODO: Uncommnet when drive train is completed
+    // private final SwereSubsystem SwereSubsystem;
+    // //TODO: intialize april tag feild map
+    // public final AprilTagFieldLayout aprilTagFieldLayout;
 
-    private final SwerveSubsystem SwerveSubsystem;
+    // private final SwerveSubsystem SwerveSubsystem;
 
-    private static final Vector<N3> stateStdDevs = VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5));
+    // private static final Vector<N3> stateStdDevs = VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5));
 
-    private static final Vector<N3> visionMeasurementStdDevs = VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(10));
+    // private static final Vector<N3> visionMeasurementStdDevs = VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(10));
 
-    private final SwerveDrivePoseEstimator poseEstimator;
+    // private final SwerveDrivePoseEstimator poseEstimator;
 
-    private final Field2d field2d = new Field2d();
+    // private final Field2d field2d = new Field2d();
 
-    private double previousPipelineTimestamp = 0;
+    // private double previousPipelineTimestamp = 0;
 
 
 
@@ -83,34 +84,34 @@ public class VisionSubsystem extends SubsystemBase {
 
 
     public VisionSubsystem() {
-        AprilTagFieldLayout layout;
+        //AprilTagFieldLayout layout;
         //april tag fmap intialization
-        //TODO: change fmap to 2024 feild, kavi has the file (add to constants).
-        this.aprilTagFieldLayout = layout;
-       AprilTagFieldLayout aprilTagFieldLayout;
-        try {
-      aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
-      //TODO: fix alliance var
-      var alliance = DriverStation.getAlliance();
-      aprilTagFieldLayout.setOrigin(alliance == Alliance.Blue ?
-          OriginPosition.kBlueAllianceWallRightSide : OriginPosition.kRedAllianceWallRightSide);
-    } 
-        catch(IOException e) {
-      DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
-      layout = null;
-    }
+       // //TODO: change fmap to 2024 feild, kavi has the file (add to constants).
+        //this.aprilTagFieldLayout = layout;
+    //    AprilTagFieldLayout aprilTagFieldLayout;
+    //     try {
+    //   aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
+      
+    //     Optional<Alliance> alliance = DriverStation.getAlliance();
+    //   aprilTagFieldLayout.setOrigin(alliance.equals(Alliance.Blue) ?
+    //       OriginPosition.kBlueAllianceWallRightSide : OriginPosition.kRedAllianceWallRightSide);
+    // } 
+    //     catch(IOException e) {
+    //   DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
+    //   layout = null;
+    // }
 
         //TODO: make functions in SwereSubsystem to be used here
-    poseEstimator =  new SwerveDrivePoseEstimator(
-        SwereSubsystemConstants.KINEMATICS,
-        SwereSubsystem.getGyroscopeRotation(),
-        SwereSubsystem.getModulePositions(),
-        new Pose2d(),
-        stateStdDevs,
-        visionMeasurementStdDevs);
+    // poseEstimator =  new SwerveDrivePoseEstimator(
+    //     SwereSubsystemConstants.KINEMATICS,
+    //     SwereSubsystem.getGyroscopeRotation(),
+    //     SwereSubsystem.getModulePositions(),
+    //     new Pose2d(),
+    //     stateStdDevs,
+    //     visionMeasurementStdDevs);
 
-    tab.addString("Pose", this::getFomattedPose).withPosition(0, 0).withSize(2, 0);
-    tab.add("Field", field2d).withPosition(2, 0).withSize(6, 4);
+    // tab.addString("Pose", this::getFomattedPose).withPosition(0, 0).withSize(2, 0);
+    // tab.add("Field", field2d).withPosition(2, 0).withSize(6, 4);
 
     
 
@@ -182,15 +183,15 @@ public class VisionSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("LimelightArea", area);
     }
 
-    poseEstimator.update(
-        SwereSubsystemSubsystem.getGyroscopeRotation(),
-        SwereSubsystemSubsystem.getModulePositions());
+    // poseEstimator.update(
+    //     SwereSubsystemSubsystem.getGyroscopeRotation(),
+    //     SwereSubsystemSubsystem.getModulePositions());
       
-        field2d.setRobotPose(getCurrentPose());
+    //     field2d.setRobotPose(getCurrentPose());
         
       
 
-    }
+    // }
 
     private static NetworkTableEntry getLimelightEntry(String key) {
         if (table == null) {
