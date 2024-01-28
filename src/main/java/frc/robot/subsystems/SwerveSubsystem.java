@@ -298,8 +298,9 @@ public class SwerveSubsystem extends SubsystemBase
 
 
 
-  
-
+  public void zeroGyroscope() {
+    m_navx.zeroYaw();
+}
 
   public Rotation2d getGyroscopeRotation() {
     return m_navx.getRotation2d();
