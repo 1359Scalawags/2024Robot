@@ -4,9 +4,13 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.REVLibError;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -28,36 +32,49 @@ enum IntakePositions{
   private SendableCANSparkMax positionMotor;
   private RelativeEncoder positionEncoder;
  
- 
+  private double targetPosition;
+  private SparkPIDController positionPID;
+  private SlewRateLimiter positionLimiter;
+  private SlewRateLimiter safeModeLimiter;
+
+  private boolean safeMode;
  
  
  
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
-  intakePosition = IntakePositions.Up;
-  beltMotor = new SendableCANSparkMax(Constants.Intake.kNoteMotorPort, MotorType.kBrushless);
-  positionMotor = new SendableCANSparkMax(Constants.Intake.kPositionMotorPort, MotorType.kBrushless);
-  positionEncoder = positionMotor.getEncoder();
+    intakePosition = IntakePositions.Up;
+    beltMotor = new SendableCANSparkMax(Constants.Intake.kNoteMotorPort, MotorType.kBrushless);
+    positionMotor = new SendableCANSparkMax(Constants.Intake.kPositionMotorPort, MotorType.kBrushless);
+    positionEncoder = positionMotor.getEncoder();
+    targetPosition = Constants.Intake.kTargetPositionUp;
+    positionPID = positionMotor.getPIDController();
+    positionLimiter = new SlewRateLimiter(0.5, -0.5,0);
+    safeModeLimiter = new SlewRateLimiter(0.5, -0.5,0);
+    safeMode = true;
 
 
   }
 
 
   public void ejectNote(){
-beltMotor.set(Constants.Intake.kEjectNoteSpeed);
+    beltMotor.set(Constants.Intake.kEjectNoteSpeed);
   }
   public void injectNote(){
-beltMotor.set(Constants.Intake.kInjectNoteSpeed);
+    beltMotor.set(Constants.Intake.kInjectNoteSpeed);
   }
-public void stopNote(){
-  beltMotor.set(Constants.Intake.kStopNoteSpeed);
+  public void stopNote(){
+    beltMotor.set(Constants.Intake.kStopNoteSpeed);
 
 }
   public void positionUp(){
-intakePosition = IntakePositions.Up;
+    intakePosition = IntakePositions.Up;
+    targetPosition = Constants.Intake.kTargetPositionUp;
   }
   public void positionDown(){
-intakePosition = IntakePositions.Down;
+    intakePosition = IntakePositions.Down;
+    targetPosition = Constants.Intake.kTargetPositionDown;
+
   }
 
 
@@ -89,20 +106,42 @@ intakePosition = IntakePositions.Down;
 
   @Override
   public void periodic() {
-    if(intakePosition == IntakePositions.Up){
-      if(positionEncoder.getPosition() < Constants.Intake.kMaxIntakePosition){
-        positionMotor.set(Constants.Intake.kPositionMotorupSpeed);
-      } else{
-        positionMotor.set(0);
-      }
+    if(safeMode) {
+      double tempTarget = safeModeLimiter.calculate(targetPosition);
+      positionPID.setReference(tempTarget, ControlType.kPosition);
+
+
     } else {
-      if(positionEncoder.getPosition() > Constants.Intake.kMinIntakePosition){
-        positionMotor.set(Constants.Intake.kPositionMotorDownSpeed);
-      } else{
-        positionMotor.set(0);
-      }
+      double tempTarget = positionLimiter.calculate(targetPosition);
+      positionPID.setReference(tempTarget, ControlType.kPosition);
     }
-  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //   if(intakePosition == IntakePositions.Up){
+  //     if(positionEncoder.getPosition() < Constants.Intake.kMaxIntakePosition){
+  //       positionMotor.set(Constants.Intake.kPositionMotorupSpeed);
+  //     } else{
+  //       positionMotor.set(0);
+  //     }
+  //   } else {
+  //     if(positionEncoder.getPosition() > Constants.Intake.kMinIntakePosition){
+  //       positionMotor.set(Constants.Intake.kPositionMotorDownSpeed);
+  //     } else{
+  //       positionMotor.set(0);
+  //     }
+  //   }
+   }
 
   @Override
   public void simulationPeriodic() {

@@ -49,7 +49,8 @@ public final class Constants {
     public static final double kPositionMotorupSpeed = 0.5;
     public static final double kPositionMotorDownSpeed = 0.5;
 
-
+    public static final double kTargetPositionUp = 0;
+    public static final double kTargetPositionDown = 0;
 
 
 
