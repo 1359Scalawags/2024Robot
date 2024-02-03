@@ -26,7 +26,7 @@ public class ClimberSubsystem extends SubsystemBase {
  
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
-    climberMotor = new SendableCANSparkMax(Constants.ClimberSubsystem.kClimberMotorPort,MotorType.kBrushless);
+    //climberMotor = new SendableCANSparkMax(Constants.ClimberSubsystem.kClimberMotorPort,MotorType.kBrushless);
     positionEncoder = climberMotor.getEncoder();
 
     climberUperlimit = new DigitalInput(Constants.ClimberSubsystem.kClimberUperlimitswitchport);

@@ -56,7 +56,7 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 public class SwerveSubsystem extends SubsystemBase
 {
 
-  private boolean isFeildCentric = false;
+  private boolean isFeildCentric = true;
 
   /**
    * Swerve drive object.
@@ -65,7 +65,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public double maximumSpeed = Units.feetToMeters(5.0);
+  public double maximumSpeed = Units.feetToMeters(7.5);
   
   private final AHRS m_navx = new AHRS(SPI.Port.kMXP, (byte) 200); // NavX connected over MXP
 

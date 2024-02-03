@@ -35,8 +35,8 @@ enum IntakePositions{
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
   intakePosition = IntakePositions.Up;
-  beltMotor = new SendableCANSparkMax(Constants.Intake.kNoteMotorPort, MotorType.kBrushless);
-  positionMotor = new SendableCANSparkMax(Constants.Intake.kPositionMotorPort, MotorType.kBrushless);
+  // beltMotor = new SendableCANSparkMax(Constants.Intake.kNoteMotorPort, MotorType.kBrushless);
+  // positionMotor = new SendableCANSparkMax(Constants.Intake.kPositionMotorPort, MotorType.kBrushless);
   positionEncoder = positionMotor.getEncoder();
 
 

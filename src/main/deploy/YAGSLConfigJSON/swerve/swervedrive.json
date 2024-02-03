@@ -1,7 +1,7 @@
 {
   "imu": {
     "type": "navx_mxp_serial",
-    "id": null,
+    "id": 0,
     "canbus": null
   },
   "invertedIMU": false,
