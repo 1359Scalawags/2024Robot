@@ -35,33 +35,32 @@ public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public ShooterSubsystem() {
     shootingMotorR = new SendableCANSparkMax(Constants.Shooter.kShootingmotorRPort, MotorType.kBrushless);
+      shootingMotorR.restoreFactoryDefaults();
+      shootingMotorR.setIdleMode(IdleMode.kCoast);
+      shootingMotorR.setInverted(false);
+      shootingMotorR.setSmartCurrentLimit(0);
+
     shootingMotorL = new SendableCANSparkMax(Constants.Shooter.kShootingMotorPort, MotorType.kBrushless);
-    shootingMotorR.restoreFactoryDefaults();
-    shootingMotorR.setIdleMode(IdleMode.kCoast);
-    shootingMotorR.setInverted(false);
-    shootingMotorR.setSmartCurrentLimit(0);
-
-
-    shootingMotorL.restoreFactoryDefaults();
-    shootingMotorL.setIdleMode(IdleMode.kCoast);
-    shootingMotorL.setInverted(false);
-    shootingMotorL.setSmartCurrentLimit(0);
+      shootingMotorL.restoreFactoryDefaults();
+      shootingMotorL.setIdleMode(IdleMode.kCoast);
+      shootingMotorL.setInverted(false);
+      shootingMotorL.setSmartCurrentLimit(0);
 
     currentSpeed = ShooterSpeed.off;
     speedPIDR = shootingMotorR.getPIDController();
-
+      speedPIDR.setP(0);
+      speedPIDR.setI(0);
+      speedPIDR.setD(0);
+      speedPIDR.setFF(0);
+      speedPIDR.setIZone(0);
     speedPIDL = shootingMotorL.getPIDController();
-    speedPIDR.setP(0);
-    speedPIDR.setI(0);
-    speedPIDR.setD(0);
-    speedPIDR.setFF(0);
-    speedPIDR.setIZone(0);
+      speedPIDL.setP(0);
+      speedPIDL.setI(0);
+      speedPIDL.setD(0);
+      speedPIDL.setFF(0);
+      speedPIDL.setIZone(0);
+    
 
-    speedPIDL.setP(0);
-    speedPIDL.setI(0);
-    speedPIDL.setD(0);
-    speedPIDL.setFF(0);
-    speedPIDL.setIZone(0);
 
   }
 
