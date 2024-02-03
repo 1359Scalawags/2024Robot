@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,34 +18,73 @@ public class ShooterSubsystem extends SubsystemBase {
 private SendableCANSparkMax shootingMotorL;
 private SendableCANSparkMax shootingMotorR;
 
+private double targetSpeed;
+private SparkPIDController speedPIDR;
+private SparkPIDController speedPIDL;
+
+
+enum ShooterSpeed{
+  off,
+  low,
+  full
+
+
+}
+ShooterSpeed currentSpeed;
+
 
 
   /** Creates a new ExampleSubsystem. */
   public ShooterSubsystem() {
-      shootingMotorR = new SendableCANSparkMax(Constants.Shooter.kShootingmotorRPort, MotorType.kBrushless);
+    shootingMotorR = new SendableCANSparkMax(Constants.Shooter.kShootingmotorRPort, MotorType.kBrushless);
     shootingMotorL = new SendableCANSparkMax(Constants.Shooter.kShootingMotorPort, MotorType.kBrushless);
-
-
+    currentSpeed = ShooterSpeed.off;
+    speedPIDR = shootingMotorR.getPIDController();
+    speedPIDL = shootingMotorL.getPIDController();
 
   }
  public void spinShootingMotor(){
-  shootingMotorL.set(Constants.Shooter.kShootingspeed);
-  shootingMotorR.set(-Constants.Shooter.kShootingspeed);
+  currentSpeed = ShooterSpeed.full;
+
+  // shootingMotorL.set(Constants.Shooter.kShootingspeed);
+  // shootingMotorR.set(-Constants.Shooter.kShootingspeed);
  }
 
 
  public void idleSpinShootingMotor(){
-  shootingMotorL.set(Constants.Shooter.kIdleshootingspeed);
-  shootingMotorR.set(-Constants.Shooter.kIdleshootingspeed);
+  currentSpeed = ShooterSpeed.low;
+
+  // shootingMotorL.set(Constants.Shooter.kIdleshootingspeed);
+  // shootingMotorR.set(-Constants.Shooter.kIdleshootingspeed);
 
  }
  public void stopSpinShootingMotor(){
-  shootingMotorL.set(Constants.Shooter.kstopshootingspeed);
-  shootingMotorR.set(-Constants.Shooter.kstopshootingspeed);
+  currentSpeed = ShooterSpeed.off;
+
+  // shootingMotorL.set(Constants.Shooter.kstopshootingspeed);
+  // shootingMotorR.set(-Constants.Shooter.kstopshootingspeed);
  } 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+     if(currentSpeed == ShooterSpeed.off) {
+      speedPIDR.setReference(Constants.Shooter.kstopshootingspeed, ControlType.kVelocity);
+      speedPIDL.setReference(Constants.Shooter.kstopshootingspeed, ControlType.kVelocity);
+
+    } else if (currentSpeed == ShooterSpeed.low) {
+      speedPIDR.setReference(Constants.Shooter.kIdleshootingspeed, ControlType.kVelocity);
+      speedPIDL.setReference(Constants.Shooter.kIdleshootingspeed, ControlType.kVelocity);
+      
+    }else{
+      speedPIDR.setReference(Constants.Shooter.kShootingspeed, ControlType.kVelocity);
+      speedPIDL.setReference(Constants.Shooter.kShootingspeed, ControlType.kVelocity);
+    }
+
+
+
+
+
+
   }
 
   @Override
