@@ -6,7 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.MoveClimberArms;
 import frc.robot.commands.ExtendArmCommand;
 import frc.robot.commands.RetractArmCommand;
 import frc.robot.commands.ShootCommand;
@@ -112,10 +112,18 @@ public class RobotContainer {
     // // cancelling on release.
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-    
+    m_ClimberSubsystem.setDefaultCommand(
+      new MoveClimberArms(m_ClimberSubsystem, this::getAssistantJoystick));
 
 
   }
+  public double getAssistantJoystick() {
+      return assistantJoystick.getY();
+
+  }
+
+
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
