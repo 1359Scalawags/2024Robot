@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -38,9 +39,22 @@ ShooterSpeed currentSpeed;
   public ShooterSubsystem() {
     shootingMotorR = new SendableCANSparkMax(Constants.Shooter.kShootingmotorRPort, MotorType.kBrushless);
     shootingMotorL = new SendableCANSparkMax(Constants.Shooter.kShootingMotorPort, MotorType.kBrushless);
+    shootingMotorR.restoreFactoryDefaults();
+    shootingMotorR.setIdleMode(IdleMode.kCoast);
+    shootingMotorR.setInverted(false);
+    shootingMotorR.setSmartCurrentLimit(0);
+
+
+
     currentSpeed = ShooterSpeed.off;
     speedPIDR = shootingMotorR.getPIDController();
     speedPIDL = shootingMotorL.getPIDController();
+    speedPIDR.setP(0);
+    speedPIDR.setI(0);
+    speedPIDR.setD(0);
+    speedPIDR.setFF(0);
+    speedPIDR.setIZone(0);
+
 
   }
  public void spinShootingMotor(){
