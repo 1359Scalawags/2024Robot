@@ -67,8 +67,6 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public double maximumSpeed = Units.feetToMeters(7.5);
   
-  private final AHRS m_navx = new AHRS(SPI.Port.kMXP, (byte) 200); // NavX connected over MXP
-
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
    *
@@ -298,18 +296,6 @@ public class SwerveSubsystem extends SubsystemBase
 
 
 
-
-
-  public void zeroGyroscope() {
-    m_navx.zeroYaw();
-}
-
-  public Rotation2d getGyroscopeRotation() {
-    return m_navx.getRotation2d();
-
-    // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
-    // return Rotation2d.fromDegrees(360.0 - navx.getYaw());
-  }
 
 // public SwerveModulePosition[] getModulePositions() {
 //     return Arrays.stream(swerveModules).map(module -> module.getPosition()).toArray(SwerveModulePosition[]::new);
