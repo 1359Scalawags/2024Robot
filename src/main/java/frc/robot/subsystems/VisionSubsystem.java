@@ -148,11 +148,11 @@ public class VisionSubsystem extends SubsystemBase {
         server = CameraServer.getServer();
 
         server.setSource(camera1);
-        // if (camera1 != null) {
-        //     server.setSource(camera1);
+        if (camera1 != null) {
+            server.setSource(camera1);
         // } else if (camera2 != null) {
         //     server.setSource(camera2);
-        // }
+         }
 
     }
 
