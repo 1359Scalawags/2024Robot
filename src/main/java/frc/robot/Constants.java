@@ -98,6 +98,8 @@ public final class Constants {
     public static final int intakeBeltButton = 4;
     public static final int intakeExtendButton = 5;
     public static final int intakeWheelsOnbutton = 6;
+    public static final int zeroGyroButton = 7;
+    public static final int toggleFeildCentricButton = 8;
 
 
   }

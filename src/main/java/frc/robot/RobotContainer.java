@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.commands.FieldCentricCommand;
 // import frc.robot.Constants.OperatorConstants;
 // import frc.robot.commands.Autos;
 // import frc.robot.commands.ExampleCommand;
@@ -18,6 +19,7 @@ package frc.robot;
 // import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
 // import frc.robot.commands.IntakeCommands.IntakeWheelsOnCommand;
 import frc.robot.commands.SwerveCommands.FeildCentricDrive;
+import frc.robot.commands.SwerveCommands.ZeroGyroCommand;
 // import frc.robot.subsystems.ClimberSubsystem;
 // import frc.robot.subsystems.ExampleSubsystem;
 // import frc.robot.subsystems.IntakeSubsystem;
@@ -31,6 +33,7 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 // import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -91,7 +94,7 @@ public class RobotContainer {
   }
 
   public double driverGetX() {
-    return driverJoystick.getX();
+    return -driverJoystick.getX();
   }
 
   public double driverGetZ() {
@@ -165,8 +168,11 @@ public class RobotContainer {
     // // cancelling on release.
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-    
+    new JoystickButton(driverJoystick,Constants.DriverJoystick.zeroGyroButton)
+      .onTrue(new ZeroGyroCommand(m_SwerveSubsystem));
 
+    new JoystickButton(driverJoystick,Constants.DriverJoystick.toggleFeildCentricButton)
+      .onTrue(new FieldCentricCommand(m_SwerveSubsystem));
 
   }
 
