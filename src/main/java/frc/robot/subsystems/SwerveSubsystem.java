@@ -24,6 +24,8 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
 import java.io.File;
 import java.util.Arrays;
 import java.util.function.DoubleSupplier;
@@ -35,6 +37,9 @@ import swervelib.parser.SwerveDriveConfiguration;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.util.PathPlannerLogging;
 
 /*
  * 
@@ -55,6 +60,8 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
 public class SwerveSubsystem extends SubsystemBase
 {
+
+  
 
   private boolean isFeildCentric = true;
 
@@ -100,6 +107,26 @@ public class SwerveSubsystem extends SubsystemBase
       throw new RuntimeException(e);
     }
     swerveDrive.setHeadingCorrection(false); // Heading correction should only be used while controlling the robot via angle.
+
+    // AutoBuilder.configureHolonomic(
+    //   this::getPose, 
+    //   this::resetPose, 
+    //   this::getSpeeds, 
+    //   this::driveRobotRelative, 
+    //   Constants.Swerve.pathFollowerConfig,
+    //   () -> {
+    //       // Boolean supplier that controls when the path will be mirrored for the red alliance
+    //       // This will flip the path being followed to the red side of the field.
+    //       // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+
+    //       var alliance = DriverStation.getAlliance();
+    //       if (alliance.isPresent()) {
+    //           return alliance.get() == DriverStation.Alliance.Red;
+    //       }
+    //       return false;
+    //   },
+    //   this
+    // );
 
     setupPathPlanner();
   }
@@ -291,30 +318,24 @@ public class SwerveSubsystem extends SubsystemBase
     swerveDrive.driveFieldOriented(velocity);
   }
 
-
-
-
-
-
-
 // public SwerveModulePosition[] getModulePositions() {
 //     return Arrays.stream(swerveModules).map(module -> module.getPosition()).toArray(SwerveModulePosition[]::new);
 //   }
 
 
-public void SetfeildCentric (boolean state) {
+  public void SetfeildCentric (boolean state) {
   isFeildCentric = state;
 }
 
-public void toggleFeildCentric() {
+  public void toggleFeildCentric() {
   isFeildCentric = !isFeildCentric;
 }
 
-public boolean getFeildCentric () {
+  public boolean getFeildCentric () {
   return isFeildCentric;
 }
 
-
+  
 
   /**
    * Drive according to the chassis robot oriented velocity.
@@ -326,10 +347,10 @@ public boolean getFeildCentric () {
     swerveDrive.drive(velocity);
   }
 
-  @Override
-  public void periodic()
-  {
-  }
+  // @Override
+  // public void periodic(){
+  //   field.setRobotPose(getPose());
+  // }
 
   @Override
   public void simulationPeriodic()
