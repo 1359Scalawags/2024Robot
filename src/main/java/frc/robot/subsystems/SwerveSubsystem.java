@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
@@ -72,7 +73,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public double maximumSpeed = Units.feetToMeters(7.5);
+  public double maximumSpeed = Units.feetToMeters(Constants.SwereSubsystem.kMaxRobotSpeed);
   
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -84,12 +85,12 @@ public class SwerveSubsystem extends SubsystemBase
     // Angle conversion factor is 360 / (GEAR RATIO * ENCODER RESOLUTION)
     //  In this case the gear ratio is 12.8 motor revolutions per wheel rotation.
     //  The encoder resolution per motor revolution is 1 per motor revolution.
-    double angleConversionFactor = SwerveMath.calculateDegreesPerSteeringRotation(12.8);
+    double angleConversionFactor = SwerveMath.calculateDegreesPerSteeringRotation(Constants.SwereSubsystem.kAngleConversionFactor);
     // Motor conversion factor is (PI * WHEEL DIAMETER IN METERS) / (GEAR RATIO * ENCODER RESOLUTION).
     //  In this case the wheel diameter is 4 inches, which must be converted to meters to get meters/second.
     //  The gear ratio is 6.75 motor revolutions per wheel rotation.
     //  The encoder resolution per motor revolution is 1 per motor revolution.
-    double driveConversionFactor = SwerveMath.calculateMetersPerRotation(Units.inchesToMeters(4), 6.75);
+    double driveConversionFactor = SwerveMath.calculateMetersPerRotation(Units.inchesToMeters(Constants.SwereSubsystem.kDriveConversionFactor), Constants.SwereSubsystem.kDriveGearRatio);
     System.out.println("\"conversionFactor\": {");
     System.out.println("\t\"angle\": " + angleConversionFactor + ",");
     System.out.println("\t\"drive\": " + driveConversionFactor);
@@ -153,7 +154,7 @@ public class SwerveSubsystem extends SubsystemBase
         this::getRobotVelocity, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
         this::setChassisSpeeds, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
         new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                                         new PIDConstants(5.0, 0.0, 0.0),
+                                         new PIDConstants(Constants.SwereSubsystem.kPHollonmicConfig, Constants.SwereSubsystem.kIHollonmicConfig, Constants.SwereSubsystem.kDHollonmicConfig),
                                          // Translation PID constants
                                          new PIDConstants(swerveDrive.swerveController.config.headingPIDF.p,
                                                           swerveDrive.swerveController.config.headingPIDF.i,
@@ -184,18 +185,23 @@ public class SwerveSubsystem extends SubsystemBase
    * @param setOdomToStart Set the odometry position to the start of the path.
    * @return {@link AutoBuilder#followPath(PathPlannerPath)} path command.
    */
-  public Command getAutonomousCommand(String pathName, boolean setOdomToStart)
-  {
-    // Load the path you want to follow using its name in the GUI
-    PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
+  // public Command getAutonomousCommand(String pathName, boolean setOdomToStart)
+  // {
+  //   // Load the path you want to follow using its name in the GUI
+  //   PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
 
-    if (setOdomToStart)
-    {
-      resetOdometry(new Pose2d(path.getPoint(0).position, getHeading()));
-    }
+  //   if (setOdomToStart)
+  //   {
+  //     resetOdometry(new Pose2d(path.getPoint(0).position, getHeading()));
+  //   }
 
-    // Create a path following command using AutoBuilder. This will also trigger event markers.
-    return AutoBuilder.followPath(path);
+  //   // Create a path following command using AutoBuilder. This will also trigger event markers.
+  //   return AutoBuilder.followPath(path);
+  //}
+
+
+  public Command getAutonomousCommand(String pathName){
+    return new PathPlannerAuto(pathName);
   }
 
   /**
