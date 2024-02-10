@@ -42,11 +42,12 @@ public final class Constants {
 
 
   public static class Shooter {
-   // public static final int kShootingMotorPort = 55;
+    public static final int kShootingMotorPort = 7;
+    public static final int kShootingmotorRPort = 14;
+    public static final double kIdleshootingspeed = 0;
+    public static final double kstopshootingspeed = 0;
     public static final double kShootingspeed = 0.5;
-//public static final int kShootingmotorPort = 54;
-    public static final int kIdleshootingspeed = 0;
-    public static final int kstopshootingspeed = 0;
+
   }
 
 
@@ -65,7 +66,10 @@ public final class Constants {
     public static final double kPositionMotorupSpeed = 0.5;
     public static final double kPositionMotorDownSpeed = 0.5;
 
-
+    public static final double kTargetPositionUp = 0;
+    public static final double kTargetPositionDown = 0;
+    public static final int kNoteMotorPort = 0;
+    public static final int kPositionMotorPort = 0;
 
 
 

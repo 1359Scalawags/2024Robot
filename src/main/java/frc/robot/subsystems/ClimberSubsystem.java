@@ -33,7 +33,7 @@ public class ClimberSubsystem extends SubsystemBase {
     climberLowerlimit = new DigitalInput(Constants.ClimberSubsystem.kClimberLowerlimitswitchport);
 
   }
-  private void setSpeed (double speed){
+  public void setSpeed (double speed){
    climberSpeed = speed;
    
   }
