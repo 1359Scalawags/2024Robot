@@ -29,8 +29,14 @@ import frc.robot.subsystems.VisionSubsystem;
 
 import java.io.File;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
+
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -45,8 +51,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
 
-  
-
+   SendableChooser<Command> autoChooser;
     
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_SwerveSubsystem = new SwerveSubsystem(
@@ -65,6 +70,12 @@ public class RobotContainer {
     configureBindings();
     setDefaultCommands(); 
 
+    autoChooser = AutoBuilder.buildAutoChooser();
+
+    autoChooser.addOption("Example Auto", Auto("Example Auto"));
+    //autoChooser.addOption("Example Path", Path("example Path"));
+    //autoChooser.addOption("New Auto", Auto("New Auto"));
+    SmartDashboard.putData("Auto Chooser ", autoChooser);
   }
     /*
      * SwerveSubsystem swerve,
@@ -182,12 +193,23 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    //return Autos.exampleAuto(m_exampleSubsystem);
-
-      //Default to add new auto commands.
-
-    return m_SwerveSubsystem.getAutonomousCommand("New Auto");
+    return getAutonomousCommandForChooser();
   }
 
+  /**
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
+   * @return the command to run in autonomous
+   */
+  public Command getAutonomousCommandForChooser() {
+    System.out.println(autoChooser.getSelected().getName()+"================");
+    return m_SwerveSubsystem.getAutonomousCommand(autoChooser.getSelected().getName());
+  }
+    public Command Auto(String exampleAuto){
+    return new PathPlannerAuto(exampleAuto);
+
+  }
+  public Command Path(String examplePath){
+    return new PathPlannerAuto(examplePath);
+  }
 }
