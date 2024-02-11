@@ -47,67 +47,76 @@ public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
     //intakePosition = IntakePositions.Up;
-    topWheelMotor = new SendableCANSparkMax(Constants.Intake.kTopWheelMotorPortID, MotorType.kBrushless);
-    bottomStarMotor = new SendableCANSparkMax(Constants.Intake.kBottomStarMotorPortID, MotorType.kBrushless);
+    topWheelMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kTopWheelMotorPortID, MotorType.kBrushless);
+    bottomStarMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kBottomStarMotorPortID, MotorType.kBrushless);
     
     safeMode = true;
     homing = true;
 
-    intakeHomeLimit = new DigitalInput(Constants.Intake.kHomeLimitID);
+    intakeHomeLimit = new DigitalInput(Constants.intakeSubsystem.kHomeLimitID);
 
-    positionMotor = new SendableCANSparkMax(Constants.Intake.kPositionMotorPortID, MotorType.kBrushless);
+    positionMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kPositionMotorPortID, MotorType.kBrushless);
     positionEncoder = positionMotor.getEncoder();
-    targetPosition = Constants.Intake.kTargetPositionUp;
+    targetPosition = Constants.intakeSubsystem.kTargetPositionUp;
     positionPID = positionMotor.getPIDController();
 
     positionLimiter = new SlewRateLimiter(
-      Constants.Intake.kPositionRateLimit,
-     -Constants.Intake.kPositionRateLimit,
-      Constants.Intake.kPositionInitialValue);
+      Constants.intakeSubsystem.kPositionRateLimit,
+     -Constants.intakeSubsystem.kPositionRateLimit,
+      Constants.intakeSubsystem.kPositionInitialValue);
     safeModeLimiter = new SlewRateLimiter(
-      Constants.Intake.kSafePositionRateLimit,
-     -Constants.Intake.kSafePositionRateLimit,
-      Constants.Intake.kSafePositionInitialValue);
+      Constants.intakeSubsystem.kSafePositionRateLimit,
+     -Constants.intakeSubsystem.kSafePositionRateLimit,
+      Constants.intakeSubsystem.kSafePositionInitialValue);
   }
 
   public void ejectNote(){
-    topWheelMotor.set(-Constants.Intake.kNoteMotorSpeed);
-    bottomStarMotor.set(-Constants.Intake.kNoteMotorSpeed);
+    topWheelMotor.set(-Constants.intakeSubsystem.kNoteMotorSpeed);
+    bottomStarMotor.set(-Constants.intakeSubsystem.kNoteMotorSpeed);
   }
 
   public void injectNote(){
-    topWheelMotor.set(Constants.Intake.kNoteMotorSpeed);
-    bottomStarMotor.set(Constants.Intake.kNoteMotorSpeed);
+    topWheelMotor.set(Constants.intakeSubsystem.kNoteMotorSpeed);
+    bottomStarMotor.set(Constants.intakeSubsystem.kNoteMotorSpeed);
   }
   
   public void stopNoteMotors(){
-    topWheelMotor.set(Constants.Intake.kStopNoteMotors);
-    bottomStarMotor.set(Constants.Intake.kStopNoteMotors);
+    topWheelMotor.set(Constants.intakeSubsystem.kStopNoteMotors);
+    bottomStarMotor.set(Constants.intakeSubsystem.kStopNoteMotors);
   }
 
   public void positionUp(){
     //intakePosition = IntakePositions.Up;
-    targetPosition = Constants.Intake.kTargetPositionUp;
+    targetPosition = Constants.intakeSubsystem.kTargetPositionUp;
   }
   
   public void positionDown(){
     //intakePosition = IntakePositions.Down;
-    targetPosition = Constants.Intake.kTargetPositionDown;
+    targetPosition = Constants.intakeSubsystem.kTargetPositionDown;
   }
+
+  public void setHoming(boolean homingState){
+    setSafeMode(true);
+    homing = homingState;
+  }
+  public void setSafeMode(boolean safeModeState){
+    safeMode = safeModeState;
+  }
+
 
   @Override
   public void periodic() {
     if(homing){
-      if(intakeHomeLimit.get() == Constants.Intake.kHomeLimitPressed){
+      targetPosition = positionEncoder.getPosition() - Constants.intakeSubsystem.kHomingVel;
+
+      if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed){
         homing = false;
-        positionPID.setReference(0, ControlType.kVelocity);
-        positionEncoder.setPosition(Constants.Intake.kHomingPosition);
-      }
-      else {
-        positionPID.setReference(Constants.Intake.kHomingVel, ControlType.kVelocity);
+        positionMotor.set(0);   //should stop motion
+        positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition - Constants.intakeSubsystem.kHomingOffset);
       }
     }
-    else if(safeMode) {
+  
+    if(safeMode) {
       double tempTarget = safeModeLimiter.calculate(targetPosition);
       positionPID.setReference(tempTarget, ControlType.kPosition);
     } else {

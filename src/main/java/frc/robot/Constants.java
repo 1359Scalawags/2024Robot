@@ -26,14 +26,14 @@ public final class Constants {
  * NOT FINAL VALUES FOR SWERE
  * 
  */
-  public static class SwereSubsystem {
+  public static class swereSubsystem {
     //public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound
     //public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
     //public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
 
   }
 
-  public static class ClimberSubsystem {
+  public static class climberSubsystem {
    // public static final int kClimberMotorPort = 58;
     public static final int kClimberUperlimitswitchport = 1;
     public static final int kClimberExtendRate = 0;
@@ -44,10 +44,13 @@ public final class Constants {
     public static final int kRightHomeLimitport = 0;
     public static final double kUpperPosition = 0;
     public static final double kHomingspeed = -0.1;
+    public static final double kHomingPosition = 0.0;
+    public static final boolean kHomePressed = false;
+    public static final double kHomingOffset = 0;
   }
 
 
-  public static class Shooter {
+  public static class shooterSubsystem {
     public static final int kShootingMotorPort = 7;
     public static final int kShootingmotorRPort = 14;
     public static final double kIdleshootingspeed = 0.0;
@@ -58,7 +61,7 @@ public final class Constants {
 
 
  
-  public static class Intake {
+  public static class intakeSubsystem {
     // public static final int kNoteMotorPort = 53;
     // public static final int kPositionMotorPort = 52;
     public static final double kNoteMotorSpeed = 0.5;
@@ -87,6 +90,7 @@ public final class Constants {
     public static final boolean kHomeLimitPressed = true;
     public static final double kHomingVel = 0.0;
     public static final double kHomingPosition = 0.0;
+    public static final double kHomingOffset = 0.0;
    
   }
  

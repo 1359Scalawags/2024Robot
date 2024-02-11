@@ -34,13 +34,13 @@ public class ShooterSubsystem extends SubsystemBase {
 
   /** Creates a new ExampleSubsystem. */
   public ShooterSubsystem() {
-    shootingMotorR = new SendableCANSparkMax(Constants.Shooter.kShootingmotorRPort, MotorType.kBrushless);
+    shootingMotorR = new SendableCANSparkMax(Constants.shooterSubsystem.kShootingmotorRPort, MotorType.kBrushless);
       shootingMotorR.restoreFactoryDefaults();
       shootingMotorR.setIdleMode(IdleMode.kCoast);
       shootingMotorR.setInverted(false);
       shootingMotorR.setSmartCurrentLimit(0);
 
-    shootingMotorL = new SendableCANSparkMax(Constants.Shooter.kShootingMotorPort, MotorType.kBrushless);
+    shootingMotorL = new SendableCANSparkMax(Constants.shooterSubsystem.kShootingMotorPort, MotorType.kBrushless);
       shootingMotorL.restoreFactoryDefaults();
       shootingMotorL.setIdleMode(IdleMode.kCoast);
       shootingMotorL.setInverted(false);
@@ -90,13 +90,13 @@ public class ShooterSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     if (currentSpeed == ShooterSpeed.off) {
-      targetSpeed = Constants.Shooter.kShootingspeed;
+      targetSpeed = Constants.shooterSubsystem.kShootingspeed;
 
     } else if (currentSpeed == ShooterSpeed.low) {
-      targetSpeed = Constants.Shooter.kShootingspeed;
+      targetSpeed = Constants.shooterSubsystem.kShootingspeed;
 
     } else {
-      targetSpeed = Constants.Shooter.kShootingspeed;
+      targetSpeed = Constants.shooterSubsystem.kShootingspeed;
 
     }
     speedPIDR.setReference(targetSpeed, ControlType.kVelocity);
