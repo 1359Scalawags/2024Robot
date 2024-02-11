@@ -202,7 +202,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommandForChooser() {
-    System.out.println(autoChooser.getSelected().getName()+"================");
     return m_SwerveSubsystem.getAutonomousCommand(autoChooser.getSelected().getName());
   }
     public Command Auto(String exampleAuto){
