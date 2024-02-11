@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -19,16 +20,15 @@ import frc.robot.extensions.SendableCANSparkMax;
 
 public class IntakeSubsystem extends SubsystemBase {
  
-enum IntakePositions{
-  Up,
-  Down,
-  NotMoving
-}
+  // enum IntakePositions{
+  //   Up,
+  //   Down,
+  //   NotMoving
+  // }
 
-
-  private IntakePositions intakePosition;
-  private SendableCANSparkMax beltMotor;
-  private SendableCANSparkMax wheelMotor;
+  //private IntakePositions intakePosition;
+  private SendableCANSparkMax topWheelMotor;
+  private SendableCANSparkMax bottomStarMotor;
   private SendableCANSparkMax positionMotor;
   private RelativeEncoder positionEncoder;
  
@@ -37,84 +37,85 @@ enum IntakePositions{
   private SlewRateLimiter positionLimiter;
   private SlewRateLimiter safeModeLimiter;
 
+  private DigitalInput intakeHomeLimit;
+  private boolean homing;
+
   private boolean safeMode;
  
  
  
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
-    intakePosition = IntakePositions.Up;
-    beltMotor = new SendableCANSparkMax(Constants.Intake.kNoteMotorPort, MotorType.kBrushless);
-    positionMotor = new SendableCANSparkMax(Constants.Intake.kPositionMotorPort, MotorType.kBrushless);
+    //intakePosition = IntakePositions.Up;
+    topWheelMotor = new SendableCANSparkMax(Constants.Intake.kTopWheelMotorPortID, MotorType.kBrushless);
+    bottomStarMotor = new SendableCANSparkMax(Constants.Intake.kBottomStarMotorPortID, MotorType.kBrushless);
+    
+    safeMode = true;
+    homing = true;
+
+    intakeHomeLimit = new DigitalInput(Constants.Intake.kHomeLimitID);
+
+    positionMotor = new SendableCANSparkMax(Constants.Intake.kPositionMotorPortID, MotorType.kBrushless);
     positionEncoder = positionMotor.getEncoder();
     targetPosition = Constants.Intake.kTargetPositionUp;
     positionPID = positionMotor.getPIDController();
-    positionLimiter = new SlewRateLimiter(0.5, -0.5,0);
-    safeModeLimiter = new SlewRateLimiter(0.5, -0.5,0);
-    safeMode = true;
 
-
+    positionLimiter = new SlewRateLimiter(
+      Constants.Intake.kPositionRateLimit,
+     -Constants.Intake.kPositionRateLimit,
+      Constants.Intake.kPositionInitialValue);
+    safeModeLimiter = new SlewRateLimiter(
+      Constants.Intake.kSafePositionRateLimit,
+     -Constants.Intake.kSafePositionRateLimit,
+      Constants.Intake.kSafePositionInitialValue);
   }
-
 
   public void ejectNote(){
-    beltMotor.set(Constants.Intake.kEjectNoteSpeed);
+    topWheelMotor.set(-Constants.Intake.kNoteMotorSpeed);
+    bottomStarMotor.set(-Constants.Intake.kNoteMotorSpeed);
   }
-  public void injectNote(){
-    beltMotor.set(Constants.Intake.kInjectNoteSpeed);
-  }
-  public void stopNote(){
-    beltMotor.set(Constants.Intake.kStopNoteSpeed);
 
-}
+  public void injectNote(){
+    topWheelMotor.set(Constants.Intake.kNoteMotorSpeed);
+    bottomStarMotor.set(Constants.Intake.kNoteMotorSpeed);
+  }
+  
+  public void stopNoteMotors(){
+    topWheelMotor.set(Constants.Intake.kStopNoteMotors);
+    bottomStarMotor.set(Constants.Intake.kStopNoteMotors);
+  }
+
   public void positionUp(){
-    intakePosition = IntakePositions.Up;
+    //intakePosition = IntakePositions.Up;
     targetPosition = Constants.Intake.kTargetPositionUp;
   }
+  
   public void positionDown(){
-    intakePosition = IntakePositions.Down;
+    //intakePosition = IntakePositions.Down;
     targetPosition = Constants.Intake.kTargetPositionDown;
-
-  }
-
-
-
-
-  /**
-   * Example command factory method.
-   *
-   * @return a command
-   */
-  public Command exampleMethodCommand() {
-    // Inline construction of command goes here.
-    // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(
-        () -> {
-          /* one-time action goes here */
-        });
-  }
-
-  /**
-   * An example method querying a boolean state of the subsystem (for example, a digital sensor).
-   *
-   * @return value of some boolean subsystem state, such as a digital sensor.
-   */
-  public boolean exampleCondition() {
-    // Query some boolean state, such as a digital sensor.
-    return false;
   }
 
   @Override
   public void periodic() {
-    if(safeMode) {
+    if(homing){
+      if(intakeHomeLimit.get() == Constants.Intake.kHomeLimitPressed){
+        homing = false;
+        positionPID.setReference(0, ControlType.kVelocity);
+        positionEncoder.setPosition(Constants.Intake.kHomingPosition);
+      }
+      else {
+        positionPID.setReference(Constants.Intake.kHomingVel, ControlType.kVelocity);
+      }
+    }
+    else if(safeMode) {
       double tempTarget = safeModeLimiter.calculate(targetPosition);
       positionPID.setReference(tempTarget, ControlType.kPosition);
-
-
     } else {
       double tempTarget = positionLimiter.calculate(targetPosition);
       positionPID.setReference(tempTarget, ControlType.kPosition);
     }
+
+
 
 
   //   if(intakePosition == IntakePositions.Up){

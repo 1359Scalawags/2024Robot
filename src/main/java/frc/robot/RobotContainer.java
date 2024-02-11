@@ -124,7 +124,6 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-  
     new JoystickButton(driverJoystick,Constants.DriverJoystick.shootButton)
       .onTrue(new ShootCommand(m_shooterSubsystem));
     

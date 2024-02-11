@@ -16,22 +16,29 @@ import frc.robot.extensions.SendableCANSparkMax;
 
 public class ClimberSubsystem extends SubsystemBase {
  
- private SendableCANSparkMax climberMotor;
- 
- private RelativeEncoder positionEncoder;
+ private SendableCANSparkMax rightClimberMotor;
+ private SendableCANSparkMax leftClimberMotor;
 
- private DigitalInput climberLowerlimit; 
- private DigitalInput climberUperlimit; 
+ private RelativeEncoder rightPositionEncoder;
+ private RelativeEncoder leftPositionEncoder;
+
+
+ private DigitalInput rightClimbHomeLimit; 
+ private DigitalInput leftClimbHomeLimit; 
  private double climberSpeed = 0;
+ private boolean homing;
  
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
-    //climberMotor = new SendableCANSparkMax(Constants.ClimberSubsystem.kClimberMotorPort,MotorType.kBrushless);
-    positionEncoder = climberMotor.getEncoder();
+    rightClimberMotor = new SendableCANSparkMax(Constants.ClimberSubsystem.kRightClimberID, MotorType.kBrushless);
+    leftClimberMotor = new SendableCANSparkMax(Constants.ClimberSubsystem.kLeftClimberID,MotorType.kBrushless);
 
-    climberUperlimit = new DigitalInput(Constants.ClimberSubsystem.kClimberUperlimitswitchport);
-    climberLowerlimit = new DigitalInput(Constants.ClimberSubsystem.kClimberLowerlimitswitchport);
+    rightPositionEncoder = rightClimberMotor.getEncoder();
+    leftPositionEncoder = leftClimberMotor.getEncoder();
 
+    rightClimbHomeLimit = new DigitalInput(Constants.ClimberSubsystem.kRightHomeLimitport);
+    leftClimbHomeLimit = new DigitalInput(Constants.ClimberSubsystem.kLeftHomeLimitport);
+    homing = true;
   }
   public void setSpeed (double speed){
    climberSpeed = speed;
@@ -74,23 +81,42 @@ public void stopArm(){
 
   @Override
   public void periodic() {
+    if (homing) {
+      climberSpeed = Constants.ClimberSubsystem.kHomingspeed;
+    }
+
     if(climberSpeed>0){
-      if(climberUperlimit.get()){
-        climberMotor.set(0);
+      if(rightPositionEncoder.getPosition() >= Constants.ClimberSubsystem.kUpperPosition){
+        leftClimberMotor.set(0);
         climberSpeed = 0;
       }
       else{
-        climberMotor.set(climberSpeed);
+        leftClimberMotor.set(climberSpeed);
       }
     }
     else if(climberSpeed<0){
-      if(climberLowerlimit.get()){
-        climberMotor.set(0);
-        climberSpeed = 0;
+      if(leftClimbHomeLimit.get()){
+        leftClimberMotor.set(0);
       }
       else{
-        climberMotor.set(climberSpeed);
+        leftClimberMotor.set(climberSpeed);
       }
+
+      if(rightClimbHomeLimit.get()){
+        rightClimberMotor.set(0);
+      }
+      else{
+        rightClimberMotor.set(climberSpeed);
+      }
+      
+      if(rightClimbHomeLimit.get() && leftClimbHomeLimit.get()){
+        climberSpeed = 0;
+        homing = false;
+      }
+
+    }
+    else {
+      leftClimberMotor.set(climberSpeed);
     }
     // This method will be called once per scheduler run
   }

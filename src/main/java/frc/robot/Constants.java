@@ -38,14 +38,20 @@ public final class Constants {
     public static final int kClimberUperlimitswitchport = 1;
     public static final int kClimberExtendRate = 0;
     public static final int kClimberLowerlimitswitchport = 0;
+    public static final int kLeftClimberID = 0;
+    public static final int kRightClimberID = 0;
+    public static final int kLeftHomeLimitport = 0;
+    public static final int kRightHomeLimitport = 0;
+    public static final double kUpperPosition = 0;
+    public static final double kHomingspeed = -0.1;
   }
 
 
   public static class Shooter {
     public static final int kShootingMotorPort = 7;
     public static final int kShootingmotorRPort = 14;
-    public static final double kIdleshootingspeed = 0;
-    public static final double kstopshootingspeed = 0;
+    public static final double kIdleshootingspeed = 0.0;
+    public static final double kstopshootingspeed = 0.0;
     public static final double kShootingspeed = 0.5;
 
   }
@@ -55,10 +61,9 @@ public final class Constants {
   public static class Intake {
     // public static final int kNoteMotorPort = 53;
     // public static final int kPositionMotorPort = 52;
-    public static final double kEjectNoteSpeed = 0.5;
-    public static final double kInjectNoteSpeed = -0.5;
-    public static final int kStopNoteSpeed = 0;
-    public static final double kpositionUp = 0;
+    public static final double kNoteMotorSpeed = 0.5;
+    public static final double kStopNoteMotors = 0.0;
+    public static final double kpositionUp = 0.0;
     public static final double kpositionDown = 0;
 
     public static final double kMaxIntakePosition = 238.0;
@@ -66,13 +71,23 @@ public final class Constants {
     public static final double kPositionMotorupSpeed = 0.5;
     public static final double kPositionMotorDownSpeed = 0.5;
 
-    public static final double kTargetPositionUp = 0;
-    public static final double kTargetPositionDown = 0;
-    public static final int kNoteMotorPort = 0;
-    public static final int kPositionMotorPort = 0;
+    public static final double kTargetPositionUp = 0.0; //Zero is the home position; this is inside the robot.  );
+    public static final double kTargetPositionDown = 500.0;
 
+    public static final int kTopWheelMotorPortID = 0;
+    public static final int kPositionMotorPortID = 0;
+    public static final int kBottomStarMotorPortID = 0;
 
+    public static final double kPositionRateLimit = 0.5;
+    public static final double kPositionInitialValue = 0.0;
+    public static final double kSafePositionRateLimit = 0.5;
+    public static final double kSafePositionInitialValue = 0.0;
 
+    public static final int kHomeLimitID = 0;
+    public static final boolean kHomeLimitPressed = true;
+    public static final double kHomingVel = 0.0;
+    public static final double kHomingPosition = 0.0;
+   
   }
  
   
