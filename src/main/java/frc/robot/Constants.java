@@ -56,7 +56,22 @@ public final class Constants {
     public static final double kIdleshootingspeed = 0.0;
     public static final double kstopshootingspeed = 0.0;
     public static final double kShootingspeed = 0.5;
-
+    public static final double kRightMotorP = 0.0;
+    public static final double kRightMotorI = 0.0;
+    public static final double kRightMotorD = 0.0;
+	  public static final double kRightmotorFF = 0.0;
+    public static final double kRightMotorIZ = 0.0;
+    public static final double kLeftMotorP = 0.0;
+    public static final double kLeftMotorI = 0.0;
+    public static final double kLeftMotorD = 0.0;
+    public static final double kLeftmotorFF = 0.0;
+    public static final double kLeftMotorIZ = 0.0;
+      //use these vals if we want to have same the PID for the shooter motors.
+    // public static final double kShooterMotorP = 0.0;
+    // public static final double kShooterMotorI = 0.0;
+    // public static final double kShooterMotorD = 0.0;
+	  // public static final double kShootermotorFF = 0.0;
+    // public static final double kShooterMotorIZ = 0.0;
   }
 
 

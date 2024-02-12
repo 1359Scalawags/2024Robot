@@ -47,18 +47,20 @@ public class ShooterSubsystem extends SubsystemBase {
       shootingMotorL.setSmartCurrentLimit(0);
 
     currentSpeed = ShooterSpeed.off;
+
+    //TODO: Do we want the motors to have the same PIDF?
     speedPIDR = shootingMotorR.getPIDController();
-      speedPIDR.setP(0);
-      speedPIDR.setI(0);
-      speedPIDR.setD(0);
-      speedPIDR.setFF(0);
-      speedPIDR.setIZone(0);
+      speedPIDR.setP(Constants.shooterSubsystem.kRightMotorP);
+      speedPIDR.setI(Constants.shooterSubsystem.kRightMotorI);
+      speedPIDR.setD(Constants.shooterSubsystem.kRightMotorD);
+      speedPIDR.setFF(Constants.shooterSubsystem.kRightmotorFF);
+      speedPIDR.setIZone(Constants.shooterSubsystem.kRightMotorIZ);
     speedPIDL = shootingMotorL.getPIDController();
-      speedPIDL.setP(0);
-      speedPIDL.setI(0);
-      speedPIDL.setD(0);
-      speedPIDL.setFF(0);
-      speedPIDL.setIZone(0);
+      speedPIDL.setP(Constants.shooterSubsystem.kLeftMotorP);
+      speedPIDL.setI(Constants.shooterSubsystem.kLeftMotorI);
+      speedPIDL.setD(Constants.shooterSubsystem.kLeftMotorD);
+      speedPIDL.setFF(Constants.shooterSubsystem.kLeftmotorFF);
+      speedPIDL.setIZone(Constants.shooterSubsystem.kLeftMotorIZ);
     
 
 
