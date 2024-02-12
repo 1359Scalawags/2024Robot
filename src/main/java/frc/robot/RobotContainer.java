@@ -56,8 +56,8 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
-  private final Joystick driverJoystick = new Joystick(0);
-  private final Joystick assistantJoystick = new Joystick(1);
+  private final Joystick driverJoystick = new Joystick(0); //TODO: Use constants here
+  private final Joystick assistantJoystick = new Joystick(1); //TODO: Use constants here
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -94,6 +94,7 @@ public class RobotContainer {
 
   }
   
+  //TODO: Use consistency with naming for future readibility
   public double getAssistantJoystick() {
     return assistantJoystick.getY();
   }
