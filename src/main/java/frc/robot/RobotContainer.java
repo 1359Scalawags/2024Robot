@@ -109,10 +109,10 @@ public class RobotContainer {
   }
 
   public double driverGetZ() {
-    return driverJoystick.getZ();
+    return -driverJoystick.getZ();
   }
   public double driverGetThrottle() {
-    return driverJoystick.getThrottle();
+    return -driverJoystick.getThrottle();
   }
   
 

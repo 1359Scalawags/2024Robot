@@ -148,17 +148,22 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public void setupPathPlanner()
   {
+
+      //TODO: change the holonmic PID to make it more readbale and made angle PID constants
+
     AutoBuilder.configureHolonomic(
         this::getPose, // Robot pose supplier
         this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
         this::getRobotVelocity, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
         this::setChassisSpeeds, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
         new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-           new PIDConstants(Constants.SwereSubsystem.kPHollonmicConfig, Constants.SwereSubsystem.kIHollonmicConfig, Constants.SwereSubsystem.kDHollonmicConfig),
+           new PIDConstants(Constants.SwereSubsystem.kPDriveHollonmic, Constants.SwereSubsystem.kIDriveHollonmic, Constants.SwereSubsystem.kDDriveHollonmic),
            // Translation PID constants
-           new PIDConstants(swerveDrive.swerveController.config.headingPIDF.p,
+           new PIDConstants(Constants.SwereSubsystem.kPAngleHollonmic, Constants.SwereSubsystem.kIAngleHollonmic, Constants.SwereSubsystem.kDAngleHollonmic/*swerveDrive.swerveController.config.headingPIDF.p,
                             swerveDrive.swerveController.config.headingPIDF.i,
-                            swerveDrive.swerveController.config.headingPIDF.d),
+                            swerveDrive.swerveController.config.headingPIDF.d*/),
+
+
            // Rotation PID constants
            4.5,
            // Max module speed, in m/s
