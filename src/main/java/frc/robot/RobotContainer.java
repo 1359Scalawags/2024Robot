@@ -50,7 +50,7 @@ public class RobotContainer {
     
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_SwerveSubsystem = new SwerveSubsystem(
-    new File(Filesystem.getDeployDirectory(), "YAGSLConfigJSON/swerve/Clawdia"));
+    new File(Filesystem.getDeployDirectory(), "YAGSLConfigJSON/swerve/Clawdia")); //TODO: change to flippers config file
   private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -64,19 +64,17 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
     setDefaultCommands(); 
-
   }
     /*
-     * SwerveSubsystem swerve,
+     *  SwerveSubsystem swerve,
      *  DoubleSupplier vX, 
-     * DoubleSupplier vY, 
-     * DoubleSupplier omega,
+     *  DoubleSupplier vY, 
+     *  DoubleSupplier omega,
      *  DoubleSupplier throttle, 
-     * BooleanSupplier feildRelitive,
+     *  BooleanSupplier feildRelitive,
      *  boolean isOpenLoop
      */
   private void setDefaultCommands() {
-
     m_SwerveSubsystem.setDefaultCommand(
       new FeildCentricDrive(m_SwerveSubsystem,
       this::driverGetX,

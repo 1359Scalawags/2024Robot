@@ -47,7 +47,7 @@ public class ClimberSubsystem extends SubsystemBase {
   public void extendArm(){
     setSpeed(Constants.climberSubsystem.kClimberExtendRate);
   }
-  
+
   public void retractArm(){
     setSpeed(-Constants.climberSubsystem.kClimberExtendRate);
   }
@@ -62,12 +62,12 @@ public class ClimberSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if(rightClimberSpeed>0){
+    if(rightClimberSpeed > 0){
       if(rightPositionEncoder.getPosition() >= Constants.climberSubsystem.kUpperPosition){
         rightClimberSpeed = 0;
       }
     }
-    else if(rightClimberSpeed<0){
+    else if(rightClimberSpeed < 0){
       if(rightClimbHomeLimit.get() == Constants.climberSubsystem.kHomePressed){
         rightClimberSpeed = 0;
         rightPositionEncoder.setPosition(Constants.climberSubsystem.kHomingPosition - Constants.climberSubsystem.kHomingOffset);
@@ -75,12 +75,12 @@ public class ClimberSubsystem extends SubsystemBase {
     }
     rightClimberMotor.set(rightClimberSpeed);
 
-    if(leftClimberSpeed>0){
+    if(leftClimberSpeed > 0){
       if(leftPositionEncoder.getPosition() >= Constants.climberSubsystem.kUpperPosition){
         leftClimberSpeed = 0;
       }
     }
-    else if(leftClimberSpeed<0){
+    else if(leftClimberSpeed < 0){
       if(leftClimbHomeLimit.get() == Constants.climberSubsystem.kHomePressed){
         leftClimberSpeed = 0;
         leftPositionEncoder.setPosition(Constants.climberSubsystem.kHomingPosition - Constants.climberSubsystem.kHomingOffset);

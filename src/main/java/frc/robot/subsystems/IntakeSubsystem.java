@@ -70,7 +70,9 @@ public class IntakeSubsystem extends SubsystemBase {
       Constants.intakeSubsystem.kSafePositionInitialValue);
   }
 
-  public void ejectNote(){
+  //TODO: use the positionPID instead of seting the motor directly in both eject and inject
+  //TODO: have a scaler so that you can achive a ratio between the two motors, one wheel has a larger diameter than the other and will turn at a diffrent speed becuse of such.
+  public void ejectNote(){ 
     topWheelMotor.set(-Constants.intakeSubsystem.kNoteMotorSpeed);
     bottomStarMotor.set(-Constants.intakeSubsystem.kNoteMotorSpeed);
   }
@@ -80,7 +82,7 @@ public class IntakeSubsystem extends SubsystemBase {
     bottomStarMotor.set(Constants.intakeSubsystem.kNoteMotorSpeed);
   }
   
-  public void stopNoteMotors(){
+  public void stopNoteMotors(){ //TODO: set both the motor and positionPID to a stopping velocity.
     topWheelMotor.set(Constants.intakeSubsystem.kStopNoteMotors);
     bottomStarMotor.set(Constants.intakeSubsystem.kStopNoteMotors);
   }
@@ -99,6 +101,8 @@ public class IntakeSubsystem extends SubsystemBase {
     setSafeMode(true);
     homing = homingState;
   }
+
+  //TODO: need a command for exiting safe mode?
   public void setSafeMode(boolean safeModeState){
     safeMode = safeModeState;
   }
@@ -111,7 +115,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
       if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed){
         homing = false;
-        
+
         //TODO: needs to set refrence of pid controller to 0 veloctity to, setings motor to 0 will not stop pid controller from acting on it.
         positionMotor.set(0);   
         positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition - Constants.intakeSubsystem.kHomingOffset);

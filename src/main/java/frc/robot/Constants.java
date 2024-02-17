@@ -33,6 +33,8 @@ public final class Constants {
 
   }
 
+  //TODO: need to set starter constant values.
+
   public static class climberSubsystem {
    // public static final int kClimberMotorPort = 58;
     public static final int kClimberUperlimitswitchport = 1;
