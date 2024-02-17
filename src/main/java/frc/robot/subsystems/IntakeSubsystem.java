@@ -56,7 +56,9 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeHomeLimit = new DigitalInput(Constants.intakeSubsystem.kHomeLimitID);
 
     positionMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kPositionMotorPortID, MotorType.kBrushless);
+    //TODO: Reset factory defaults
     positionEncoder = positionMotor.getEncoder();
+    //TODO: Set position encoder conversion factor
     targetPosition = Constants.intakeSubsystem.kTargetPositionUp;
     positionPID = positionMotor.getPIDController();
 

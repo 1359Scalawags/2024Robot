@@ -36,12 +36,14 @@ public class ClimberSubsystem extends SubsystemBase {
     rightPositionEncoder = rightClimberMotor.getEncoder();
     leftPositionEncoder = leftClimberMotor.getEncoder();
     
-    //TODO: constant to invert right and left position encoders.
+    //TODO: Reset factory defaults
+    //TODO: constant to invert right and left position encoders?
+    //TODO: set position encoders conversion factors
 
     rightClimbHomeLimit = new DigitalInput(Constants.climberSubsystem.kRightHomeLimitport);
     leftClimbHomeLimit = new DigitalInput(Constants.climberSubsystem.kLeftHomeLimitport);
 
-    //TODO: Reverse Motor Controller.
+    //TODO: Reverse Motor Controller
   }
 
   public final void setSpeed (double speed){
