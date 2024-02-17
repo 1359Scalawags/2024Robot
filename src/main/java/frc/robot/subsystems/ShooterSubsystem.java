@@ -47,6 +47,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
     currentSpeed = ShooterSpeed.off;
 
+    //TODO: Reset factory defaults of motors
+
     speedPIDR = shootingMotorR.getPIDController();
       speedPIDR.setP(Constants.shooterSubsystem.kRightMotorP);
       speedPIDR.setI(Constants.shooterSubsystem.kRightMotorI);

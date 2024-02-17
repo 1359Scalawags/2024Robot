@@ -36,6 +36,9 @@ public class ClimberSubsystem extends SubsystemBase {
   
     rightPositionEncoder.setInverted(Constants.climberSubsystem.kRightEncoderInverted);
     leftPositionEncoder.setInverted(Constants.climberSubsystem.kLeftEncoderInverted);
+    
+    //TODO: Reset factory defaults
+    //TODO: set position encoders conversion factors
 
     rightClimbHomeLimit = new DigitalInput(Constants.climberSubsystem.kRightHomeLimitport);
     leftClimbHomeLimit = new DigitalInput(Constants.climberSubsystem.kLeftHomeLimitport);
