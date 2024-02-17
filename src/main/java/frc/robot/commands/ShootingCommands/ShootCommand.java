@@ -27,13 +27,13 @@ public class ShootCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // TODO: move into execute
-    m_subsystem.spinShootingMotor();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_subsystem.spinShootingMotor();
+  }
 
   // Called once the command ends or is interrupted.
   @Override

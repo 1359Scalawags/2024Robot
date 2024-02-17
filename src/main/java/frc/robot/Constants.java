@@ -4,9 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Translation3d;
-import edu.wpi.first.math.util.Units;
-import swervelib.math.Matter;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -51,6 +48,8 @@ public final class Constants {
     public static final double kHomingPosition = 0.0;
     public static final boolean kHomePressed = false;
     public static final double kHomingOffset = 0;
+    public static final boolean kRightEncoderInverted = false;
+    public static final boolean kLeftEncoderInverted = false;
   }
 
 
@@ -83,7 +82,7 @@ public final class Constants {
   public static class intakeSubsystem {
     // public static final int kNoteMotorPort = 53;
     // public static final int kPositionMotorPort = 52;
-    public static final double kNoteMotorSpeed = 0.5;
+    public static final double kStarMotorSpeed = 0.5;
     public static final double kStopNoteMotors = 0.0;
     public static final double kpositionUp = 0.0;
     public static final double kpositionDown = 0;
@@ -110,6 +109,7 @@ public final class Constants {
     public static final double kHomingVel = 0.0;
     public static final double kHomingPosition = 0.0;
     public static final double kHomingOffset = 0.0;
+    public static final int kSushiMotorSpeed = 0;
    
   }
  

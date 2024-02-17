@@ -5,11 +5,9 @@
 package frc.robot.commands.ArmCommands;
 
 import frc.robot.subsystems.ClimberSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
 
 import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.networktables.DoubleSubscriber;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */

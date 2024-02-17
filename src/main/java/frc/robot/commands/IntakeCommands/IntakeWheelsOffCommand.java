@@ -10,27 +10,30 @@ import edu.wpi.first.wpilibj2.command.Command;
 /** An example command that uses an example subsystem. */
 public class IntakeWheelsOffCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final IntakeSubsystem m_Intakesubsystem;
+  private final IntakeSubsystem m_IntakeSubsystem;
 
   /**
-   * Creates a new ExampleCommand.
+   * Command to turn off not loading belt.
    *
    * @param subsystem The subsystem used by this command.
    */
   public IntakeWheelsOffCommand(IntakeSubsystem subsystem) {
-    m_Intakesubsystem = subsystem;
+    m_IntakeSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_IntakeSubsystem.stopNoteMotors(); //TODO: move to execute
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //TODO: Do something
+
+
   }
 
   // Called once the command ends or is interrupted.
@@ -40,7 +43,6 @@ public class IntakeWheelsOffCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //TODO: Be sure to end command
-    return false;
+    return true;
   }
 }
