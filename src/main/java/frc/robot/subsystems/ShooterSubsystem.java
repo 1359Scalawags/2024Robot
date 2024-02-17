@@ -39,7 +39,7 @@ public class ShooterSubsystem extends SubsystemBase {
       shootingMotorR.setInverted(false);
       shootingMotorR.setSmartCurrentLimit(0);
 
-    shootingMotorL = new SendableCANSparkMax(Constants.shooterSubsystem.kShootingMotorPort, MotorType.kBrushless);
+    shootingMotorL = new SendableCANSparkMax(Constants.shooterSubsystem.kShootingMotorLPort, MotorType.kBrushless);
       shootingMotorL.restoreFactoryDefaults();
       shootingMotorL.setIdleMode(IdleMode.kCoast);
       shootingMotorL.setInverted(false);

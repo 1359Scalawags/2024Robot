@@ -37,8 +37,8 @@ public final class Constants {
   public static class climberSubsystem {
    // public static final int kClimberMotorPort = 58;
     public static final int kClimberExtendRate = 0;
-    public static final int kLeftClimberID = 0;
-    public static final int kRightClimberID = 0;
+    public static final int kLeftClimberID = 25;
+    public static final int kRightClimberID = 26;
     public static final int kLeftHomeLimitport = 2;
     public static final int kRightHomeLimitport = 1;
     public static final double kUpperPosition = 0;
@@ -52,8 +52,8 @@ public final class Constants {
 
 
   public static class shooterSubsystem {
-    public static final int kShootingMotorPort = 7;
-    public static final int kShootingmotorRPort = 14;
+    public static final int kShootingMotorLPort = 27;
+    public static final int kShootingmotorRPort = 28;
     public static final double kIdleshootingspeed = 0.0;
     public static final double kstopshootingspeed = 0.0;
     public static final double kShootingspeed = 0.5;
@@ -93,9 +93,9 @@ public final class Constants {
     public static final double kTargetPositionUp = 0.0; //Zero is the home position; this is inside the robot.  );
     public static final double kTargetPositionDown = 500.0;
 
-    public static final int kTopWheelMotorPortID = 0;
-    public static final int kPositionMotorPortID = 0;
-    public static final int kBottomStarMotorPortID = 0;
+    public static final int kTopWheelMotorPortID = 23;
+    public static final int kPositionMotorPortID = 24;
+    public static final int kBottomStarMotorPortID = 22;
 
     public static final double kPositionRateLimit = 0.5;
     public static final double kPositionInitialValue = 0.0;
