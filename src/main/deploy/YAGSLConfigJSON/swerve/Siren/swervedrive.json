@@ -1,8 +1,8 @@
 {
   "imu": {
-    "type": "navx",
+    "type": "navx_spi",
     "id": 0,
-    "canbus": null
+    "canbus": "null"
   },
   "invertedIMU": false,
   "modules": [

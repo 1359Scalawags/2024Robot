@@ -50,7 +50,7 @@ public class RobotContainer {
     
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_SwerveSubsystem = new SwerveSubsystem(
-    new File(Filesystem.getDeployDirectory(), "YAGSLConfigJSON/swerve/Clawdia")); //TODO: change to flippers config file
+    new File(Filesystem.getDeployDirectory(), "YAGSLConfigJSON/swerve/" + Constants.robotName)); //TODO: change to flippers config file
   private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();

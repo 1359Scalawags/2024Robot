@@ -114,8 +114,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
       if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed){
         homing = false;
-
-        //TODO: needs to set refrence of pid controller to 0 veloctity to, setings motor to 0 will not stop pid controller from acting on it.
+        positionPID.setReference(0, ControlType.kVelocity);
         positionMotor.set(0);   
         positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition - Constants.intakeSubsystem.kHomingOffset);
       }

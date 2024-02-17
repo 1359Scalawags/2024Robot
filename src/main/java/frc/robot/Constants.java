@@ -154,5 +154,7 @@ public final class Constants {
     public static final double delayCounter = 5.0;
 }
 
+public static final String robotName = "Siren";
+
 
 }
