@@ -6,20 +6,20 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
-import frc.robot.commands.MoveClimberArms;
-import frc.robot.commands.ExtendArmCommand;
-import frc.robot.commands.RetractArmCommand;
-import frc.robot.commands.ShootCommand;
-import frc.robot.commands.StopShootingCommand;
-import frc.robot.commands.ZeroGyroCommand;
+import frc.robot.commands.ArmCommands.ExtendArmCommand;
+import frc.robot.commands.ArmCommands.MoveClimberArms;
+import frc.robot.commands.ArmCommands.RetractArmCommand;
 import frc.robot.commands.IntakeCommands.IntakeBeltOffCommand;
 import frc.robot.commands.IntakeCommands.IntakeBeltOnCommand;
 import frc.robot.commands.IntakeCommands.IntakeExtendCommand;
 import frc.robot.commands.IntakeCommands.IntakeRetractCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOnCommand;
+import frc.robot.commands.ShootingCommands.ShootCommand;
+import frc.robot.commands.ShootingCommands.StopShootingCommand;
 import frc.robot.commands.SwerveCommands.FeildCentricDrive;
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
+import frc.robot.commands.SwerveCommands.ZeroGyroCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -125,20 +125,24 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    //TODO: finilize button layout, communicate with drive team if possible. Not everything should be on driverJoystick.
+
+    //Shooter commands/binds above
     new JoystickButton(driverJoystick,Constants.DriverJoystick.shootButton)
       .onTrue(new ShootCommand(m_shooterSubsystem));
     
     new JoystickButton(driverJoystick,Constants.DriverJoystick.shootButton)
       .onFalse(new StopShootingCommand(m_shooterSubsystem));
-    //Shooter commands/binds above
 
+
+    //Climber commands/binds above
     new JoystickButton(driverJoystick,Constants.DriverJoystick.extendArmButton)
       .onTrue(new ExtendArmCommand(m_ClimberSubsystem));
 
     new JoystickButton(driverJoystick,Constants.DriverJoystick.retractArmButton)
       .onTrue(new RetractArmCommand(m_ClimberSubsystem));
-    //Climber commands/binds above
 
+    //intake commands/binds above
     new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeBeltButton)
       .onTrue(new IntakeBeltOnCommand(m_IntakeSubsystem));
 
@@ -156,26 +160,9 @@ public class RobotContainer {
 
       new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeWheelsOnbutton)
       .onFalse(new IntakeWheelsOffCommand(m_IntakeSubsystem));
-    //intake commands/binds above
 
 
     // Drive subsystem zero gyro, field centric.
-
-
-
-
-
-
-
-  
-    // // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    // new Trigger(m_exampleSubsystem::exampleCondition)
-    //     .onTrue(new ExampleCommand(m_exampleSubsystem));
-
-    // // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // // cancelling on release.
-    // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-
     new JoystickButton(driverJoystick,Constants.DriverJoystick.zeroGyroButton)
       .onTrue(new ZeroGyroCommand(m_SwerveSubsystem));
 

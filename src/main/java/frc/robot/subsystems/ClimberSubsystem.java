@@ -40,46 +40,24 @@ public class ClimberSubsystem extends SubsystemBase {
     leftClimbHomeLimit = new DigitalInput(Constants.climberSubsystem.kLeftHomeLimitport);
   }
   public void setSpeed (double speed){
-   rightClimberSpeed = speed;
-   leftClimberSpeed = speed;
+    rightClimberSpeed = speed;
+    leftClimberSpeed = speed;
   }
 
   public void extendArm(){
     setSpeed(Constants.climberSubsystem.kClimberExtendRate);
   }
+  
   public void retractArm(){
     setSpeed(-Constants.climberSubsystem.kClimberExtendRate);
   }
-public void stopArm(){
+
+  public void stopArm(){
     setSpeed(0);
   }
 
   public void home(){
     setSpeed(-Constants.climberSubsystem.kHomingspeed);
-  }
-
-  /**
-   * Example command factory method.
-   *
-   * @return a command
-   */
-  public Command exampleMethodCommand() {
-    // Inline construction of command goes here.
-    // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(
-        () -> {
-          /* one-time action goes here */
-        });
-  }
-
-  /**
-   * An example method querying a boolean state of the subsystem (for example, a digital sensor).
-   *
-   * @return value of some boolean subsystem state, such as a digital sensor.
-   */
-  public boolean exampleCondition() {
-    // Query some boolean state, such as a digital sensor.
-    return false;
   }
 
   @Override
@@ -109,11 +87,9 @@ public void stopArm(){
       }
     }
     leftClimberMotor.set(leftClimberSpeed);
-    // This method will be called once per scheduler run
   }
 
   @Override
   public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
   }
 }

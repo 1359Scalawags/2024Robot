@@ -2,24 +2,23 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.ArmCommands;
 
-import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.ClimberSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class ZeroGyroCommand extends Command {
+public class ExtendArmCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  //TODO: Just a test
-  private final SwerveSubsystem m_subsystem;
+  private final ClimberSubsystem m_ClimberSubsystem;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ZeroGyroCommand(SwerveSubsystem subsystem) {
-    m_subsystem = subsystem;
+  public ExtendArmCommand(ClimberSubsystem subsystem) {
+    m_ClimberSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -27,13 +26,13 @@ public class ZeroGyroCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+      // function doesn't exist yet, it is a guess.
+    m_ClimberSubsystem.extendArm();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_subsystem.zeroGyro();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override

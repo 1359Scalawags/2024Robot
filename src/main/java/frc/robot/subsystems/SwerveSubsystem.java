@@ -53,6 +53,8 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
  * 
  */
 
+ //TODO: Clean up unused methods.
+
 public class SwerveSubsystem extends SubsystemBase
 {
 
@@ -82,6 +84,8 @@ public class SwerveSubsystem extends SubsystemBase
     //  In this case the wheel diameter is 4 inches, which must be converted to meters to get meters/second.
     //  The gear ratio is 6.75 motor revolutions per wheel rotation.
     //  The encoder resolution per motor revolution is 1 per motor revolution.
+
+    //TODO: no println's
     double driveConversionFactor = SwerveMath.calculateMetersPerRotation(Units.inchesToMeters(4), 6.75);
     System.out.println("\"conversionFactor\": {");
     System.out.println("\t\"angle\": " + angleConversionFactor + ",");

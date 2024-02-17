@@ -26,7 +26,7 @@ public class IntakeBeltOffCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_IntakeSubsystem.stopNoteMotors();
+    m_IntakeSubsystem.stopNoteMotors(); //TODO: move to execute
   }
 
   // Called every time the scheduler runs while the command is scheduled.

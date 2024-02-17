@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+@Deprecated
 public class ExampleSubsystem extends SubsystemBase {
   
   private CANSparkMax exampleMotor;
@@ -18,7 +19,6 @@ public class ExampleSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public ExampleSubsystem() {
     exampleMotor = new CANSparkMax(Constants.ExampleSubsystem.exampleMotorID, MotorType.kBrushless);
-
   }
 
   //this is awsome

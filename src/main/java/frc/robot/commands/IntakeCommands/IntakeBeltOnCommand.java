@@ -25,8 +25,7 @@ public class IntakeBeltOnCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_IntakeSubsystem.injectNote();
-
+    m_IntakeSubsystem.injectNote(); //TODO: move to execute
   }
 
   // Called every time the scheduler runs while the command is scheduled.

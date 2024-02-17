@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.ArmCommands;
 
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -40,10 +40,6 @@ public class MoveClimberArms extends Command {
   @Override
   public void execute() {
     m_ClimberSubsystem.setSpeed(speed.getAsDouble());
-    
-
-
-
   }
 
   // Called once the command ends or is interrupted.
@@ -53,6 +49,6 @@ public class MoveClimberArms extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return false; // Make a finished!!!
   }
 }

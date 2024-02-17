@@ -93,17 +93,16 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     if (currentSpeed == ShooterSpeed.off) {
       targetSpeed = Constants.shooterSubsystem.kShootingspeed;
-
-    } else if (currentSpeed == ShooterSpeed.low) {
-      targetSpeed = Constants.shooterSubsystem.kShootingspeed;
-
-    } else {
-      targetSpeed = Constants.shooterSubsystem.kShootingspeed;
-
     }
+    else if (currentSpeed == ShooterSpeed.low) {
+      targetSpeed = Constants.shooterSubsystem.kShootingspeed;
+    }
+    else {
+      targetSpeed = Constants.shooterSubsystem.kShootingspeed;
+    }
+
     speedPIDR.setReference(targetSpeed, ControlType.kVelocity);
     speedPIDL.setReference(targetSpeed, ControlType.kVelocity);
-
   }
 
   @Override
