@@ -4,6 +4,7 @@
 
 package frc.robot.commands.SwerveCommands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveController;
@@ -56,7 +57,7 @@ public class FeildCentricDrive extends Command {
     public void execute() {
         double modvX = vX.getAsDouble();
         double modvY = vY.getAsDouble();
-        if(Math.abs(vX.getAsDouble()) < 0.2 && Math.abs(vY.getAsDouble()) < 0.2) {
+        if(Math.abs(vX.getAsDouble()) < Constants.swereSubsystem.kTeleopDeadzone && Math.abs(vY.getAsDouble()) < Constants.swereSubsystem.kTeleopDeadzone) {
             modvX = 0;
             modvY = 0;
         }
