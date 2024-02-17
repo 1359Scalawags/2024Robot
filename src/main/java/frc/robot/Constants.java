@@ -48,6 +48,7 @@ public final class Constants {
     public static final double kHomingOffset = 0;
     public static final boolean kRightEncoderInverted = false;
     public static final boolean kLeftEncoderInverted = false;
+    public static final double kConversionFactor = 1.0;
   }
 
 

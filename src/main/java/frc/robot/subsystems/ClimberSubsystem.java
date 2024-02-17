@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -31,14 +32,20 @@ public class ClimberSubsystem extends SubsystemBase {
     rightClimberMotor = new SendableCANSparkMax(Constants.climberSubsystem.kRightClimberID, MotorType.kBrushless);
     leftClimberMotor = new SendableCANSparkMax(Constants.climberSubsystem.kLeftClimberID, MotorType.kBrushless);
 
+    rightClimberMotor.restoreFactoryDefaults();
+    leftClimberMotor.restoreFactoryDefaults();
+
+    rightClimberMotor.setInverted(false);
+    leftClimberMotor.setInverted(false);
+
+    rightClimberMotor.setIdleMode(IdleMode.kBrake);
+    leftClimberMotor.setIdleMode(IdleMode.kBrake);
+
     rightPositionEncoder = rightClimberMotor.getEncoder();
     leftPositionEncoder = leftClimberMotor.getEncoder();
-  
-    rightPositionEncoder.setInverted(Constants.climberSubsystem.kRightEncoderInverted);
-    leftPositionEncoder.setInverted(Constants.climberSubsystem.kLeftEncoderInverted);
     
-    //TODO: Reset factory defaults
-    //TODO: set position encoders conversion factors
+    rightPositionEncoder.setPositionConversionFactor(Constants.climberSubsystem.kConversionFactor);
+    leftPositionEncoder.setPositionConversionFactor(Constants.climberSubsystem.kConversionFactor);
 
     rightClimbHomeLimit = new DigitalInput(Constants.climberSubsystem.kRightHomeLimitport);
     leftClimbHomeLimit = new DigitalInput(Constants.climberSubsystem.kLeftHomeLimitport);
@@ -61,7 +68,7 @@ public class ClimberSubsystem extends SubsystemBase {
     setSpeed(0);
   }
 
-  public void home(){ //TODO: make command that homes, should always run at start of robot.
+  public void home(){ 
     setSpeed(-Constants.climberSubsystem.kHomingspeed);
   }
 

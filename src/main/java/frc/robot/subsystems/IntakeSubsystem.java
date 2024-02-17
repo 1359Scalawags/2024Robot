@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -51,12 +52,23 @@ public class IntakeSubsystem extends SubsystemBase {
     safeMode = true;
     homing = true;
 
+    topSushiMotor.setInverted(false);
+    bottomStarMotor.setInverted(false);
+
+    topSushiMotor.setIdleMode(IdleMode.kBrake);
+    bottomStarMotor.setIdleMode(IdleMode.kBrake);
+
+
+
     intakeHomeLimit = new DigitalInput(Constants.intakeSubsystem.kHomeLimitID);
 
     positionMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kPositionMotorPortID, MotorType.kBrushless);
-    //TODO: Reset factory defaults
+
+    positionMotor.restoreFactoryDefaults();
+    positionMotor.setInverted(false);
+    positionMotor.setIdleMode(IdleMode.kBrake);
+
     positionEncoder = positionMotor.getEncoder();
-    //TODO: Set position encoder conversion factor
     targetPosition = Constants.intakeSubsystem.kTargetPositionUp;
     positionPID = positionMotor.getPIDController();
 
