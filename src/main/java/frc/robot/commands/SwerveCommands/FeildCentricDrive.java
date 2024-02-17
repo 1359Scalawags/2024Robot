@@ -57,7 +57,7 @@ public class FeildCentricDrive extends Command {
     public void execute() {
         double modvX = vX.getAsDouble();
         double modvY = vY.getAsDouble();
-        if(Math.abs(vX.getAsDouble()) < Constants.swereSubsystem.kTeleopDeadzone && Math.abs(vY.getAsDouble()) < Constants.swereSubsystem.kTeleopDeadzone) {
+        if(Math.abs(vX.getAsDouble()) < Constants.swerveSubsystem.kTeleopDeadzone && Math.abs(vY.getAsDouble()) < Constants.swerveSubsystem.kTeleopDeadzone) {
             modvX = 0;
             modvY = 0;
         }
