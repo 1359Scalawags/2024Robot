@@ -4,13 +4,11 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
 import frc.robot.commands.ArmCommands.ExtendArmCommand;
 import frc.robot.commands.ArmCommands.MoveClimberArms;
 import frc.robot.commands.ArmCommands.RetractArmCommand;
-import frc.robot.commands.IntakeCommands.IntakeBeltOffCommand;
-import frc.robot.commands.IntakeCommands.IntakeBeltOnCommand;
+import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
+import frc.robot.commands.IntakeCommands.IntakeWheelsOnCommand;
 import frc.robot.commands.IntakeCommands.IntakeExtendCommand;
 import frc.robot.commands.IntakeCommands.IntakeRetractCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
@@ -53,11 +51,10 @@ public class RobotContainer {
     new File(Filesystem.getDeployDirectory(), "YAGSLConfigJSON/swerve/" + Constants.robotName)); //TODO: change to flippers config file
   private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
-  private final Joystick driverJoystick = new Joystick(0); //TODO: Use constants here
-  private final Joystick assistantJoystick = new Joystick(1); //TODO: Use constants here
+  private final Joystick driverJoystick = new Joystick(Constants.DriverJoystick.joystick);
+  private final Joystick assistantJoystick = new Joystick(Constants.AssistantJoystick.joystick);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -142,10 +139,10 @@ public class RobotContainer {
 
     //intake commands/binds above
     new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeBeltButton)
-      .onTrue(new IntakeBeltOnCommand(m_IntakeSubsystem));
+      .onTrue(new IntakeWheelsOnCommand(m_IntakeSubsystem));
 
     new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeBeltButton)
-      .onFalse(new IntakeBeltOffCommand(m_IntakeSubsystem));
+      .onFalse(new IntakeWheelsOffCommand(m_IntakeSubsystem));
 
     new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeExtendButton)
       .onTrue(new IntakeExtendCommand(m_IntakeSubsystem));

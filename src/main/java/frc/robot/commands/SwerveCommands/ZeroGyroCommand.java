@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 /** An example command that uses an example subsystem. */
 public class ZeroGyroCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  //TODO: Just a test
   private final SwerveSubsystem m_subsystem;
 
   /**

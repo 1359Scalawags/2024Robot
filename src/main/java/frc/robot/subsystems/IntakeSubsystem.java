@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.REVLibError;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
@@ -12,7 +11,6 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.SendableCANSparkMax;
@@ -27,7 +25,7 @@ public class IntakeSubsystem extends SubsystemBase {
   // }
 
   //private IntakePositions intakePosition;
-  private SendableCANSparkMax topWheelMotor;
+  private SendableCANSparkMax topSushiMotor;
   private SendableCANSparkMax bottomStarMotor;
   private SendableCANSparkMax positionMotor;
   private RelativeEncoder positionEncoder;
@@ -46,8 +44,8 @@ public class IntakeSubsystem extends SubsystemBase {
  
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
-    //intakePosition = IntakePositions.Up;
-    topWheelMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kTopWheelMotorPortID, MotorType.kBrushless);
+    //intakePosition = IntakePositions.Up;S
+    topSushiMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kTopWheelMotorPortID, MotorType.kBrushless);
     bottomStarMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kBottomStarMotorPortID, MotorType.kBrushless);
     
     safeMode = true;
@@ -56,7 +54,9 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeHomeLimit = new DigitalInput(Constants.intakeSubsystem.kHomeLimitID);
 
     positionMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kPositionMotorPortID, MotorType.kBrushless);
+    //TODO: Reset factory defaults
     positionEncoder = positionMotor.getEncoder();
+    //TODO: Set position encoder conversion factor
     targetPosition = Constants.intakeSubsystem.kTargetPositionUp;
     positionPID = positionMotor.getPIDController();
 
@@ -70,19 +70,18 @@ public class IntakeSubsystem extends SubsystemBase {
       Constants.intakeSubsystem.kSafePositionInitialValue);
   }
 
-  //TODO: have a scaler so that you can achive a ratio between the two motors, one wheel has a larger diameter than the other and will turn at a diffrent speed becuse of such.
   public void ejectNote(){ 
-    topWheelMotor.set(-Constants.intakeSubsystem.kNoteMotorSpeed);
-    bottomStarMotor.set(-Constants.intakeSubsystem.kNoteMotorSpeed);
+    topSushiMotor.set(-Constants.intakeSubsystem.kSushiMotorSpeed);
+    bottomStarMotor.set(-Constants.intakeSubsystem.kStarMotorSpeed);
   }
 
   public void injectNote(){
-    topWheelMotor.set(Constants.intakeSubsystem.kNoteMotorSpeed);
-    bottomStarMotor.set(Constants.intakeSubsystem.kNoteMotorSpeed);
+    topSushiMotor.set(Constants.intakeSubsystem.kSushiMotorSpeed);
+    bottomStarMotor.set(Constants.intakeSubsystem.kStarMotorSpeed);
   }
   
   public void stopNoteMotors(){
-    topWheelMotor.set(Constants.intakeSubsystem.kStopNoteMotors);
+    topSushiMotor.set(Constants.intakeSubsystem.kStopNoteMotors);
     bottomStarMotor.set(Constants.intakeSubsystem.kStopNoteMotors);
   }
 
@@ -116,6 +115,7 @@ public class IntakeSubsystem extends SubsystemBase {
         homing = false;
         positionPID.setReference(0, ControlType.kVelocity);
         positionMotor.set(0);   
+        positionPID.setReference(0, ControlType.kVelocity);
         positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition - Constants.intakeSubsystem.kHomingOffset);
       }
     }

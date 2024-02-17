@@ -9,7 +9,6 @@ import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.SendableCANSparkMax;
@@ -48,7 +47,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
     currentSpeed = ShooterSpeed.off;
 
-    //TODO: Do we want the motors to have the same PIDF?
+    //TODO: Reset factory defaults of motors
+
     speedPIDR = shootingMotorR.getPIDController();
       speedPIDR.setP(Constants.shooterSubsystem.kRightMotorP);
       speedPIDR.setI(Constants.shooterSubsystem.kRightMotorI);

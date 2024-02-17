@@ -4,9 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Translation3d;
-import edu.wpi.first.math.util.Units;
-import swervelib.math.Matter;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -26,10 +23,12 @@ public final class Constants {
  * NOT FINAL VALUES FOR SWERE
  * 
  */
-  public static class swereSubsystem {
+  public static class swerveSubsystem {
     //public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound
     //public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
     //public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
+
+      public static final double kTeleopDeadzone = 0.1;
 
   }
 
@@ -37,18 +36,18 @@ public final class Constants {
 
   public static class climberSubsystem {
    // public static final int kClimberMotorPort = 58;
-    public static final int kClimberUperlimitswitchport = 1;
     public static final int kClimberExtendRate = 0;
-    public static final int kClimberLowerlimitswitchport = 0;
     public static final int kLeftClimberID = 0;
     public static final int kRightClimberID = 0;
-    public static final int kLeftHomeLimitport = 0;
-    public static final int kRightHomeLimitport = 0;
+    public static final int kLeftHomeLimitport = 2;
+    public static final int kRightHomeLimitport = 1;
     public static final double kUpperPosition = 0;
     public static final double kHomingspeed = -0.1;
     public static final double kHomingPosition = 0.0;
     public static final boolean kHomePressed = false;
     public static final double kHomingOffset = 0;
+    public static final boolean kRightEncoderInverted = false;
+    public static final boolean kLeftEncoderInverted = false;
   }
 
 
@@ -81,7 +80,7 @@ public final class Constants {
   public static class intakeSubsystem {
     // public static final int kNoteMotorPort = 53;
     // public static final int kPositionMotorPort = 52;
-    public static final double kNoteMotorSpeed = 0.5;
+    public static final double kStarMotorSpeed = 0.5;
     public static final double kStopNoteMotors = 0.0;
     public static final double kpositionUp = 0.0;
     public static final double kpositionDown = 0;
@@ -108,6 +107,7 @@ public final class Constants {
     public static final double kHomingVel = 0.0;
     public static final double kHomingPosition = 0.0;
     public static final double kHomingOffset = 0.0;
+    public static final int kSushiMotorSpeed = 0;
    
   }
  

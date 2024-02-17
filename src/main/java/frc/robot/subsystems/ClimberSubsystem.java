@@ -8,8 +8,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.SendableCANSparkMax;
@@ -35,13 +33,16 @@ public class ClimberSubsystem extends SubsystemBase {
 
     rightPositionEncoder = rightClimberMotor.getEncoder();
     leftPositionEncoder = leftClimberMotor.getEncoder();
+  
+    rightPositionEncoder.setInverted(Constants.climberSubsystem.kRightEncoderInverted);
+    leftPositionEncoder.setInverted(Constants.climberSubsystem.kLeftEncoderInverted);
     
-    //TODO: constant to invert right and left position encoders.
+    //TODO: Reset factory defaults
+    //TODO: set position encoders conversion factors
 
     rightClimbHomeLimit = new DigitalInput(Constants.climberSubsystem.kRightHomeLimitport);
     leftClimbHomeLimit = new DigitalInput(Constants.climberSubsystem.kLeftHomeLimitport);
 
-    //TODO: Reverse Motor Controller.
   }
 
   public final void setSpeed (double speed){
