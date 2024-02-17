@@ -44,7 +44,7 @@ public class IntakeSubsystem extends SubsystemBase {
  
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
-    //intakePosition = IntakePositions.Up;
+    //intakePosition = IntakePositions.Up;S
     topSushiMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kTopWheelMotorPortID, MotorType.kBrushless);
     bottomStarMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kBottomStarMotorPortID, MotorType.kBrushless);
     

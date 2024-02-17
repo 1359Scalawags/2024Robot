@@ -36,13 +36,11 @@ public final class Constants {
 
   public static class climberSubsystem {
    // public static final int kClimberMotorPort = 58;
-    public static final int kClimberUperlimitswitchport = 1;
     public static final int kClimberExtendRate = 0;
-    public static final int kClimberLowerlimitswitchport = 0;
     public static final int kLeftClimberID = 0;
     public static final int kRightClimberID = 0;
-    public static final int kLeftHomeLimitport = 0;
-    public static final int kRightHomeLimitport = 0;
+    public static final int kLeftHomeLimitport = 2;
+    public static final int kRightHomeLimitport = 1;
     public static final double kUpperPosition = 0;
     public static final double kHomingspeed = -0.1;
     public static final double kHomingPosition = 0.0;

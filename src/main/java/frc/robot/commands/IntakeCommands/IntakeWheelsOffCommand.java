@@ -26,14 +26,12 @@ public class IntakeWheelsOffCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_IntakeSubsystem.stopNoteMotors(); //TODO: move to execute
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-
+    m_IntakeSubsystem.stopNoteMotors();
   }
 
   // Called once the command ends or is interrupted.
