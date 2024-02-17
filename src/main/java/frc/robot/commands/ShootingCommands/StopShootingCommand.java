@@ -28,12 +28,14 @@ public class StopShootingCommand extends Command {
   @Override
   public void initialize() {
     //function doesnt exist yet, name is a guess
-    m_subsystem.stopSpinShootingMotor(); // TODO: move to execute
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_subsystem.stopSpinShootingMotor();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
