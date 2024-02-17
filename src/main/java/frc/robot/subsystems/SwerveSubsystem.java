@@ -73,7 +73,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public double maximumSpeed = Units.feetToMeters(Constants.SwereSubsystem.kMaxRobotSpeed);
+  public double maximumSpeed = Units.feetToMeters(Constants.swerveSubsystem.kMaxRobotSpeed);
   
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -85,12 +85,12 @@ public class SwerveSubsystem extends SubsystemBase
     // Angle conversion factor is 360 / (GEAR RATIO * ENCODER RESOLUTION)
     //  In this case the gear ratio is 12.8 motor revolutions per wheel rotation.
     //  The encoder resolution per motor revolution is 1 per motor revolution.
-    double angleConversionFactor = SwerveMath.calculateDegreesPerSteeringRotation(Constants.SwereSubsystem.kAngleConversionFactor);
+    double angleConversionFactor = SwerveMath.calculateDegreesPerSteeringRotation(Constants.swerveSubsystem.kAngleConversionFactor);
     // Motor conversion factor is (PI * WHEEL DIAMETER IN METERS) / (GEAR RATIO * ENCODER RESOLUTION).
     //  In this case the wheel diameter is 4 inches, which must be converted to meters to get meters/second.
     //  The gear ratio is 6.75 motor revolutions per wheel rotation.
     //  The encoder resolution per motor revolution is 1 per motor revolution.
-    double driveConversionFactor = SwerveMath.calculateMetersPerRotation(Units.inchesToMeters(Constants.SwereSubsystem.kDriveConversionFactor), Constants.SwereSubsystem.kDriveGearRatio);
+    double driveConversionFactor = SwerveMath.calculateMetersPerRotation(Units.inchesToMeters(Constants.swerveSubsystem.kDriveConversionFactor), Constants.swerveSubsystem.kDriveGearRatio);
     System.out.println("\"conversionFactor\": {");
     System.out.println("\t\"angle\": " + angleConversionFactor + ",");
     System.out.println("\t\"drive\": " + driveConversionFactor);
@@ -148,28 +148,22 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public void setupPathPlanner()
   {
-
-      //TODO: change the holonmic PID to make it more readbale and made angle PID constants
-
     AutoBuilder.configureHolonomic(
         this::getPose, // Robot pose supplier
         this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
         this::getRobotVelocity, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
         this::setChassisSpeeds, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
-        new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-           new PIDConstants(Constants.SwereSubsystem.kPDriveHollonmic, Constants.SwereSubsystem.kIDriveHollonmic, Constants.SwereSubsystem.kDDriveHollonmic),
+        new HolonomicPathFollowerConfig( 
+          // HolonomicPathFollowerConfig
+          Constants.swerveSubsystem.TranslationPID,
            // Translation PID constants
-           new PIDConstants(Constants.SwereSubsystem.kPAngleHollonmic, Constants.SwereSubsystem.kIAngleHollonmic, Constants.SwereSubsystem.kDAngleHollonmic/*swerveDrive.swerveController.config.headingPIDF.p,
-                            swerveDrive.swerveController.config.headingPIDF.i,
-                            swerveDrive.swerveController.config.headingPIDF.d*/),
-
-
+          Constants.swerveSubsystem.RotationPID,
            // Rotation PID constants
-           4.5,
+          Constants.swerveSubsystem.MaxModuleSpeed,
            // Max module speed, in m/s
-           swerveDrive.swerveDriveConfiguration.getDriveBaseRadiusMeters(),
+          swerveDrive.swerveDriveConfiguration.getDriveBaseRadiusMeters(),
            // Drive base radius in meters. Distance from robot center to furthest module.
-           new ReplanningConfig()
+          new ReplanningConfig()
            // Default path replanning config. See the API for the options here
         ),
         () -> {

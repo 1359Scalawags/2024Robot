@@ -2,23 +2,24 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.ShooterCommands;
 
-import frc.robot.subsystems.ClimberSubsystem;
+
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class RetractArmCommand extends Command {
+public class ShootCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ClimberSubsystem m_ClimberSubsystem;
+  private final ShooterSubsystem m_subsystem;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public RetractArmCommand(ClimberSubsystem subsystem) {
-    m_ClimberSubsystem = subsystem;
+  public ShootCommand(ShooterSubsystem subsystem) {
+    m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -26,8 +27,10 @@ public class RetractArmCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      // function doesn't exist yet, it is a guess.
-    m_ClimberSubsystem.retractArm();
+   m_subsystem.spinShootingMotor();
+
+
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.

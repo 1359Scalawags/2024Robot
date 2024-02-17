@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
+import frc.robot.Constants.swerveSubsystem;
 // import frc.robot.Constants.OperatorConstants;
 // import frc.robot.commands.Autos;
 // import frc.robot.commands.ExampleCommand;
@@ -193,6 +194,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    m_SwerveSubsystem.zeroGyro();
     return getAutonomousCommandForChooser();
   }
 
@@ -206,9 +208,8 @@ public class RobotContainer {
   }
     public Command Auto(String exampleAuto){
     return new PathPlannerAuto(exampleAuto);
-
   }
-  public Command Path(String examplePath){
-    return new PathPlannerAuto(examplePath);
-  }
+  // public Command Path(String examplePath){
+  //   return new PathPlannerAuto(examplePath);
+  // }
 }
