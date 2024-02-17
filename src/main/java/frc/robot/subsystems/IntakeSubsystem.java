@@ -115,7 +115,6 @@ public class IntakeSubsystem extends SubsystemBase {
         homing = false;
         positionPID.setReference(0, ControlType.kVelocity);
         positionMotor.set(0);   
-        positionPID.setReference(0, ControlType.kVelocity);
         positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition - Constants.intakeSubsystem.kHomingOffset);
       }
     }
