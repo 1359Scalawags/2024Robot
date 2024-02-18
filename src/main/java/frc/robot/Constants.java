@@ -14,6 +14,9 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+  public static final String robotName = "Siren";
+
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
@@ -155,7 +158,7 @@ public final class Constants {
     public static final double delayCounter = 5.0;
 }
 
-public static final String robotName = "Siren";
+
 
 
 }
