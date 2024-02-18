@@ -114,7 +114,7 @@ public class VisionSubsystem extends SubsystemBase {
     //   layout = null;
     // }
 
-        //TODO: make functions in SwereSubsystem to be used here
+        //TODO: make functions in SwerveSubsystem to be used here
     // poseEstimator =  new SwerveDrivePoseEstimator(
     //     SwereSubsystemConstants.KINEMATICS,
     //     SwereSubsystem.getGyroscopeRotation(),
