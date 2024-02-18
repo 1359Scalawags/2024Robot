@@ -89,8 +89,7 @@ public class RobotContainer {
 
   }
   
-  //TODO: Use consistency with naming for future readibility
-  public double getAssistantJoystick() {
+  public double assistantGetY() {
     return assistantJoystick.getY();
   }
   public double driverGetY() {
