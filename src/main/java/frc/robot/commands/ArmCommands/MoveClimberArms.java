@@ -23,6 +23,7 @@ public class MoveClimberArms extends Command {
    */
   public MoveClimberArms(ClimberSubsystem climberSubsystem, DoubleSupplier joystickSpeed) {
     m_ClimberSubsystem = climberSubsystem;
+    speed = joystickSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(climberSubsystem);
   }
