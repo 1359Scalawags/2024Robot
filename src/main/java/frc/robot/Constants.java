@@ -101,18 +101,19 @@ public final class Constants {
     public static final int kPositionMotorPortID = 24;
     public static final int kBottomStarMotorPortID = 22;
 
-    public static final double kPositionRateLimit = 0.5;
+    public static final double kPositionRateLimit = 30.0;
     public static final double kPositionInitialValue = 0.0;
     public static final double kSafePositionRateLimit = 0.5;
     public static final double kSafePositionInitialValue = 0.0;
 
     public static final int kHomeLimitID = 0;
-    public static final boolean kHomeLimitPressed = true;
-    public static final double kHomingVel = 0.0;
+    public static final boolean kHomeLimitPressed = false;
+    public static final double kHomingVel = 0.1;
     public static final double kHomingPosition = 0.0;
     public static final double kHomingOffset = 0.0;
-    public static final int kSushiMotorSpeed = 0;
+    public static final double kSushiMotorSpeed = 0.5;
    
+    public static final double kIntakeConversionFactor = 4.39007;
   }
  
   

@@ -51,7 +51,7 @@ public class IntakeSubsystem extends SubsystemBase {
     bottomStarMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kBottomStarMotorPortID, MotorType.kBrushless);
     
     safeMode = true;
-    homing = true;
+    setHoming(true);
 
     topSushiMotor.setInverted(false);
     bottomStarMotor.setInverted(false);
@@ -70,6 +70,7 @@ public class IntakeSubsystem extends SubsystemBase {
     positionMotor.setIdleMode(IdleMode.kBrake);
 
     positionEncoder = positionMotor.getEncoder();
+    positionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
     targetPosition = Constants.intakeSubsystem.kTargetPositionUp;
     positionPID = positionMotor.getPIDController();
 
@@ -84,6 +85,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     //Shuffleboard.getTab("LiveWindow").add(positionMotor);
     Shuffleboard.getTab("Intake").add("Position", positionMotor);
+    Shuffleboard.getTab("Intake").add("Position Limitswitch", intakeHomeLimit);
   }
 
   public void ejectNote(){ 
@@ -114,6 +116,7 @@ public class IntakeSubsystem extends SubsystemBase {
   public void setHoming(boolean homingState){
     setSafeMode(true);
     homing = homingState;
+    targetPosition = -180;
   }
 
   //TODO: need a command for exiting safe mode?
@@ -125,13 +128,14 @@ public class IntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     if(homing){
-      targetPosition = positionEncoder.getPosition() - Constants.intakeSubsystem.kHomingVel;
+      //targetPosition = positionEncoder.getPosition() - Constants.intakeSubsystem.kHomingVel;
 
       if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed){
         homing = false;
         positionPID.setReference(0, ControlType.kVelocity);
         positionMotor.set(0);   
         positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition - Constants.intakeSubsystem.kHomingOffset);
+        targetPosition = Constants.intakeSubsystem.kHomingPosition;
       }
     }
   
