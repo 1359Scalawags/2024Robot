@@ -34,8 +34,8 @@ public class ClimberSubsystem extends SubsystemBase {
     rightPositionEncoder = rightClimberMotor.getEncoder();
     leftPositionEncoder = leftClimberMotor.getEncoder();
   
-    rightPositionEncoder.setInverted(Constants.climberSubsystem.kRightEncoderInverted);
-    leftPositionEncoder.setInverted(Constants.climberSubsystem.kLeftEncoderInverted);
+    // rightPositionEncoder.setInverted(Constants.climberSubsystem.kRightEncoderInverted);
+    // leftPositionEncoder.setInverted(Constants.climberSubsystem.kLeftEncoderInverted);
     
     //TODO: Reset factory defaults
     //TODO: set position encoders conversion factors

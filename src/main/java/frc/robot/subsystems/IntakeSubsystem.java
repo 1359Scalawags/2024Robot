@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.SendableCANSparkMax;
@@ -54,6 +55,7 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeHomeLimit = new DigitalInput(Constants.intakeSubsystem.kHomeLimitID);
 
     positionMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kPositionMotorPortID, MotorType.kBrushless);
+    positionMotor.setInverted(true);
     //TODO: Reset factory defaults
     positionEncoder = positionMotor.getEncoder();
     //TODO: Set position encoder conversion factor
@@ -68,6 +70,9 @@ public class IntakeSubsystem extends SubsystemBase {
       Constants.intakeSubsystem.kSafePositionRateLimit,
      -Constants.intakeSubsystem.kSafePositionRateLimit,
       Constants.intakeSubsystem.kSafePositionInitialValue);
+
+    //Shuffleboard.getTab("LiveWindow").add(positionMotor);
+    Shuffleboard.getTab("Intake").add("Position", positionMotor);
   }
 
   public void ejectNote(){ 
