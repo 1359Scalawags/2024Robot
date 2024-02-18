@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.commands.ArmCommands.ExtendArmCommand;
+import frc.robot.commands.ArmCommands.HomeClimberCommand;
 import frc.robot.commands.ArmCommands.MoveClimberArms;
 import frc.robot.commands.ArmCommands.RetractArmCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
@@ -49,7 +50,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_SwerveSubsystem = new SwerveSubsystem(
     new File(Filesystem.getDeployDirectory(), "YAGSLConfigJSON/swerve/" + Constants.robotName));
-  //private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
+  private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
   //private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
   //private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   //private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
@@ -82,15 +83,14 @@ public class RobotContainer {
       false
       ));
 
-    // m_ClimberSubsystem.setDefaultCommand(
-    //   new MoveClimberArms(m_ClimberSubsystem,
-    //   this::getAssistantJoystick
-    //   ));
-
+    m_ClimberSubsystem.setDefaultCommand(
+      new MoveClimberArms(m_ClimberSubsystem,
+      this::assistantGetY
+      ));
   }
   
   public double assistantGetY() {
-    return assistantJoystick.getY();
+    return -assistantJoystick.getY();
   }
   public double driverGetY() {
     return driverJoystick.getY();
@@ -129,12 +129,12 @@ public class RobotContainer {
     //   .onFalse(new StopShootingCommand(m_shooterSubsystem));
 
 
-    // //Climber commands/binds above
-    // new JoystickButton(driverJoystick,Constants.DriverJoystick.extendArmButton)
-    //   .onTrue(new ExtendArmCommand(m_ClimberSubsystem));
+    //Climber commands/binds above
+    new JoystickButton(driverJoystick,Constants.DriverJoystick.extendArmButton)
+      .onTrue(new ExtendArmCommand(m_ClimberSubsystem));
 
-    // new JoystickButton(driverJoystick,Constants.DriverJoystick.retractArmButton)
-    //   .onTrue(new RetractArmCommand(m_ClimberSubsystem));
+    new JoystickButton(driverJoystick,Constants.DriverJoystick.retractArmButton)
+      .onTrue(new RetractArmCommand(m_ClimberSubsystem));
 
     // //intake commands/binds above
     // new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeBeltButton)
@@ -177,6 +177,11 @@ public class RobotContainer {
     // An example command will be run in autonomous
     //return Autos.exampleAuto(m_exampleSubsystem);
     return null;
+  }
+
+  public Command getClimberHomingCommand() {
+    return new HomeClimberCommand(m_ClimberSubsystem);
+  
   }
 
 }

@@ -39,6 +39,7 @@ public class MoveClimberArms extends Command {
   @Override
   public void execute() {
     m_ClimberSubsystem.setSpeed(speed.getAsDouble());
+    //System.out.println("Joystick y "+speed.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
@@ -48,6 +49,6 @@ public class MoveClimberArms extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false; // Make a finished!!!
+    return true; // Make a finished!!!
   }
 }

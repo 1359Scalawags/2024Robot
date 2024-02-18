@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.SendableCANSparkMax;
@@ -36,7 +37,7 @@ public class ClimberSubsystem extends SubsystemBase {
     leftClimberMotor.restoreFactoryDefaults();
 
     rightClimberMotor.setInverted(false);
-    leftClimberMotor.setInverted(false);
+    leftClimberMotor.setInverted(true);
 
     rightClimberMotor.setIdleMode(IdleMode.kBrake);
     leftClimberMotor.setIdleMode(IdleMode.kBrake);
@@ -53,6 +54,13 @@ public class ClimberSubsystem extends SubsystemBase {
     rightClimbHomeLimit = new DigitalInput(Constants.climberSubsystem.kRightHomeLimitport);
     leftClimbHomeLimit = new DigitalInput(Constants.climberSubsystem.kLeftHomeLimitport);
 
+    Shuffleboard.getTab("Climber").add("Right", rightClimberMotor);
+    Shuffleboard.getTab("Climber").add("left", leftClimberMotor);
+
+    Shuffleboard.getTab("Climber").add("leftLimit", leftClimbHomeLimit);
+    Shuffleboard.getTab("Climber").add("RightLimit", rightClimbHomeLimit);
+
+    // home();
   }
 
   public final void setSpeed (double speed){
@@ -72,7 +80,23 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void home(){ 
-    setSpeed(-Constants.climberSubsystem.kHomingspeed);
+    setSpeed(Constants.climberSubsystem.kHomingspeed);
+  }
+
+  public double leftHeight(){
+    return leftPositionEncoder.getPosition();
+  }
+
+  public double rigthHeight(){
+    return rightPositionEncoder.getPosition();
+  }
+
+  public boolean isLeftHomed(){
+    return leftClimbHomeLimit.get() == Constants.climberSubsystem.kHomePressed;
+  }
+
+  public boolean isRigthHomed(){
+    return rightClimbHomeLimit.get() == Constants.climberSubsystem.kHomePressed;
   }
 
   @Override
