@@ -48,7 +48,7 @@ public class RobotContainer {
     
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_SwerveSubsystem = new SwerveSubsystem(
-    new File(Filesystem.getDeployDirectory(), "YAGSLConfigJSON/swerve/" + Constants.robotName)); //TODO: change to flippers config file
+    new File(Filesystem.getDeployDirectory(), "YAGSLConfigJSON/swerve/" + Constants.robotName));
   private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
@@ -84,13 +84,12 @@ public class RobotContainer {
 
     m_ClimberSubsystem.setDefaultCommand(
       new MoveClimberArms(m_ClimberSubsystem,
-      this::getAssistantJoystick
+      this::assistantGetY
       ));
 
   }
   
-  //TODO: Use consistency with naming for future readibility
-  public double getAssistantJoystick() {
+  public double assistantGetY() {
     return assistantJoystick.getY();
   }
   public double driverGetY() {
