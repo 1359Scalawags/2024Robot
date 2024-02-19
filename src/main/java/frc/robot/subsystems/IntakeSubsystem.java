@@ -150,12 +150,6 @@ public class IntakeSubsystem extends SubsystemBase {
         positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition - Constants.intakeSubsystem.kHomingOffset);
         if(homing){
           homing = false;
-<<<<<<< HEAD
-=======
-         // positionPID.setReference(0, ControlType.kVelocity);
-          //positionMotor.set(0);   
-          positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition - Constants.intakeSubsystem.kHomingOffset);
->>>>>>> 5a94a3771e866be166cd7418ef6ccbd1cb4a2e02
           targetPosition = Constants.intakeSubsystem.kHomingPosition;
         } else {
           targetPosition = Math.max(Constants.intakeSubsystem.kHomingPosition, targetPosition);
