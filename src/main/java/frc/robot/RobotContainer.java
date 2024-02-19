@@ -94,6 +94,12 @@ public class RobotContainer {
   public double assistantGetY() {
     return -assistantJoystick.getY();
   }
+  public double assistantGetX() {
+    return -assistantJoystick.getX();
+  }
+  public double assistantGetZ() {
+    return -assistantJoystick.getZ();
+  }
   public double driverGetY() {
     return driverJoystick.getY();
   }

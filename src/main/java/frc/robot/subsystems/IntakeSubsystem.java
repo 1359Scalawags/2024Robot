@@ -181,14 +181,13 @@ public class IntakeSubsystem extends SubsystemBase {
     //   }
     } else {
       RobotContainer container = Robot.getRobotContainer();
-      double joyY = container.assistantGetY();
-      positionMotor.set(joyY / 5);
+      double joyX = container.assistantGetX();
+      positionMotor.set(joyX / 5);
       
       if(counter > 50) {
         System.out.println("========>> Target Position: " + targetPosition);
         System.out.println("========>> Intake Speed: " + positionMotor.getOutputCurrent());
-        System.out.println("=======>> Joystick Raw: " + joyY);
-        counter = 0;
+        System.out.println("=======>> Joystick Raw: " + joyX);
       }
     }
     counter++;
