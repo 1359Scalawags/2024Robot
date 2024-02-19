@@ -11,6 +11,7 @@ import frc.robot.commands.ArmCommands.RetractArmCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteInCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteOutCommand;
+import frc.robot.commands.IntakeCommands.HomeIntakeCommand;
 import frc.robot.commands.IntakeCommands.IntakeExtendCommand;
 import frc.robot.commands.IntakeCommands.IntakeRetractCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
@@ -193,7 +194,10 @@ public class RobotContainer {
 
   public Command getClimberHomingCommand() {
     return new HomeClimberCommand(m_ClimberSubsystem);
-  
   }
 
+
+  public Command getIntakeHomingCommand() {
+    return new HomeIntakeCommand(m_IntakeSubsystem);
+  }
 }

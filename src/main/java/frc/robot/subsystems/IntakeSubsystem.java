@@ -80,6 +80,7 @@ public class IntakeSubsystem extends SubsystemBase {
     positionPID.setP(Constants.intakeSubsystem.kIntakeP);
     positionPID.setI(Constants.intakeSubsystem.kIntakeI);
     positionPID.setD(Constants.intakeSubsystem.kIntakeD);
+    positionPID.setFF(Constants.intakeSubsystem.kIntakeFF);
 
 
 
@@ -134,6 +135,12 @@ public class IntakeSubsystem extends SubsystemBase {
     safeMode = safeModeState;
   }
 
+  public boolean isHome (){
+    return intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed;
+  }
+
+
+
 
   int counter = 0;
   @Override
@@ -143,6 +150,12 @@ public class IntakeSubsystem extends SubsystemBase {
         positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition - Constants.intakeSubsystem.kHomingOffset);
         if(homing){
           homing = false;
+<<<<<<< HEAD
+=======
+         // positionPID.setReference(0, ControlType.kVelocity);
+          //positionMotor.set(0);   
+          positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition - Constants.intakeSubsystem.kHomingOffset);
+>>>>>>> 5a94a3771e866be166cd7418ef6ccbd1cb4a2e02
           targetPosition = Constants.intakeSubsystem.kHomingPosition;
         } else {
           targetPosition = Math.max(Constants.intakeSubsystem.kHomingPosition, targetPosition);
@@ -182,7 +195,7 @@ public class IntakeSubsystem extends SubsystemBase {
       double joyX = container.assistantGetX();
       positionMotor.set(joyX / 5);
       
-      if(counter > 50) {
+      if(counter > 100) {
         System.out.println("========>> Target Position: " + targetPosition);
         System.out.println("========>> Intake Speed: " + positionMotor.getOutputCurrent());
         System.out.println("=======>> Joystick Raw: " + joyX);
