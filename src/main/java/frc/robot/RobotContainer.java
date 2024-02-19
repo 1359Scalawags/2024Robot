@@ -16,6 +16,7 @@ import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOnCommand;
 import frc.robot.commands.ShootingCommands.ShootCommand;
 import frc.robot.commands.ShootingCommands.StopShootingCommand;
+import frc.robot.commands.SwerveCommands.DriveForwardCommand;
 import frc.robot.commands.SwerveCommands.FeildCentricDrive;
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
 import frc.robot.commands.SwerveCommands.ZeroGyroCommand;
@@ -156,6 +157,9 @@ public class RobotContainer {
 
     new JoystickButton(driverJoystick,Constants.DriverJoystick.toggleFeildCentricButton)
       .onTrue(new FieldCentricCommand(m_SwerveSubsystem));
+
+    new JoystickButton(driverJoystick,Constants.DriverJoystick.driveForwardButton)
+      .onTrue(new DriveForwardCommand(m_SwerveSubsystem));
 
   }
 

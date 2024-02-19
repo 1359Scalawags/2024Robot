@@ -74,4 +74,10 @@ public class FeildCentricDrive extends Command {
 
     }
 
+    @Override
+    public boolean isFinished() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
 }
