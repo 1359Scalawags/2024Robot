@@ -9,11 +9,12 @@ import frc.robot.commands.ArmCommands.HomeClimberCommand;
 import frc.robot.commands.ArmCommands.MoveClimberArms;
 import frc.robot.commands.ArmCommands.RetractArmCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
-import frc.robot.commands.IntakeCommands.IntakeWheelsOnCommand;
+import frc.robot.commands.IntakeCommands.IntakeNoteInCommand;
+import frc.robot.commands.IntakeCommands.IntakeNoteOutCommand;
 import frc.robot.commands.IntakeCommands.IntakeExtendCommand;
 import frc.robot.commands.IntakeCommands.IntakeRetractCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
-import frc.robot.commands.IntakeCommands.IntakeWheelsOnCommand;
+import frc.robot.commands.IntakeCommands.IntakeNoteInCommand;
 import frc.robot.commands.ShootingCommands.ShootCommand;
 import frc.robot.commands.ShootingCommands.StopShootingCommand;
 import frc.robot.commands.SwerveCommands.DriveForwardCommand;
@@ -131,24 +132,31 @@ public class RobotContainer {
 
 
     //Climber commands/binds above
-    new JoystickButton(driverJoystick,Constants.DriverJoystick.extendArmButton)
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.extendArmButton)
       .onTrue(new ExtendArmCommand(m_ClimberSubsystem));
 
-    new JoystickButton(driverJoystick,Constants.DriverJoystick.retractArmButton)
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.retractArmButton)
       .onTrue(new RetractArmCommand(m_ClimberSubsystem));
 
     //intake commands/binds above
-    new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeExtendButton)
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeExtendButton)
       .onTrue(new IntakeExtendCommand(m_IntakeSubsystem));
 
-    new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeExtendButton)
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeExtendButton)
       .onFalse(new IntakeRetractCommand(m_IntakeSubsystem));
 
-    new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeWheelsOnbutton)
-      .onTrue(new IntakeWheelsOnCommand(m_IntakeSubsystem));
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteInbutton)
+      .onTrue(new IntakeNoteInCommand(m_IntakeSubsystem));
 
-      new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeWheelsOnbutton)
+      new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteInbutton)
       .onFalse(new IntakeWheelsOffCommand(m_IntakeSubsystem));
+
+      
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteOutbutton)
+    .onTrue(new IntakeNoteOutCommand(m_IntakeSubsystem));
+
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteOutbutton)
+    .onFalse(new IntakeWheelsOffCommand(m_IntakeSubsystem));
 
 
     // Drive subsystem zero gyro, field centric.
