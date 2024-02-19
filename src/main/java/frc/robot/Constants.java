@@ -45,7 +45,7 @@ public final class Constants {
     public static final int kLeftHomeLimitport = 2;
     public static final int kRightHomeLimitport = 1;
     public static final double kUpperPosition = 13.5;
-    public static final double kHomingspeed = -0.25;
+    public static final double kHomingspeed = -0.1;
     public static final double kHomingPosition = 0.0;
     public static final boolean kHomePressed = false;
     public static final double kHomingOffset = 0;
@@ -137,12 +137,6 @@ public final class Constants {
   }
   public static class DriverJoystick{
     public static final int joystick = 0;
-    public static final int shootButton = 1;
-    public static final int extendArmButton = 2;
-    public static final int retractArmButton = 3;
-    public static final int intakeBeltButton = 4;
-    public static final int intakeExtendButton = 5;
-    public static final int intakeWheelsOnbutton = 6;
     public static final int zeroGyroButton = 7;
     public static final int toggleFeildCentricButton = 8;
     public static final int driveForwardButton = 12;
@@ -151,7 +145,12 @@ public final class Constants {
   }
   public static class AssistantJoystick{
     public static final int joystick = 1;
-
+    public static final int shootButton = 1;
+    public static final int extendArmButton = 2;
+    public static final int retractArmButton = 3;
+    public static final int intakeExtendButton = 5;
+    public static final int intakeNoteInbutton = 7;
+    public static final int intakeNoteOutbutton = 8;
 
   }
 
