@@ -157,7 +157,7 @@ public class IntakeSubsystem extends SubsystemBase {
         positionPID.setReference(tempTarget, ControlType.kPosition);
       }
   
-      if(counter > 50) {
+      if(counter > 100) {
         System.out.println("========>> Target Position: " + targetPosition);
         System.out.println("========>> Intake Speed: " + positionMotor.getOutputCurrent());
         counter = 0;
