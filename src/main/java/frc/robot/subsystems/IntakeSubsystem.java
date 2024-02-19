@@ -12,9 +12,13 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.extensions.SendableCANSparkMax;
 
 
@@ -131,44 +135,63 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
 
+  int counter = 0;
   @Override
   public void periodic() {
-    if(homing){
-      //targetPosition = positionEncoder.getPosition() - Constants.intakeSubsystem.kHomingVel;
-
-      if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed){
-        homing = false;
-        positionPID.setReference(0, ControlType.kVelocity);
-        positionMotor.set(0);   
-        positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition - Constants.intakeSubsystem.kHomingOffset);
-        targetPosition = Constants.intakeSubsystem.kHomingPosition;
+    if(!DriverStation.isTest()) {
+      if(homing){
+        //targetPosition = positionEncoder.getPosition() - Constants.intakeSubsystem.kHomingVel;
+  
+        if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed){
+          homing = false;
+          positionPID.setReference(0, ControlType.kVelocity);
+          positionMotor.set(0);   
+          positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition - Constants.intakeSubsystem.kHomingOffset);
+          targetPosition = Constants.intakeSubsystem.kHomingPosition;
+        }
+      }
+    
+      if(safeMode) {
+        double tempTarget = safeModeLimiter.calculate(targetPosition);
+        positionPID.setReference(tempTarget, ControlType.kPosition);
+      } else {
+        double tempTarget = positionLimiter.calculate(targetPosition);
+        positionPID.setReference(tempTarget, ControlType.kPosition);
+      }
+  
+      if(counter > 50) {
+        System.out.println("========>> Target Position: " + targetPosition);
+        System.out.println("========>> Intake Speed: " + positionMotor.getOutputCurrent());
+        counter = 0;
+      }
+  
+  
+    //   if(intakePosition == IntakePositions.Up){
+    //     if(positionEncoder.getPosition() < Constants.Intake.kMaxIntakePosition){
+    //       positionMotor.set(Constants.Intake.kPositionMotorupSpeed);
+    //     } else{
+    //       positionMotor.set(0);
+    //     }
+    //   } else {
+    //     if(positionEncoder.getPosition() > Constants.Intake.kMinIntakePosition){
+    //       positionMotor.set(Constants.Intake.kPositionMotorDownSpeed);
+    //     } else{
+    //       positionMotor.set(0);
+    //     }
+    //   }
+    } else {
+      RobotContainer container = Robot.getRobotContainer();
+      double joyY = container.assistantGetY();
+      positionMotor.set(joyY / 5);
+      
+      if(counter > 50) {
+        System.out.println("========>> Target Position: " + targetPosition);
+        System.out.println("========>> Intake Speed: " + positionMotor.getOutputCurrent());
+        System.out.println("=======>> Joystick Raw: " + joyY);
+        counter = 0;
       }
     }
-  
-    if(safeMode) {
-      double tempTarget = safeModeLimiter.calculate(targetPosition);
-      positionPID.setReference(tempTarget, ControlType.kPosition);
-    } else {
-      double tempTarget = positionLimiter.calculate(targetPosition);
-      positionPID.setReference(tempTarget, ControlType.kPosition);
-    }
-
-
-
-
-  //   if(intakePosition == IntakePositions.Up){
-  //     if(positionEncoder.getPosition() < Constants.Intake.kMaxIntakePosition){
-  //       positionMotor.set(Constants.Intake.kPositionMotorupSpeed);
-  //     } else{
-  //       positionMotor.set(0);
-  //     }
-  //   } else {
-  //     if(positionEncoder.getPosition() > Constants.Intake.kMinIntakePosition){
-  //       positionMotor.set(Constants.Intake.kPositionMotorDownSpeed);
-  //     } else{
-  //       positionMotor.set(0);
-  //     }
-  //   }
+    counter++;
    }
 
   @Override

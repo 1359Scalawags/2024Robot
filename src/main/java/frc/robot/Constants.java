@@ -103,7 +103,7 @@ public final class Constants {
 
     public static final double kPositionRateLimit = 30.0;
     public static final double kPositionInitialValue = 0.0;
-    public static final double kSafePositionRateLimit = 0.5;
+    public static final double kSafePositionRateLimit = 10.0;
     public static final double kSafePositionInitialValue = 0.0;
 
     public static final int kHomeLimitID = 0;
@@ -115,7 +115,7 @@ public final class Constants {
    
     public static final double kIntakeConversionFactor = 4.39007;
 
-    public static final double kIntakeP = 0.00001;
+    public static final double kIntakeP = 0.0001;
     public static final double kIntakeI = 0;
     public static final double kIntakeD = 0;
 
@@ -152,9 +152,10 @@ public final class Constants {
   public static class AssistantJoystick{
     public static final int joystick = 1;
     public static final int shootButton = 1;
-    public static final int extendArmButton = 3;
-    public static final int retractArmButton = 4;
-    public static final int intakeExtendButton = 5;
+    public static final int extendClimberArmButton = 11;
+    public static final int retractClimberArmButton = 16;
+    public static final int intakeExtendButton = 3;
+    public static final int intakeRetractButton = 4;
     public static final int intakeNoteInbutton = 7;
     public static final int intakeNoteOutbutton = 8;
 

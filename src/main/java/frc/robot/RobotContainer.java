@@ -132,18 +132,18 @@ public class RobotContainer {
 
 
     //Climber commands/binds above
-    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.extendArmButton)
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.extendClimberArmButton)
       .onTrue(new ExtendArmCommand(m_ClimberSubsystem));
 
-    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.retractArmButton)
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.retractClimberArmButton)
       .onTrue(new RetractArmCommand(m_ClimberSubsystem));
 
     //intake commands/binds above
     new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeExtendButton)
       .onTrue(new IntakeExtendCommand(m_IntakeSubsystem));
 
-    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeExtendButton)
-      .onFalse(new IntakeRetractCommand(m_IntakeSubsystem));
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeRetractButton)
+      .onTrue(new IntakeRetractCommand(m_IntakeSubsystem));
 
     new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteInbutton)
       .onTrue(new IntakeNoteInCommand(m_IntakeSubsystem));
