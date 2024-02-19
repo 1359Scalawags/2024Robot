@@ -80,6 +80,7 @@ public class IntakeSubsystem extends SubsystemBase {
     positionPID.setP(Constants.intakeSubsystem.kIntakeP);
     positionPID.setI(Constants.intakeSubsystem.kIntakeI);
     positionPID.setD(Constants.intakeSubsystem.kIntakeD);
+    positionPID.setFF(Constants.intakeSubsystem.kIntakeFF);
 
 
 

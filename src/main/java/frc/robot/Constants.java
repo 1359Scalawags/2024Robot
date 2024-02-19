@@ -115,9 +115,10 @@ public final class Constants {
    
     public static final double kIntakeConversionFactor = 4.39007;
 
-    public static final double kIntakeP = 0.005;
+    public static final double kIntakeP = 0.00; //0.005
     public static final double kIntakeI = 0;
     public static final double kIntakeD = 0;
+    public static final double kIntakeFF = 0.0001;
 
 
   }
