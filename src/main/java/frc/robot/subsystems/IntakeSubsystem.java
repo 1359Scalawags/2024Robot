@@ -139,18 +139,16 @@ public class IntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     if(!DriverStation.isTest()) {
-      if(homing){
-        //targetPosition = positionEncoder.getPosition() - Constants.intakeSubsystem.kHomingVel;
-  
-        if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed){
+      if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed){
+        positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition - Constants.intakeSubsystem.kHomingOffset);
+        if(homing){
           homing = false;
-          positionPID.setReference(0, ControlType.kVelocity);
-          positionMotor.set(0);   
-          positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition - Constants.intakeSubsystem.kHomingOffset);
           targetPosition = Constants.intakeSubsystem.kHomingPosition;
+        } else {
+          targetPosition = Math.max(Constants.intakeSubsystem.kHomingPosition, targetPosition);
         }
       }
-    
+
       if(safeMode) {
         double tempTarget = safeModeLimiter.calculate(targetPosition);
         positionPID.setReference(tempTarget, ControlType.kPosition);
