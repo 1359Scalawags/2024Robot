@@ -95,7 +95,7 @@ public final class Constants {
     public static final double kPositionMotorDownSpeed = 0.5;
 
     public static final double kTargetPositionUp = 0.0; //Zero is the home position; this is inside the robot.  );
-    public static final double kTargetPositionDown = 500.0;
+    public static final double kTargetPositionDown = 160.0;
 
     public static final int kTopWheelMotorPortID = 23;
     public static final int kPositionMotorPortID = 24;
