@@ -84,6 +84,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     m_robotContainer.getClimberHomingCommand().schedule();
+    m_robotContainer.getIntakeHomingCommand().schedule();
   }
 
   /** This function is called periodically during operator control. */
