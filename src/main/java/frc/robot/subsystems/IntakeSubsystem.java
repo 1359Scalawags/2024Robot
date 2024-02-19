@@ -73,6 +73,12 @@ public class IntakeSubsystem extends SubsystemBase {
     positionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
     targetPosition = Constants.intakeSubsystem.kTargetPositionUp;
     positionPID = positionMotor.getPIDController();
+    positionPID.setP(Constants.intakeSubsystem.kIntakeP);
+    positionPID.setI(Constants.intakeSubsystem.kIntakeI);
+    positionPID.setD(Constants.intakeSubsystem.kIntakeD);
+
+
+
 
     positionLimiter = new SlewRateLimiter(
       Constants.intakeSubsystem.kPositionRateLimit,
