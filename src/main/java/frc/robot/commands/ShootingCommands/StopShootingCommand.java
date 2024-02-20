@@ -2,11 +2,8 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-<<<<<<<< HEAD:src/main/java/frc/robot/commands/ShooterCommands/StopShootingCommand.java
-package frc.robot.commands.ShooterCommands;
-========
+
 package frc.robot.commands.ShootingCommands;
->>>>>>>> master:src/main/java/frc/robot/commands/ShootingCommands/StopShootingCommand.java
 
 
 import frc.robot.subsystems.ShooterSubsystem;
