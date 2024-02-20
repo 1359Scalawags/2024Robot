@@ -51,7 +51,7 @@ public class RobotContainer {
   private final SwerveSubsystem m_SwerveSubsystem = new SwerveSubsystem(
     new File(Filesystem.getDeployDirectory(), "YAGSLConfigJSON/swerve/" + Constants.robotName));
   private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
-  private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
+  //private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
   //private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   //private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
   private final Joystick driverJoystick = new Joystick(Constants.DriverJoystick.joystick);
@@ -121,7 +121,7 @@ public class RobotContainer {
   private void configureBindings() {
     //TODO: finilize button layout, communicate with drive team if possible. Not everything should be on driverJoystick.
 
-    //Shooter commands/binds above
+    // //Shooter commands/binds above
     // new JoystickButton(driverJoystick,Constants.DriverJoystick.shootButton)
     //   .onTrue(new ShootCommand(m_shooterSubsystem));
     
@@ -129,7 +129,7 @@ public class RobotContainer {
     //   .onFalse(new StopShootingCommand(m_shooterSubsystem));
 
 
-    //Climber commands/binds above
+    // //Climber commands/binds above
     new JoystickButton(driverJoystick,Constants.DriverJoystick.extendArmButton)
       .onTrue(new ExtendArmCommand(m_ClimberSubsystem));
 
@@ -137,17 +137,17 @@ public class RobotContainer {
       .onTrue(new RetractArmCommand(m_ClimberSubsystem));
 
     //intake commands/binds above
-    new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeExtendButton)
-      .onTrue(new IntakeExtendCommand(m_IntakeSubsystem));
+    // new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeExtendButton)
+    //   .onTrue(new IntakeExtendCommand(m_IntakeSubsystem));
 
-    new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeExtendButton)
-      .onFalse(new IntakeRetractCommand(m_IntakeSubsystem));
+    // new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeExtendButton)
+    //   .onFalse(new IntakeRetractCommand(m_IntakeSubsystem));
 
-    new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeWheelsOnbutton)
-      .onTrue(new IntakeWheelsOnCommand(m_IntakeSubsystem));
+    // new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeWheelsOnbutton)
+    //   .onTrue(new IntakeWheelsOnCommand(m_IntakeSubsystem));
 
-      new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeWheelsOnbutton)
-      .onFalse(new IntakeWheelsOffCommand(m_IntakeSubsystem));
+    //   new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeWheelsOnbutton)
+    //   .onFalse(new IntakeWheelsOffCommand(m_IntakeSubsystem));
 
 
     // Drive subsystem zero gyro, field centric.
