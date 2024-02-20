@@ -4,7 +4,7 @@
 
 package frc.robot.commands.SwerveCommands;
 
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.Constants;
 import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveController;
 
@@ -13,7 +13,6 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -56,7 +55,7 @@ public class FeildCentricDrive extends Command {
     public void execute() {
         double modvX = vX.getAsDouble();
         double modvY = vY.getAsDouble();
-        if(Math.abs(vX.getAsDouble()) < 0.2 && Math.abs(vY.getAsDouble()) < 0.2) {
+        if(Math.abs(vX.getAsDouble()) < Constants.swerveSubsystem.kTeleopDeadzone && Math.abs(vY.getAsDouble()) < Constants.swerveSubsystem.kTeleopDeadzone) {
             modvX = 0;
             modvY = 0;
         }
@@ -73,6 +72,12 @@ public class FeildCentricDrive extends Command {
         SmartDashboard.putNumber("swerve X", modvX);
         SmartDashboard.putNumber("swerve Y", modvY);
 
+    }
+
+    @Override
+    public boolean isFinished() {
+        // TODO Auto-generated method stub
+        return true;
     }
 
 }

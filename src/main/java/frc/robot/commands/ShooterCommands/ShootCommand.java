@@ -2,7 +2,11 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+<<<<<<<< HEAD:src/main/java/frc/robot/commands/ShooterCommands/ShootCommand.java
 package frc.robot.commands.ShooterCommands;
+========
+package frc.robot.commands.ShootingCommands;
+>>>>>>>> master:src/main/java/frc/robot/commands/ShootingCommands/ShootCommand.java
 
 
 import frc.robot.subsystems.ShooterSubsystem;
@@ -27,15 +31,13 @@ public class ShootCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-   m_subsystem.spinShootingMotor();
-
-
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_subsystem.spinShootingMotor();
+  }
 
   // Called once the command ends or is interrupted.
   @Override

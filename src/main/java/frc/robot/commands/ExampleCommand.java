@@ -7,6 +7,7 @@ package frc.robot.commands;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
+@Deprecated
 /** An example command that uses an example subsystem. */
 public class ExampleCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})

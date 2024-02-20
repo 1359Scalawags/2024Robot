@@ -18,6 +18,10 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+  private static RobotContainer m_currentContainer;
+  public static RobotContainer getRobotContainer() {
+    return m_currentContainer;
+  }
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -28,6 +32,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_currentContainer = m_robotContainer;
+    
   }
 
   /**
@@ -77,6 +83,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    m_robotContainer.getClimberHomingCommand().schedule();
+    m_robotContainer.getIntakeHomingCommand().schedule();
   }
 
   /** This function is called periodically during operator control. */

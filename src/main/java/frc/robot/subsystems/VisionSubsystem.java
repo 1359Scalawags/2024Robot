@@ -114,7 +114,7 @@ public class VisionSubsystem extends SubsystemBase {
     //   layout = null;
     // }
 
-        //TODO: make functions in SwereSubsystem to be used here
+        //TODO: make functions in SwerveSubsystem to be used here
     // poseEstimator =  new SwerveDrivePoseEstimator(
     //     SwereSubsystemConstants.KINEMATICS,
     //     SwereSubsystem.getGyroscopeRotation(),
@@ -153,15 +153,17 @@ public class VisionSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("LimelightY", y);
         SmartDashboard.putNumber("LimelightArea", area);
 
+        //TODO: we are puting the same numbers to the dashboard on the delay and before it.
+
                 // post to smart dashboard periodically
-    if (counter > Constants.UI.delayCounter) {
-        SmartDashboard.putNumber("LimelightX", x);
-        SmartDashboard.putNumber("LimelightY", y);
-        SmartDashboard.putNumber("LimelightArea", area);
-        SmartDashboard.putNumberArray("Limelight", pose);
-        counter = 0;
+        if (counter > Constants.UI.delayCounter) {
+            SmartDashboard.putNumber("LimelightX", x);
+            SmartDashboard.putNumber("LimelightY", y);
+            SmartDashboard.putNumber("LimelightArea", area);
+            SmartDashboard.putNumberArray("Limelight", pose);
+            counter = 0;
         }
-    counter++;
+        counter++;
     }
 
     // poseEstimator.update(

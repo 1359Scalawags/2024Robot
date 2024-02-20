@@ -19,6 +19,9 @@ import swervelib.math.Matter;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+  public static final String robotName = "Siren";
+
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
@@ -51,33 +54,62 @@ public final class Constants {
     // public static final double kIAngleHollonmic = 0.1;
     // public static final double kDAngleHollonmic = 0.0;
     // public static final double kPAngleHollonmic = 0.0;
+      public static final double kTeleopDeadzone = 0.1;
+
   }
 
-  public static class ClimberSubsystem {
+  //TODO: need to set starter constant values.
+
+  public static class climberSubsystem {
    // public static final int kClimberMotorPort = 58;
-    public static final int kClimberUperlimitswitchport = 1;
     public static final int kClimberExtendRate = 0;
-    public static final int kClimberLowerlimitswitchport = 0;
+    public static final int kLeftClimberID = 25;
+    public static final int kRightClimberID = 26;
+    public static final int kLeftHomeLimitport = 2;
+    public static final int kRightHomeLimitport = 1;
+    public static final double kUpperPosition = 13.5;
+    public static final double kHomingspeed = -0.1;
+    public static final double kHomingPosition = 0.0;
+    public static final boolean kHomePressed = false;
+    public static final double kHomingOffset = 0;
+    public static final boolean kRightEncoderInverted = false;
+    public static final boolean kLeftEncoderInverted = false;
+    public static final double kConversionFactor = 0.1;
   }
 
 
-  public static class Shooter {
-   // public static final int kShootingMotorPort = 55;
+  public static class shooterSubsystem {
+    public static final int kShootingMotorLPort = 27;
+    public static final int kShootingmotorRPort = 28;
+    public static final double kIdleshootingspeed = 0.0;
+    public static final double kstopshootingspeed = 0.0;
     public static final double kShootingspeed = 0.5;
-//public static final int kShootingmotorPort = 54;
-    public static final int kIdleshootingspeed = 0;
-    public static final int kstopshootingspeed = 0;
+    public static final double kRightMotorP = 0.0;
+    public static final double kRightMotorI = 0.0;
+    public static final double kRightMotorD = 0.0;
+	  public static final double kRightmotorFF = 0.0;
+    public static final double kRightMotorIZ = 0.0;
+    public static final double kLeftMotorP = 0.0;
+    public static final double kLeftMotorI = 0.0;
+    public static final double kLeftMotorD = 0.0;
+    public static final double kLeftmotorFF = 0.0;
+    public static final double kLeftMotorIZ = 0.0;
+      //use these vals if we want to have same the PID for the shooter motors.
+    // public static final double kShooterMotorP = 0.0;
+    // public static final double kShooterMotorI = 0.0;
+    // public static final double kShooterMotorD = 0.0;
+	  // public static final double kShootermotorFF = 0.0;
+    // public static final double kShooterMotorIZ = 0.0;
   }
 
 
  
-  public static class Intake {
+  public static class intakeSubsystem {
     // public static final int kNoteMotorPort = 53;
     // public static final int kPositionMotorPort = 52;
-    public static final double kEjectNoteSpeed = 0.5;
-    public static final double kInjectNoteSpeed = -0.5;
-    public static final int kStopNoteSpeed = 0;
-    public static final double kpositionUp = 0;
+    public static final double kStarMotorSpeed = 0.5;
+    public static final double kStopNoteMotors = 0.0;
+    public static final double kpositionUp = 0.0;
     public static final double kpositionDown = 0;
 
     public static final double kMaxIntakePosition = 238.0;
@@ -85,8 +117,31 @@ public final class Constants {
     public static final double kPositionMotorupSpeed = 0.5;
     public static final double kPositionMotorDownSpeed = 0.5;
 
+    public static final double kTargetPositionUp = 10.0; //Zero is the home position; this is inside the robot.  );
+    public static final double kTargetPositionDown = 185.11;
 
+    public static final int kTopWheelMotorPortID = 23;
+    public static final int kPositionMotorPortID = 24;
+    public static final int kBottomStarMotorPortID = 22;
 
+    public static final double kPositionRateLimit = 120.0;
+    public static final double kPositionInitialValue = 0.0;
+    public static final double kSafePositionRateLimit = 120.0;
+    public static final double kSafePositionInitialValue = 0.0;
+
+    public static final int kHomeLimitID = 0;
+    public static final boolean kHomeLimitPressed = false;
+    public static final double kHomingVel = 0.1;
+    public static final double kHomingPosition = 0.0;
+    public static final double kHomingOffset = 0.0;
+    public static final double kSushiMotorSpeed = 0.5;
+   
+    public static final double kIntakeConversionFactor = 4.39007;
+
+    public static final double kIntakeP = 0.24; //0.005
+    public static final double kIntakeI = 0;
+    public static final double kIntakeD = 0.005;
+    public static final double kIntakeFF = 0;//0.01; 
 
 
   }
@@ -112,20 +167,21 @@ public final class Constants {
   }
   public static class DriverJoystick{
     public static final int joystick = 0;
-    public static final int shootButton = 1;
-    public static final int extendArmButton = 2;
-    public static final int retractArmButton = 3;
-    public static final int intakeBeltButton = 4;
-    public static final int intakeExtendButton = 5;
-    public static final int intakeWheelsOnbutton = 6;
     public static final int zeroGyroButton = 7;
     public static final int toggleFeildCentricButton = 8;
+    public static final int driveForwardButton = 12;
 
 
   }
   public static class AssistantJoystick{
     public static final int joystick = 1;
-
+    public static final int shootButton = 1;
+    public static final int extendClimberArmButton = 11;
+    public static final int retractClimberArmButton = 16;
+    public static final int intakeExtendButton = 3;
+    public static final int intakeRetractButton = 4;
+    public static final int intakeNoteInbutton = 7;
+    public static final int intakeNoteOutbutton = 8;
 
   }
 
@@ -133,6 +189,8 @@ public final class Constants {
     public static final double deadband = 0.05;
     public static final double delayCounter = 5.0;
 }
+
+
 
 
 }

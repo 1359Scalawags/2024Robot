@@ -8,16 +8,15 @@ import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class IntakeWheelsOnCommand extends Command {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+public class IntakeNoteInCommand extends Command {
   private final IntakeSubsystem m_IntakeSubsystem;
 
   /**
-   * Creates a new IntakeOnCommand.
-   *
+   *command to turn belt on
+   * 
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeWheelsOnCommand(IntakeSubsystem subsystem) {
+  public IntakeNoteInCommand(IntakeSubsystem subsystem) {
     m_IntakeSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -25,11 +24,14 @@ public class IntakeWheelsOnCommand extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_IntakeSubsystem.injectNote();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -38,6 +40,6 @@ public class IntakeWheelsOnCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

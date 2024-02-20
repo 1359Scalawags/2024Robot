@@ -26,13 +26,13 @@ public class RetractArmCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      // function doesn't exist yet, it is a guess.
-    m_ClimberSubsystem.retractArm();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_ClimberSubsystem.retractArm();
+  }
 
   // Called once the command ends or is interrupted.
   @Override

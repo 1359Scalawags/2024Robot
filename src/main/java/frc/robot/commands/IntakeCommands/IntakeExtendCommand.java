@@ -26,13 +26,15 @@ public class IntakeExtendCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    System.out.println("-------------Start Intake Extend-------------  ");
     
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_IntakeSubsystem.positionDown();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -41,6 +43,6 @@ public class IntakeExtendCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

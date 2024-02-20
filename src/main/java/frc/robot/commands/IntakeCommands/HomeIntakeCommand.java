@@ -8,15 +8,16 @@ import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class IntakeBeltOnCommand extends Command {
+public class HomeIntakeCommand extends Command {
+  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final IntakeSubsystem m_IntakeSubsystem;
 
   /**
-   *command to turn belt on
-   * 
+   * Creates a new ExampleCommand.
+   *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeBeltOnCommand(IntakeSubsystem subsystem) {
+  public HomeIntakeCommand(IntakeSubsystem subsystem) {
     m_IntakeSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -25,8 +26,9 @@ public class IntakeBeltOnCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_IntakeSubsystem.injectNote();
-
+      // function doesn't exist yet, it is a guess.
+    m_IntakeSubsystem.setHoming(true);
+    System.out.println("================= HOME INTAKE ================");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -40,6 +42,12 @@ public class IntakeBeltOnCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    if (m_IntakeSubsystem.isHome()) {
+      System.out.println("===================Homing Finished"); 
+      return true;
+    }
+    else {
+      return false; 
+    }
   }
 }

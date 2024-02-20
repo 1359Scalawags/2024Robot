@@ -2,23 +2,22 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.SwerveCommands;
+package frc.robot.commands.IntakeCommands;
 
-import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class ZeroGyroCommand extends Command {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final SwerveSubsystem m_subsystem;
+public class IntakeNoteOutCommand extends Command {
+  private final IntakeSubsystem m_IntakeSubsystem;
 
   /**
-   * Creates a new ExampleCommand.
-   *
+   *command to turn belt on
+   * 
    * @param subsystem The subsystem used by this command.
    */
-  public ZeroGyroCommand(SwerveSubsystem subsystem) {
-    m_subsystem = subsystem;
+  public IntakeNoteOutCommand(IntakeSubsystem subsystem) {
+    m_IntakeSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -26,13 +25,12 @@ public class ZeroGyroCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_subsystem.zeroGyro();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    m_IntakeSubsystem.ejectNote();
   }
 
   // Called once the command ends or is interrupted.

@@ -2,23 +2,24 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.IntakeCommands;
+package frc.robot.commands.ArmCommands;
 
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.Constants.climberSubsystem;
+import frc.robot.subsystems.ClimberSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class IntakeBeltOffCommand extends Command {
+public class HomeClimberCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final IntakeSubsystem m_IntakeSubsystem;
+  private final ClimberSubsystem m_ClimberSubsystem;
 
   /**
-   * Command to turn off not loading belt.
+   * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeBeltOffCommand(IntakeSubsystem subsystem) {
-    m_IntakeSubsystem = subsystem;
+  public HomeClimberCommand(ClimberSubsystem subsystem) {
+    m_ClimberSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -26,15 +27,13 @@ public class IntakeBeltOffCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_IntakeSubsystem.stopNote();
+      // function doesn't exist yet, it is a guess.
+    m_ClimberSubsystem.home();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-
-
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -43,6 +42,12 @@ public class IntakeBeltOffCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    if (m_ClimberSubsystem.isLeftHomed() && m_ClimberSubsystem.isRigthHomed()) {
+      System.out.println("===================Homing Finished"); 
+      return true;
+    }
+    else {
+      return false; 
+    }
   }
 }
