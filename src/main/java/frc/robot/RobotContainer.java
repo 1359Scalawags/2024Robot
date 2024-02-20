@@ -9,13 +9,16 @@ import frc.robot.commands.ArmCommands.HomeClimberCommand;
 import frc.robot.commands.ArmCommands.MoveClimberArms;
 import frc.robot.commands.ArmCommands.RetractArmCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
-import frc.robot.commands.IntakeCommands.IntakeWheelsOnCommand;
+import frc.robot.commands.IntakeCommands.IntakeNoteInCommand;
+import frc.robot.commands.IntakeCommands.IntakeNoteOutCommand;
+import frc.robot.commands.IntakeCommands.HomeIntakeCommand;
 import frc.robot.commands.IntakeCommands.IntakeExtendCommand;
 import frc.robot.commands.IntakeCommands.IntakeRetractCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
-import frc.robot.commands.IntakeCommands.IntakeWheelsOnCommand;
+import frc.robot.commands.IntakeCommands.IntakeNoteInCommand;
 import frc.robot.commands.ShootingCommands.ShootCommand;
 import frc.robot.commands.ShootingCommands.StopShootingCommand;
+import frc.robot.commands.SwerveCommands.DriveForwardCommand;
 import frc.robot.commands.SwerveCommands.FeildCentricDrive;
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
 import frc.robot.commands.SwerveCommands.ZeroGyroCommand;
@@ -51,7 +54,7 @@ public class RobotContainer {
   private final SwerveSubsystem m_SwerveSubsystem = new SwerveSubsystem(
     new File(Filesystem.getDeployDirectory(), "YAGSLConfigJSON/swerve/" + Constants.robotName));
   private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
-  //private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
+  private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
   //private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   //private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
   private final Joystick driverJoystick = new Joystick(Constants.DriverJoystick.joystick);
@@ -92,6 +95,12 @@ public class RobotContainer {
   public double assistantGetY() {
     return -assistantJoystick.getY();
   }
+  public double assistantGetX() {
+    return -assistantJoystick.getX();
+  }
+  public double assistantGetZ() {
+    return -assistantJoystick.getZ();
+  }
   public double driverGetY() {
     return driverJoystick.getY();
   }
@@ -129,25 +138,32 @@ public class RobotContainer {
     //   .onFalse(new StopShootingCommand(m_shooterSubsystem));
 
 
-    // //Climber commands/binds above
-    new JoystickButton(driverJoystick,Constants.DriverJoystick.extendArmButton)
+    //Climber commands/binds above
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.extendClimberArmButton)
       .onTrue(new ExtendArmCommand(m_ClimberSubsystem));
 
-    new JoystickButton(driverJoystick,Constants.DriverJoystick.retractArmButton)
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.retractClimberArmButton)
       .onTrue(new RetractArmCommand(m_ClimberSubsystem));
 
     //intake commands/binds above
-    // new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeExtendButton)
-    //   .onTrue(new IntakeExtendCommand(m_IntakeSubsystem));
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeExtendButton)
+      .onTrue(new IntakeExtendCommand(m_IntakeSubsystem));
 
-    // new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeExtendButton)
-    //   .onFalse(new IntakeRetractCommand(m_IntakeSubsystem));
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeRetractButton)
+      .onTrue(new IntakeRetractCommand(m_IntakeSubsystem));
 
-    // new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeWheelsOnbutton)
-    //   .onTrue(new IntakeWheelsOnCommand(m_IntakeSubsystem));
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteInbutton)
+      .onTrue(new IntakeNoteInCommand(m_IntakeSubsystem));
 
-    //   new JoystickButton(driverJoystick,Constants.DriverJoystick.intakeWheelsOnbutton)
-    //   .onFalse(new IntakeWheelsOffCommand(m_IntakeSubsystem));
+      new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteInbutton)
+      .onFalse(new IntakeWheelsOffCommand(m_IntakeSubsystem));
+
+      
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteOutbutton)
+    .onTrue(new IntakeNoteOutCommand(m_IntakeSubsystem));
+
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteOutbutton)
+    .onFalse(new IntakeWheelsOffCommand(m_IntakeSubsystem));
 
 
     // Drive subsystem zero gyro, field centric.
@@ -156,6 +172,9 @@ public class RobotContainer {
 
     new JoystickButton(driverJoystick,Constants.DriverJoystick.toggleFeildCentricButton)
       .onTrue(new FieldCentricCommand(m_SwerveSubsystem));
+
+    new JoystickButton(driverJoystick,Constants.DriverJoystick.driveForwardButton)
+      .onTrue(new DriveForwardCommand(m_SwerveSubsystem));
 
   }
 
@@ -175,7 +194,10 @@ public class RobotContainer {
 
   public Command getClimberHomingCommand() {
     return new HomeClimberCommand(m_ClimberSubsystem);
-  
   }
 
+
+  public Command getIntakeHomingCommand() {
+    return new HomeIntakeCommand(m_IntakeSubsystem);
+  }
 }

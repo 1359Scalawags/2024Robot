@@ -8,7 +8,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class IntakeExtendCommand extends Command {
+public class HomeIntakeCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final IntakeSubsystem m_IntakeSubsystem;
 
@@ -17,7 +17,7 @@ public class IntakeExtendCommand extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeExtendCommand(IntakeSubsystem subsystem) {
+  public HomeIntakeCommand(IntakeSubsystem subsystem) {
     m_IntakeSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -26,15 +26,14 @@ public class IntakeExtendCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("-------------Start Intake Extend-------------  ");
-    
+      // function doesn't exist yet, it is a guess.
+    m_IntakeSubsystem.setHoming(true);
+    System.out.println("================= HOME INTAKE ================");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_IntakeSubsystem.positionDown();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -43,6 +42,12 @@ public class IntakeExtendCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    if (m_IntakeSubsystem.isHome()) {
+      System.out.println("===================Homing Finished"); 
+      return true;
+    }
+    else {
+      return false; 
+    }
   }
 }

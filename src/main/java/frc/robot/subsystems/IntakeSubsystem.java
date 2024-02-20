@@ -12,9 +12,13 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.extensions.SendableCANSparkMax;
 
 
@@ -73,6 +77,13 @@ public class IntakeSubsystem extends SubsystemBase {
     positionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
     targetPosition = Constants.intakeSubsystem.kTargetPositionUp;
     positionPID = positionMotor.getPIDController();
+    positionPID.setP(Constants.intakeSubsystem.kIntakeP);
+    positionPID.setI(Constants.intakeSubsystem.kIntakeI);
+    positionPID.setD(Constants.intakeSubsystem.kIntakeD);
+    positionPID.setFF(Constants.intakeSubsystem.kIntakeFF);
+
+
+
 
     positionLimiter = new SlewRateLimiter(
       Constants.intakeSubsystem.kPositionRateLimit,
@@ -124,45 +135,67 @@ public class IntakeSubsystem extends SubsystemBase {
     safeMode = safeModeState;
   }
 
+  public boolean isHome (){
+    return intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed;
+  }
 
+
+
+
+  int counter = 0;
   @Override
   public void periodic() {
-    if(homing){
-      //targetPosition = positionEncoder.getPosition() - Constants.intakeSubsystem.kHomingVel;
-
+    if(!DriverStation.isTest()) {
       if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed){
-        homing = false;
-        positionPID.setReference(0, ControlType.kVelocity);
-        positionMotor.set(0);   
-        positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition - Constants.intakeSubsystem.kHomingOffset);
-        targetPosition = Constants.intakeSubsystem.kHomingPosition;
+        positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition);
+        if(homing){
+          homing = false;
+          targetPosition = Constants.intakeSubsystem.kpositionUp;
+        } else {
+          targetPosition = Math.max(Constants.intakeSubsystem.kHomingPosition, targetPosition);
+        }
+      }
+
+      if(safeMode) {
+        double tempTarget = safeModeLimiter.calculate(targetPosition);
+        positionPID.setReference(tempTarget, ControlType.kPosition);
+      } else {
+        double tempTarget = positionLimiter.calculate(targetPosition);
+        positionPID.setReference(tempTarget, ControlType.kPosition);
+      }
+  
+      if(counter > 100) {
+        System.out.println("========>> Target Position: " + targetPosition);
+        System.out.println("========>> Intake Speed: " + positionMotor.getOutputCurrent());
+        counter = 0;
+      }
+  
+  
+    //   if(intakePosition == IntakePositions.Up){
+    //     if(positionEncoder.getPosition() < Constants.Intake.kMaxIntakePosition){
+    //       positionMotor.set(Constants.Intake.kPositionMotorupSpeed);
+    //     } else{
+    //       positionMotor.set(0);
+    //     }
+    //   } else {
+    //     if(positionEncoder.getPosition() > Constants.Intake.kMinIntakePosition){
+    //       positionMotor.set(Constants.Intake.kPositionMotorDownSpeed);
+    //     } else{
+    //       positionMotor.set(0);
+    //     }
+    //   }
+    } else {
+      RobotContainer container = Robot.getRobotContainer();
+      double joyX = container.assistantGetX();
+      positionMotor.set(joyX / 5);
+      
+      if(counter > 100) {
+        System.out.println("========>> Target Position: " + targetPosition);
+        System.out.println("========>> Intake Speed: " + positionMotor.getOutputCurrent());
+        System.out.println("=======>> Joystick Raw: " + joyX);
       }
     }
-  
-    if(safeMode) {
-      double tempTarget = safeModeLimiter.calculate(targetPosition);
-      positionPID.setReference(tempTarget, ControlType.kPosition);
-    } else {
-      double tempTarget = positionLimiter.calculate(targetPosition);
-      positionPID.setReference(tempTarget, ControlType.kPosition);
-    }
-
-
-
-
-  //   if(intakePosition == IntakePositions.Up){
-  //     if(positionEncoder.getPosition() < Constants.Intake.kMaxIntakePosition){
-  //       positionMotor.set(Constants.Intake.kPositionMotorupSpeed);
-  //     } else{
-  //       positionMotor.set(0);
-  //     }
-  //   } else {
-  //     if(positionEncoder.getPosition() > Constants.Intake.kMinIntakePosition){
-  //       positionMotor.set(Constants.Intake.kPositionMotorDownSpeed);
-  //     } else{
-  //       positionMotor.set(0);
-  //     }
-  //   }
+    counter++;
    }
 
   @Override

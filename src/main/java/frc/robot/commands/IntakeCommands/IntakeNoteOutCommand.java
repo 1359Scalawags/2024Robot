@@ -8,16 +8,15 @@ import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class IntakeExtendCommand extends Command {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+public class IntakeNoteOutCommand extends Command {
   private final IntakeSubsystem m_IntakeSubsystem;
 
   /**
-   * Creates a new ExampleCommand.
-   *
+   *command to turn belt on
+   * 
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeExtendCommand(IntakeSubsystem subsystem) {
+  public IntakeNoteOutCommand(IntakeSubsystem subsystem) {
     m_IntakeSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -26,14 +25,12 @@ public class IntakeExtendCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("-------------Start Intake Extend-------------  ");
-    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_IntakeSubsystem.positionDown();
+    m_IntakeSubsystem.ejectNote();
   }
 
   // Called once the command ends or is interrupted.
