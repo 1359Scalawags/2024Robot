@@ -94,8 +94,8 @@ public final class Constants {
     public static final double kPositionMotorupSpeed = 0.5;
     public static final double kPositionMotorDownSpeed = 0.5;
 
-    public static final double kTargetPositionUp = 0.0; //Zero is the home position; this is inside the robot.  );
-    public static final double kTargetPositionDown = 160.0;
+    public static final double kTargetPositionUp = 10.0; //Zero is the home position; this is inside the robot.  );
+    public static final double kTargetPositionDown = 90.0;
 
     public static final int kTopWheelMotorPortID = 23;
     public static final int kPositionMotorPortID = 24;
@@ -115,10 +115,10 @@ public final class Constants {
    
     public static final double kIntakeConversionFactor = 4.39007;
 
-    public static final double kIntakeP = 0.00; //0.005
+    public static final double kIntakeP = 0.02; //0.005
     public static final double kIntakeI = 0;
-    public static final double kIntakeD = 0;
-    public static final double kIntakeFF = 0.0001;
+    public static final double kIntakeD = 0.005;
+    public static final double kIntakeFF = 0;//0.01; 
 
 
   }

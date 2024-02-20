@@ -147,10 +147,10 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {
     if(!DriverStation.isTest()) {
       if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed){
-        positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition - Constants.intakeSubsystem.kHomingOffset);
+        positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition);
         if(homing){
           homing = false;
-          targetPosition = Constants.intakeSubsystem.kHomingPosition;
+          targetPosition = Constants.intakeSubsystem.kpositionUp;
         } else {
           targetPosition = Math.max(Constants.intakeSubsystem.kHomingPosition, targetPosition);
         }
