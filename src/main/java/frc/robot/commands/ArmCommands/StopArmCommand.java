@@ -2,11 +2,8 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-<<<<<<<< HEAD:src/main/java/frc/robot/commands/ArmCommands/StopArmCommand.java
+
 package frc.robot.commands.ArmCommands;
-========
-package frc.robot.commands.ShootingCommands;
->>>>>>>> master:src/main/java/frc/robot/commands/ShootingCommands/StopArmCommand.java
 
 import frc.robot.subsystems.ClimberSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
