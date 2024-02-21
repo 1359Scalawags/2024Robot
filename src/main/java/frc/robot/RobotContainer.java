@@ -55,7 +55,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
 
-   SendableChooser<Command> autoChooser;
+
+SendableChooser<Command> autoChooser;
     
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_SwerveSubsystem = new SwerveSubsystem(
@@ -75,10 +76,13 @@ public class RobotContainer {
 
     autoChooser = AutoBuilder.buildAutoChooser();
 
-    autoChooser.addOption("Example Auto", Auto("Example Auto"));
+    autoChooser.addOption("Example Auto", getAutonomousCommand("Example Auto"));
+    autoChooser.addOption("Second Auto", getAutonomousCommand("Second Auto"));
+    
     //autoChooser.addOption("Example Path", Path("example Path"));
     //autoChooser.addOption("New Auto", Auto("New Auto"));
     SmartDashboard.putData("Auto Chooser ", autoChooser);
+    SmartDashboard.putData("Second Chooser ", autoChooser);
   }
     /*
      *  SwerveSubsystem swerve,
@@ -202,7 +206,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     m_SwerveSubsystem.zeroGyro();
-    return getAutonomousCommandForChooser();
+    return getAutonomousCommand();
   }
 
   /**
@@ -210,11 +214,14 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommandForChooser() {
+  // public Command getAutonomousCommandForChooser() {
+  //   return m_SwerveSubsystem.getAutonomousCommand(autoChooser.getSelected().getName());
+  // }
+
+// Do i need .getName()?
+
+    public Command getAutonomousCommand(String exampleAuto){
     return m_SwerveSubsystem.getAutonomousCommand(autoChooser.getSelected().getName());
-  }
-    public Command Auto(String exampleAuto){
-    return new PathPlannerAuto(exampleAuto);
   }
   // public Command Path(String examplePath){
   //   return new PathPlannerAuto(examplePath);
