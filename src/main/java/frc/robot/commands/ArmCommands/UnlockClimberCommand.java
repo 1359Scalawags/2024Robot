@@ -14,7 +14,7 @@ public class UnlockClimberCommand extends Command{
 
     @Override
     public void initialize() {
-        
+        m_ClimberSubsystem.unlock();
     }
 
 
