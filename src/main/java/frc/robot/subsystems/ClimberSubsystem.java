@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.SendableCANSparkMax;
+import frc.robot.extensions.SparkMaxPIDTuner;
 
 public class ClimberSubsystem extends SubsystemBase {
  
@@ -27,6 +28,8 @@ public class ClimberSubsystem extends SubsystemBase {
  private DigitalInput leftClimbHomeLimit; 
  private double rightClimberSpeed = 0;
  private double leftClimberSpeed = 0;
+
+ private boolean locked;
  
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
@@ -53,6 +56,8 @@ public class ClimberSubsystem extends SubsystemBase {
 
     rightClimbHomeLimit = new DigitalInput(Constants.climberSubsystem.kRightHomeLimitport);
     leftClimbHomeLimit = new DigitalInput(Constants.climberSubsystem.kLeftHomeLimitport);
+
+    locked = true;
 
     Shuffleboard.getTab("Climber").add("Right", rightClimberMotor);
     Shuffleboard.getTab("Climber").add("left", leftClimberMotor);
@@ -99,8 +104,22 @@ public class ClimberSubsystem extends SubsystemBase {
     return rightClimbHomeLimit.get() == Constants.climberSubsystem.kHomePressed;
   }
 
+  public boolean isLocked(){
+    return locked;
+  }
+
+  public void unlock(){
+    locked = false;
+  }
+
+    public void lock(){
+    locked = true;
+  }
+
   @Override
   public void periodic() {
+
+
     if(rightClimberSpeed > 0){ //moving up
       if(rightPositionEncoder.getPosition() >= Constants.climberSubsystem.kUpperPosition){
         rightClimberSpeed = 0;

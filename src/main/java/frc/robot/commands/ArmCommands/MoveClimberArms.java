@@ -38,6 +38,10 @@ public class MoveClimberArms extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (m_ClimberSubsystem.isLocked()){
+      return;
+    }
+    
     m_ClimberSubsystem.setSpeed(speed.getAsDouble());
     //System.out.println("Joystick y "+speed.getAsDouble());
   }

@@ -47,7 +47,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   private boolean safeMode;
  
- private SparkMaxPIDTuner positionPIDtuner;
+  private SparkMaxPIDTuner positionPIDtuner;
  
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
