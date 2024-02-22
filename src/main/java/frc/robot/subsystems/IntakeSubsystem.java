@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.extensions.GravityAssistedFeedForward;
 import frc.robot.extensions.SendableCANSparkMax;
 
 
@@ -45,6 +47,8 @@ public class IntakeSubsystem extends SubsystemBase {
   private boolean homing;
 
   private boolean safeMode;
+
+  private GravityAssistedFeedForward gravityFF;
  
  
  
@@ -93,6 +97,8 @@ public class IntakeSubsystem extends SubsystemBase {
       Constants.intakeSubsystem.kSafePositionRateLimit,
      -Constants.intakeSubsystem.kSafePositionRateLimit,
       Constants.intakeSubsystem.kSafePositionInitialValue);
+
+    gravityFF = new GravityAssistedFeedForward(Constants.intakeSubsystem.kGravityFF, Constants.intakeSubsystem.kOffsetAngle);
 
     //Shuffleboard.getTab("LiveWindow").add(positionMotor);
     Shuffleboard.getTab("Intake").add("Position", positionMotor);
@@ -155,6 +161,8 @@ public class IntakeSubsystem extends SubsystemBase {
           targetPosition = Math.max(Constants.intakeSubsystem.kHomingPosition, targetPosition);
         }
       }
+      double FF = MathUtil.clamp(gravityFF.calculate(positionEncoder.getPosition()), Constants.intakeSubsystem.kMinFF, Constants.intakeSubsystem.kMaxFF);
+      positionPID.setFF(FF);
 
       if(safeMode) {
         double tempTarget = safeModeLimiter.calculate(targetPosition);
@@ -196,7 +204,10 @@ public class IntakeSubsystem extends SubsystemBase {
       }
     }
     counter++;
-   }
+
+
+
+  }
 
   @Override
   public void simulationPeriodic() {

@@ -120,6 +120,11 @@ public final class Constants {
     public static final double kIntakeD = 0.005;
     public static final double kIntakeFF = 0;//0.01; 
 
+    public static final double kGravityFF = 0.0;
+    public static final double kOffsetAngle = 0.0;
+    public static final double kMaxFF = 0.01;
+    public static final double kMinFF = 0;
+
 
   }
  
