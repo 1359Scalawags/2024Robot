@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkAbsoluteEncoder;
+import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
@@ -37,7 +39,8 @@ public class IntakeSubsystem extends SubsystemBase {
   private SendableCANSparkMax topSushiMotor;
   private SendableCANSparkMax bottomStarMotor;
   private SendableCANSparkMax positionMotor;
-  private RelativeEncoder positionEncoder;
+  private SparkAbsoluteEncoder absolutePositionEncoder;
+  // private RelativeEncoder positionEncoder;
  
   private double targetPosition;
   private SparkPIDController positionPID;
@@ -78,8 +81,11 @@ public class IntakeSubsystem extends SubsystemBase {
     positionMotor.setInverted(true);
     positionMotor.setIdleMode(IdleMode.kBrake);
 
-    positionEncoder = positionMotor.getEncoder();
-    positionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
+    // positionEncoder = positionMotor.getEncoder();
+    // positionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
+    absolutePositionEncoder = positionMotor.getAbsoluteEncoder();
+    absolutePositionEncoder.setPositionConversionFactor(360);
+    absolutePositionEncoder.setZeroOffset(Constants.intakeSubsystem.kPositionEncoderOffset);
     targetPosition = Constants.intakeSubsystem.kTargetPositionUp;
     positionPID = positionMotor.getPIDController();
     positionPID.setP(Constants.intakeSubsystem.kIntakeP);
@@ -155,7 +161,7 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {
     if(!DriverStation.isTest()) {
       if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed){
-        positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition);
+        absolutePositionEncoder.setZeroOffset(-absolutePositionEncoder.getPosition() + Constants.intakeSubsystem.kZeroOffsetBuffer);
         if(homing){
           homing = false;
           targetPosition = Constants.intakeSubsystem.kpositionUp;
@@ -163,7 +169,7 @@ public class IntakeSubsystem extends SubsystemBase {
           targetPosition = Math.max(Constants.intakeSubsystem.kHomingPosition, targetPosition);
         }
       }
-      double FF = MathUtil.clamp(gravityFF.calculate(positionEncoder.getPosition()), Constants.intakeSubsystem.kMinFF, Constants.intakeSubsystem.kMaxFF);
+      double FF = MathUtil.clamp(gravityFF.calculate(absolutePositionEncoder.getPosition()), Constants.intakeSubsystem.kMinFF, Constants.intakeSubsystem.kMaxFF);
       positionPID.setFF(FF);
 
       if(safeMode) {
