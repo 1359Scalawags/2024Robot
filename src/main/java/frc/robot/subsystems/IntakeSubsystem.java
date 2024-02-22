@@ -20,6 +20,7 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.extensions.SendableCANSparkMax;
+import frc.robot.extensions.SparkMaxPIDTuner;
 
 
 public class IntakeSubsystem extends SubsystemBase {
@@ -46,7 +47,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   private boolean safeMode;
  
- 
+ private SparkMaxPIDTuner positionPIDtuner;
  
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
@@ -93,6 +94,8 @@ public class IntakeSubsystem extends SubsystemBase {
       Constants.intakeSubsystem.kSafePositionRateLimit,
      -Constants.intakeSubsystem.kSafePositionRateLimit,
       Constants.intakeSubsystem.kSafePositionInitialValue);
+
+    positionPIDtuner = new SparkMaxPIDTuner("PID Tuner", "Intake Position Motor", 1, positionPID);
 
     //Shuffleboard.getTab("LiveWindow").add(positionMotor);
     Shuffleboard.getTab("Intake").add("Position", positionMotor);
