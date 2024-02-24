@@ -63,7 +63,7 @@ public class IntakeSubsystem extends SubsystemBase {
     bottomStarMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kBottomStarMotorPortID, MotorType.kBrushless);
     
     safeMode = true;
-    setHoming(true);
+    //setHoming(true);
 
     topSushiMotor.setInverted(false);
     bottomStarMotor.setInverted(false);
@@ -153,11 +153,11 @@ public class IntakeSubsystem extends SubsystemBase {
    
   }
 
-  public void setHoming(boolean homingState){
-    setSafeMode(true);
-    homing = homingState;
-    targetPosition = 5;
-  }
+  // public void setHoming(boolean homingState){
+  //   setSafeMode(true);
+  //   homing = homingState;
+  //   targetPosition = 5;
+  // }
 
   //TODO: need a command for exiting safe mode?
   public void setSafeMode(boolean safeModeState){
@@ -186,8 +186,8 @@ public class IntakeSubsystem extends SubsystemBase {
         // set 
         targetPosition = absolutePositionEncoder.getPosition()+1;
       }
-      double FF = MathUtil.clamp(gravityFF.calculate(absolutePositionEncoder.getPosition()), Constants.intakeSubsystem.kMinFF, Constants.intakeSubsystem.kMaxFF);
-      positionPID.setFF(FF);
+      // double FF = MathUtil.clamp(gravityFF.calculate(absolutePositionEncoder.getPosition()), Constants.intakeSubsystem.kMinFF, Constants.intakeSubsystem.kMaxFF);
+      //positionPID.setFF(FF);
 
       if(safeMode) {
         double tempTarget = safeModeLimiter.calculate(targetPosition);
