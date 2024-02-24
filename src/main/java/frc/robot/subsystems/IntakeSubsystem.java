@@ -187,8 +187,8 @@ public class IntakeSubsystem extends SubsystemBase {
         // set 
         targetPosition = absolutePositionEncoder.getPosition()+1;
       }
-      // double FF = MathUtil.clamp(gravityFF.calculate(absolutePositionEncoder.getPosition()), Constants.intakeSubsystem.kMinFF, Constants.intakeSubsystem.kMaxFF);
-      //positionPID.setFF(FF);
+      double FF = MathUtil.clamp(gravityFF.calculate(absolutePositionEncoder.getPosition()), Constants.intakeSubsystem.kMinFF, Constants.intakeSubsystem.kMaxFF);
+      positionPID.setFF(FF);
 
       if(safeMode) {
         double tempTarget = safeModeLimiter.calculate(targetPosition);

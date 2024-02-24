@@ -90,7 +90,7 @@ public final class Constants {
     // public static final int kPositionMotorPort = 52;
     public static final double kStarMotorSpeed = 0.5;
     public static final double kStopNoteMotors = 0.0;
-    public static final double kpositionUp = 10.0;
+    public static final double kpositionUp = 20.0;
     public static final double kpositionDown = 150;
 
     // public static final double kMaxIntakePosition = 170.0;
@@ -113,7 +113,7 @@ public final class Constants {
     public static final int kHomeLimitID = 0;
     public static final boolean kHomeLimitPressed = false;
     public static final double kHomingVel = 0.1;
-    public static final double kHomingPosition = 0.0;
+    public static final double kHomingPosition = 15;
     public static final double kHomingOffset = 0.0;
     public static final double kSushiMotorSpeed = 0.5;
    
