@@ -145,7 +145,7 @@ public class RobotContainer {
     new JoystickButton(assistantJoystick,Constants.AssistantJoystick.retractClimberArmButton)
       .onTrue(new RetractArmCommand(m_ClimberSubsystem));
 
-    //intake commands/binds above
+    // intake commands/binds above
     new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeExtendButton)
       .onTrue(new IntakeExtendCommand(m_IntakeSubsystem));
 
