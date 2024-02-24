@@ -61,16 +61,19 @@ public final class Constants {
     public static final double kIdleshootingspeed = 0.0;
     public static final double kstopshootingspeed = 0.0;
     public static final double kShootingspeed = 0.5;
-    public static final double kRightMotorP = 0.0;
+
+    public static final double kRightMotorP = 0.01;
     public static final double kRightMotorI = 0.0;
     public static final double kRightMotorD = 0.0;
 	  public static final double kRightmotorFF = 0.0;
     public static final double kRightMotorIZ = 0.0;
-    public static final double kLeftMotorP = 0.0;
+
+    public static final double kLeftMotorP = 0.01;
     public static final double kLeftMotorI = 0.0;
     public static final double kLeftMotorD = 0.0;
     public static final double kLeftmotorFF = 0.0;
     public static final double kLeftMotorIZ = 0.0;
+
       //use these vals if we want to have same the PID for the shooter motors.
     // public static final double kShooterMotorP = 0.0;
     // public static final double kShooterMotorI = 0.0;
@@ -86,16 +89,16 @@ public final class Constants {
     // public static final int kPositionMotorPort = 52;
     public static final double kStarMotorSpeed = 0.5;
     public static final double kStopNoteMotors = 0.0;
-    public static final double kpositionUp = 0.0;
-    public static final double kpositionDown = 0;
+    public static final double kpositionUp = 10.0;
+    public static final double kpositionDown = 150;
 
-    public static final double kMaxIntakePosition = 238.0;
-    public static final double kMinIntakePosition = -10.0;
+    // public static final double kMaxIntakePosition = 170.0;
+    // public static final double kMinIntakePosition = 5.0;
     public static final double kPositionMotorupSpeed = 0.5;
     public static final double kPositionMotorDownSpeed = 0.5;
 
-    public static final double kTargetPositionUp = 10.0; //Zero is the home position; this is inside the robot.  );
-    public static final double kTargetPositionDown = 185.11;
+    // public static final double kTargetPositionUp = 10.0; //Zero is the home position; this is inside the robot.  );
+    // public static final double kTargetPositionDown = 170;
 
     public static final int kTopWheelMotorPortID = 23;
     public static final int kPositionMotorPortID = 24;

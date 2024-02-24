@@ -86,7 +86,7 @@ public class IntakeSubsystem extends SubsystemBase {
     absolutePositionEncoder = positionMotor.getAbsoluteEncoder();
     absolutePositionEncoder.setPositionConversionFactor(360);
     absolutePositionEncoder.setZeroOffset(Constants.intakeSubsystem.kPositionEncoderOffset);
-    targetPosition = Constants.intakeSubsystem.kTargetPositionUp;
+    targetPosition = Constants.intakeSubsystem.kpositionUp;
     positionPID = positionMotor.getPIDController();
     positionPID.setP(Constants.intakeSubsystem.kIntakeP);
     positionPID.setI(Constants.intakeSubsystem.kIntakeI);
@@ -111,6 +111,12 @@ public class IntakeSubsystem extends SubsystemBase {
     //Shuffleboard.getTab("LiveWindow").add(positionMotor);
     Shuffleboard.getTab("Intake").add("Position", positionMotor);
     Shuffleboard.getTab("Intake").add("Position Limitswitch", intakeHomeLimit);
+    // Shuffleboard.getTab("Intake").add("Position Encoder", absolutePositionEncoder);
+    Shuffleboard.getTab("Intake").addDouble("intake pos", this::getpos);
+  }
+
+  double getpos(){
+    return absolutePositionEncoder.getPosition();
   }
 
   public void ejectNote(){ 
@@ -130,18 +136,18 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void positionUp(){
     //intakePosition = IntakePositions.Up;
-    targetPosition = Constants.intakeSubsystem.kTargetPositionUp;
+    targetPosition = Constants.intakeSubsystem.kpositionUp;
   }
   
   public void positionDown(){
     //intakePosition = IntakePositions.Down;
-    targetPosition = Constants.intakeSubsystem.kTargetPositionDown;
+    targetPosition = Constants.intakeSubsystem.kpositionDown;
   }
 
   public void setHoming(boolean homingState){
     setSafeMode(true);
     homing = homingState;
-    targetPosition = -180;
+    targetPosition = 5;
   }
 
   //TODO: need a command for exiting safe mode?
