@@ -84,7 +84,7 @@ public class IntakeSubsystem extends SubsystemBase {
     // positionEncoder = positionMotor.getEncoder();
     // positionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
     absolutePositionEncoder = positionMotor.getAbsoluteEncoder();
-    absolutePositionEncoder.setPositionConversionFactor(360);
+    absolutePositionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
     absolutePositionEncoder.setZeroOffset(Constants.intakeSubsystem.kPositionEncoderOffset);
     targetPosition = Constants.intakeSubsystem.kpositionUp;
     positionPID = positionMotor.getPIDController();
@@ -144,6 +144,15 @@ public class IntakeSubsystem extends SubsystemBase {
     targetPosition = Constants.intakeSubsystem.kpositionDown;
   }
 
+  public boolean isUp() {
+    return Math.abs(absolutePositionEncoder.getPosition() - Constants.intakeSubsystem.kpositionUp) < Constants.intakeSubsystem.kPositionTolerance;
+  }
+
+  public boolean isDown() {
+    return Math.abs(absolutePositionEncoder.getPosition() - Constants.intakeSubsystem.kpositionDown) < Constants.intakeSubsystem.kPositionTolerance;
+   
+  }
+
   public void setHoming(boolean homingState){
     setSafeMode(true);
     homing = homingState;
@@ -155,25 +164,27 @@ public class IntakeSubsystem extends SubsystemBase {
     safeMode = safeModeState;
   }
 
-  public boolean isHome (){
-    return intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed;
-  }
-
-
-
+  // public boolean isHome (){
+  //   return intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed;
+  // }
 
   int counter = 0;
   @Override
   public void periodic() {
     if(!DriverStation.isTest()) {
-      if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed){
-        absolutePositionEncoder.setZeroOffset(-absolutePositionEncoder.getPosition() + Constants.intakeSubsystem.kZeroOffsetBuffer);
-        if(homing){
-          homing = false;
-          targetPosition = Constants.intakeSubsystem.kpositionUp;
-        } else {
-          targetPosition = Math.max(Constants.intakeSubsystem.kHomingPosition, targetPosition);
-        }
+
+      // if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed){
+      //   absolutePositionEncoder.setZeroOffset(-absolutePositionEncoder.getPosition() + Constants.intakeSubsystem.kZeroOffsetBuffer);
+      //   if(homing){
+      //     homing = false;
+      //     targetPosition = Constants.intakeSubsystem.kpositionUp;
+      //   } else {
+      //     targetPosition = Math.max(Constants.intakeSubsystem.kHomingPosition, targetPosition);
+      //   }
+      // }
+      if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed) {
+        // set 
+        targetPosition = absolutePositionEncoder.getPosition()+1;
       }
       double FF = MathUtil.clamp(gravityFF.calculate(absolutePositionEncoder.getPosition()), Constants.intakeSubsystem.kMinFF, Constants.intakeSubsystem.kMaxFF);
       positionPID.setFF(FF);
