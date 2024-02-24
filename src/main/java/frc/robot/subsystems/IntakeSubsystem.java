@@ -84,7 +84,7 @@ public class IntakeSubsystem extends SubsystemBase {
     // positionEncoder = positionMotor.getEncoder();
     // positionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
     absolutePositionEncoder = positionMotor.getAbsoluteEncoder();
-    absolutePositionEncoder.setPositionConversionFactor(360);
+    absolutePositionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
     absolutePositionEncoder.setZeroOffset(Constants.intakeSubsystem.kPositionEncoderOffset);
     targetPosition = Constants.intakeSubsystem.kTargetPositionUp;
     positionPID = positionMotor.getPIDController();

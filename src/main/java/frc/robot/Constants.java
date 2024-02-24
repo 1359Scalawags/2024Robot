@@ -113,7 +113,7 @@ public final class Constants {
     public static final double kHomingOffset = 0.0;
     public static final double kSushiMotorSpeed = 0.5;
    
-    public static final double kIntakeConversionFactor = 4.39007;
+    public static final double kIntakeConversionFactor = 360.0; // Now using an absolute encoder //4.39007;
 
     public static final double kIntakeP = 0.24; //0.005
     public static final double kIntakeI = 0;
@@ -124,7 +124,7 @@ public final class Constants {
     public static final double kOffsetAngle = 0.0;
     public static final double kMaxFF = 0.01;
     public static final double kMinFF = 0;
-    public static final double kPositionEncoderOffset = 0;
+    public static final double kPositionEncoderOffset = -210.0; //approximately sets 0 to horizontal //avoids meridian flip
     public static final double kZeroOffsetBuffer = 10.0;
 
 
