@@ -201,6 +201,7 @@ public class IntakeSubsystem extends SubsystemBase {
       SmartDashboard.putNumber("Intake Target Position", targetPosition);
       SmartDashboard.putNumber("Intake Actual Position", absolutePositionEncoder.getPosition());
       SmartDashboard.putNumber("Intake Motor Output", positionMotor.getOutputCurrent());
+      SmartDashboard.putNumber("Intake RPM", absolutePositionEncoder.getVelocity());
       SmartDashboard.putNumber("Intake Gravity FF", FF);
   
       // if(counter > 100) {
