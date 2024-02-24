@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -168,7 +169,7 @@ public class IntakeSubsystem extends SubsystemBase {
   //   return intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed;
   // }
 
-  int counter = 0;
+  //int counter = 0;
   @Override
   public void periodic() {
     if(!DriverStation.isTest()) {
@@ -196,12 +197,17 @@ public class IntakeSubsystem extends SubsystemBase {
         double tempTarget = positionLimiter.calculate(targetPosition);
         positionPID.setReference(tempTarget, ControlType.kPosition);
       }
+
+      SmartDashboard.putNumber("Intake Target Position", targetPosition);
+      SmartDashboard.putNumber("Intake Actual Position", absolutePositionEncoder.getPosition());
+      SmartDashboard.putNumber("Intake Motor Output", positionMotor.getOutputCurrent());
+      SmartDashboard.putNumber("Intake Gravity FF", FF);
   
-      if(counter > 100) {
-        System.out.println("========>> Target Position: " + targetPosition);
-        System.out.println("========>> Intake Speed: " + positionMotor.getOutputCurrent());
-        counter = 0;
-      }
+      // if(counter > 100) {
+      //   System.out.println("========>> Target Position: " + targetPosition);
+      //   System.out.println("========>> Intake Speed: " + positionMotor.getOutputCurrent());
+      //   counter = 0;
+      // }
   
   
     //   if(intakePosition == IntakePositions.Up){
@@ -222,13 +228,20 @@ public class IntakeSubsystem extends SubsystemBase {
       double joyX = container.assistantGetX();
       positionMotor.set(joyX / 5);
       
-      if(counter > 100) {
-        System.out.println("========>> Target Position: " + targetPosition);
-        System.out.println("========>> Intake Speed: " + positionMotor.getOutputCurrent());
-        System.out.println("=======>> Joystick Raw: " + joyX);
-      }
+      SmartDashboard.putNumber("Intake Target Position", targetPosition);
+      SmartDashboard.putNumber("Intake Actual Position", absolutePositionEncoder.getPosition());
+      SmartDashboard.putNumber("Intake Motor Output", positionMotor.getOutputCurrent());
+      SmartDashboard.putNumber("Intake Test Joystick", joyX);
+
+      
+      // if(counter > 100) {
+      //   System.out.println("========>> Target Position: " + targetPosition);
+      //   System.out.println("========>> Intake Speed: " + positionMotor.getOutputCurrent());
+      //   System.out.println("=======>> Joystick Raw: " + joyX);
+      //   counter = 0;
+      // }
     }
-    counter++;
+    //counter++;
 
 
 

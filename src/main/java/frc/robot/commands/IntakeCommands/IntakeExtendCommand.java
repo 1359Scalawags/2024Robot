@@ -4,6 +4,7 @@
 
 package frc.robot.commands.IntakeCommands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -26,7 +27,7 @@ public class IntakeExtendCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("-------------Start Intake Extend-------------  ");
+    if(Constants.kDebug) System.out.println("-------------Start Intake Extend-------------  ");
     
   }
 

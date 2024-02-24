@@ -16,6 +16,7 @@ package frc.robot;
 public final class Constants {
 
   public static final String robotName = "Siren";
+  public static final boolean kDebug = true;
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
