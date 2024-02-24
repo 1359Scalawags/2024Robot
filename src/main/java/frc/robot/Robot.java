@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
     m_currentContainer = m_robotContainer;
 
     //NOTE: As of 2024 LiveWindow is not enabled in Test Mode by default
-    enableLiveWindowInTest(true);
+    //enableLiveWindowInTest(true);
     
   }
 

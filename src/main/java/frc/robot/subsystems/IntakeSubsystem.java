@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.EncoderType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.SparkMaxAbsoluteEncoder;
@@ -56,6 +57,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private GravityAssistedFeedForward gravityFF;
  
   private SparkMaxPIDTuner positionPIDtuner;
+  private RelativeEncoder motorEncoder;
  
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
@@ -63,6 +65,8 @@ public class IntakeSubsystem extends SubsystemBase {
     topSushiMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kTopWheelMotorPortID, MotorType.kBrushless);
     bottomStarMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kBottomStarMotorPortID, MotorType.kBrushless);
     
+    
+
     safeMode = true;
     //setHoming(true);
 
@@ -82,6 +86,7 @@ public class IntakeSubsystem extends SubsystemBase {
     positionMotor.setInverted(true);
     positionMotor.setIdleMode(IdleMode.kBrake);
 
+    motorEncoder = positionMotor.getEncoder();
     // positionEncoder = positionMotor.getEncoder();
     // positionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
     absolutePositionEncoder = positionMotor.getAbsoluteEncoder();
@@ -92,22 +97,26 @@ public class IntakeSubsystem extends SubsystemBase {
     positionPID.setP(Constants.intakeSubsystem.kIntakeP);
     positionPID.setI(Constants.intakeSubsystem.kIntakeI);
     positionPID.setD(Constants.intakeSubsystem.kIntakeD);
-    positionPID.setFF(Constants.intakeSubsystem.kIntakeFF);
+    positionPID.setFF(Constants.intakeSubsystem.kInitialIntakeFF);
+    positionPID.setOutputRange(-1, 1);
 
-
+    positionPID.setFeedbackDevice(absolutePositionEncoder);
 
 
     positionLimiter = new SlewRateLimiter(
       Constants.intakeSubsystem.kPositionRateLimit,
      -Constants.intakeSubsystem.kPositionRateLimit,
-      Constants.intakeSubsystem.kPositionInitialValue);
+      //Constants.intakeSubsystem.kPositionInitialValue);
+      absolutePositionEncoder.getPosition());
+
     safeModeLimiter = new SlewRateLimiter(
       Constants.intakeSubsystem.kSafePositionRateLimit,
      -Constants.intakeSubsystem.kSafePositionRateLimit,
-      Constants.intakeSubsystem.kSafePositionInitialValue);
+     // Constants.intakeSubsystem.kSafePositionInitialValue);
+      absolutePositionEncoder.getPosition());
 
     gravityFF = new GravityAssistedFeedForward(Constants.intakeSubsystem.kGravityFF, Constants.intakeSubsystem.kOffsetAngle);
-    positionPIDtuner = new SparkMaxPIDTuner("PID Tuner", "Intake Position Motor", 1, positionPID);
+    //positionPIDtuner = new SparkMaxPIDTuner("PID Tuner", "Intake Position Motor", 1, positionPID);
 
     //Shuffleboard.getTab("LiveWindow").add(positionMotor);
     Shuffleboard.getTab("Intake").add("Position", positionMotor);
@@ -197,9 +206,10 @@ public class IntakeSubsystem extends SubsystemBase {
         double tempTarget = positionLimiter.calculate(targetPosition);
         positionPID.setReference(tempTarget, ControlType.kPosition);
       }
-
+      // positionPID.setReference(targetPosition, ControlType.kPosition);
       SmartDashboard.putNumber("Intake Target Position", targetPosition);
       SmartDashboard.putNumber("Intake Actual Position", absolutePositionEncoder.getPosition());
+      SmartDashboard.putNumber("Intake Motor Encoder", motorEncoder.getPosition());
       SmartDashboard.putNumber("Intake Motor Output", positionMotor.getOutputCurrent());
       SmartDashboard.putNumber("Intake RPM", absolutePositionEncoder.getVelocity());
       SmartDashboard.putNumber("Intake Gravity FF", FF);
@@ -227,7 +237,7 @@ public class IntakeSubsystem extends SubsystemBase {
     } else {
       RobotContainer container = Robot.getRobotContainer();
       double joyX = container.assistantGetX();
-      positionMotor.set(joyX / 5);
+      positionMotor.set(joyX/2);
       
       SmartDashboard.putNumber("Intake Target Position", targetPosition);
       SmartDashboard.putNumber("Intake Actual Position", absolutePositionEncoder.getPosition());

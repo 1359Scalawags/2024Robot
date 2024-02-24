@@ -90,13 +90,13 @@ public final class Constants {
     // public static final int kPositionMotorPort = 52;
     public static final double kStarMotorSpeed = 0.5;
     public static final double kStopNoteMotors = 0.0;
-    public static final double kpositionUp = 20.0;
-    public static final double kpositionDown = 150;
+    public static final double kpositionUp = 14.4;
+    public static final double kpositionDown = 175.2;
 
     // public static final double kMaxIntakePosition = 170.0;
     // public static final double kMinIntakePosition = 5.0;
-    public static final double kPositionMotorupSpeed = 0.5;
-    public static final double kPositionMotorDownSpeed = 0.5;
+    // public static final double kPositionMotorupSpeed = 0.5;
+    // public static final double kPositionMotorDownSpeed = 0.5;
 
     // public static final double kTargetPositionUp = 10.0; //Zero is the home position; this is inside the robot.  );
     // public static final double kTargetPositionDown = 170;
@@ -105,29 +105,27 @@ public final class Constants {
     public static final int kPositionMotorPortID = 24;
     public static final int kBottomStarMotorPortID = 22;
 
-    public static final double kPositionRateLimit = 120.0;
+    public static final double kPositionRateLimit = 60.0;
     public static final double kPositionInitialValue = 0.0;
-    public static final double kSafePositionRateLimit = 120.0;
-    public static final double kSafePositionInitialValue = 0.0;
-
-    public static final int kHomeLimitID = 0;
+    public static final double kSafePositionRateLimit = 60.0;
     public static final boolean kHomeLimitPressed = false;
     public static final double kHomingVel = 0.1;
     public static final double kHomingPosition = 15;
     public static final double kHomingOffset = 0.0;
     public static final double kSushiMotorSpeed = 0.5;
+    public static final int kHomeLimitID = 0;
    
     public static final double kIntakeConversionFactor = 360.0; // Now using an absolute encoder //4.39007;
 
-    public static final double kIntakeP = 0.24; //0.005
+    public static final double kIntakeP = 0.04; //0.005
     public static final double kIntakeI = 0;
-    public static final double kIntakeD = 0.005;
-    public static final double kIntakeFF = 0; //0.01; 
+    public static final double kIntakeD = 0.0;
+    public static final double kInitialIntakeFF = 0; //0.01; 
 
-    public static final double kGravityFF = 0.0; //0.0001
+    public static final double kGravityFF = 0.00; //0.0001
     public static final double kOffsetAngle = 0.0;
-    public static final double kMaxFF = 0.01;
-    public static final double kMinFF = 0;
+    public static final double kMaxFF = 0.1;
+    public static final double kMinFF = -kMaxFF;
     public static final double kPositionEncoderOffset = 210.0; //approximately sets 0 to rear-facing horizontal //avoids meridian flip
     public static final double kPositionTolerance = 0.5; // in degrees
     public static final double kZeroOffsetBuffer = 10.0;
