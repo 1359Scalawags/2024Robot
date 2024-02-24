@@ -58,20 +58,20 @@ public final class Constants {
   public static class shooterSubsystem {
     public static final int kShootingMotorLPort = 27;
     public static final int kShootingmotorRPort = 28;
-    public static final double kIdleshootingspeed = 0.0;
+    public static final double kIdleshootingspeed = 500;
     public static final double kstopshootingspeed = 0.0;
-    public static final double kShootingspeed = 0.5;
+    public static final double kShootingspeed = 1650;
 
-    public static final double kRightMotorP = 0.01;
+    public static final double kRightMotorP = 0.0001;
     public static final double kRightMotorI = 0.0;
     public static final double kRightMotorD = 0.0;
-	  public static final double kRightmotorFF = 0.0;
+	  public static final double kRightmotorFF = 0.000264;
     public static final double kRightMotorIZ = 0.0;
 
-    public static final double kLeftMotorP = 0.01;
+    public static final double kLeftMotorP = 0.0001;
     public static final double kLeftMotorI = 0.0;
     public static final double kLeftMotorD = 0.0;
-    public static final double kLeftmotorFF = 0.0;
+    public static final double kLeftmotorFF = 0.000264;
     public static final double kLeftMotorIZ = 0.0;
 
       //use these vals if we want to have same the PID for the shooter motors.

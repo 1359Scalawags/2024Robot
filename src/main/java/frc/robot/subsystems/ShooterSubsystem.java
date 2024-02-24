@@ -36,14 +36,12 @@ public class ShooterSubsystem extends SubsystemBase {
     shootingMotorR = new SendableCANSparkMax(Constants.shooterSubsystem.kShootingmotorRPort, MotorType.kBrushless);
       shootingMotorR.restoreFactoryDefaults();
       shootingMotorR.setIdleMode(IdleMode.kCoast);
-      shootingMotorR.setInverted(false);
-      shootingMotorR.setSmartCurrentLimit(0);
+      shootingMotorR.setInverted(true);
 
     shootingMotorL = new SendableCANSparkMax(Constants.shooterSubsystem.kShootingMotorLPort, MotorType.kBrushless);
       shootingMotorL.restoreFactoryDefaults();
       shootingMotorL.setIdleMode(IdleMode.kCoast);
       shootingMotorL.setInverted(false);
-      shootingMotorL.setSmartCurrentLimit(0);
 
     currentSpeed = ShooterSpeed.off;
 
@@ -91,10 +89,10 @@ public class ShooterSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     if (currentSpeed == ShooterSpeed.off) {
-      targetSpeed = Constants.shooterSubsystem.kShootingspeed;
+      targetSpeed = Constants.shooterSubsystem.kstopshootingspeed;
     }
     else if (currentSpeed == ShooterSpeed.low) {
-      targetSpeed = Constants.shooterSubsystem.kShootingspeed;
+      targetSpeed = Constants.shooterSubsystem.kIdleshootingspeed;
     }
     else {
       targetSpeed = Constants.shooterSubsystem.kShootingspeed;

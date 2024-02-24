@@ -55,7 +55,7 @@ public class RobotContainer {
     new File(Filesystem.getDeployDirectory(), "YAGSLConfigJSON/swerve/" + Constants.robotName));
   private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
   //private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
-  //private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   //private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
   private final Joystick driverJoystick = new Joystick(Constants.DriverJoystick.joystick);
   private final Joystick assistantJoystick = new Joystick(Constants.AssistantJoystick.joystick);
@@ -130,12 +130,12 @@ public class RobotContainer {
   private void configureBindings() {
     //TODO: finilize button layout, communicate with drive team if possible. Not everything should be on driverJoystick.
 
-    // //Shooter commands/binds above
-    // new JoystickButton(driverJoystick,Constants.DriverJoystick.shootButton)
-    //   .onTrue(new ShootCommand(m_shooterSubsystem));
+    //Shooter commands/binds above
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.shootButton)
+      .onTrue(new ShootCommand(m_shooterSubsystem));
     
-    // new JoystickButton(driverJoystick,Constants.DriverJoystick.shootButton)
-    //   .onFalse(new StopShootingCommand(m_shooterSubsystem));
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.shootButton)
+      .onFalse(new StopShootingCommand(m_shooterSubsystem));
 
 
     //Climber commands/binds above
