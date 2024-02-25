@@ -24,6 +24,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
+
 import java.io.File;
 import java.util.function.DoubleSupplier;
 import swervelib.SwerveController;
@@ -333,8 +335,10 @@ public boolean getFeildCentric () {
    * @param velocity Robot oriented {@link ChassisSpeeds}
    */
   public void drive(ChassisSpeeds velocity)
-  {
-    swerveDrive.drive(velocity);
+  { 
+    if(!DriverStation.isTest()) {
+     swerveDrive.drive(velocity);
+    }
   }
 
   @Override

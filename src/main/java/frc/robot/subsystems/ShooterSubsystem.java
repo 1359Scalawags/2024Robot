@@ -9,8 +9,12 @@ import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.extensions.SendableCANSparkMax;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -21,6 +25,8 @@ public class ShooterSubsystem extends SubsystemBase {
   private double targetSpeed;
   private SparkPIDController speedPIDR;
   private SparkPIDController speedPIDL;
+
+  private SlewRateLimiter shooterLimiter;
 
   enum ShooterSpeed {
     off,
@@ -59,7 +65,7 @@ public class ShooterSubsystem extends SubsystemBase {
       speedPIDL.setFF(Constants.shooterSubsystem.kLeftmotorFF);
       speedPIDL.setIZone(Constants.shooterSubsystem.kLeftMotorIZ);
     
-
+    shooterLimiter = new SlewRateLimiter(750);
 
   }
 
@@ -87,19 +93,29 @@ public class ShooterSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    if (currentSpeed == ShooterSpeed.off) {
-      targetSpeed = Constants.shooterSubsystem.kstopshootingspeed;
-    }
-    else if (currentSpeed == ShooterSpeed.low) {
-      targetSpeed = Constants.shooterSubsystem.kIdleshootingspeed;
+    if(!DriverStation.isTest()){
+      // This method will be called once per scheduler run
+      if (currentSpeed == ShooterSpeed.off) {
+        targetSpeed = Constants.shooterSubsystem.kstopshootingspeed;
+      }
+      else if (currentSpeed == ShooterSpeed.low) {
+        targetSpeed = Constants.shooterSubsystem.kIdleshootingspeed;
+      }
+      else {
+        targetSpeed = Constants.shooterSubsystem.kShootingspeed;
+      }
+      double limitSpeed = shooterLimiter.calculate(targetSpeed);
+      speedPIDR.setReference(limitSpeed, ControlType.kVelocity);
+      speedPIDL.setReference(limitSpeed, ControlType.kVelocity);
     }
     else {
-      targetSpeed = Constants.shooterSubsystem.kShootingspeed;
-    }
+      double joyX = Robot.getRobotContainer().driverGetX()/2;
+      shootingMotorL.set(joyX);
+      shootingMotorR.set(joyX);
 
-    speedPIDR.setReference(targetSpeed, ControlType.kVelocity);
-    speedPIDL.setReference(targetSpeed, ControlType.kVelocity);
+
+
+    }
   }
 
   @Override
