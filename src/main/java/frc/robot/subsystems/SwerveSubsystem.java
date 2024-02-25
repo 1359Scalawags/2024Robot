@@ -10,6 +10,8 @@ import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
+
+import edu.wpi.first.cscore.CameraServerJNI.TelemetryKind;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -111,6 +113,11 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public SwerveSubsystem(SwerveDriveConfiguration driveCfg, SwerveControllerConfiguration controllerCfg)
   {
+    //TODO: Choose verbosity level for dashboard
+    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.LOW; //shows only field position
+    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH; //shows all numeric and visual data
+    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.NONE; //shows no swerve data
+    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.MACHINE; //shows only swerve data -- THIS IS DEFAULT
     swerveDrive = new SwerveDrive(driveCfg, controllerCfg, maximumSpeed);
   }
 
