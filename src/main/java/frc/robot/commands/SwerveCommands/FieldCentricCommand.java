@@ -37,7 +37,7 @@ public class FieldCentricCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.toggleFeildCentric();
+    //m_subsystem.toggleFeildCentric();
   }
 
   // Called once the command ends or is interrupted.
