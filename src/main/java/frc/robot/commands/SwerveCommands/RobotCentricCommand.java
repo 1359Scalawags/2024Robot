@@ -8,19 +8,19 @@ import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class FieldCentricCommand extends Command {
+public class RobotCentricCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SwerveSubsystem m_subsystem;
 
- //private boolean fieldCentric = true;
+ private boolean robotCentric = true;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public FieldCentricCommand(SwerveSubsystem subsystem) {
+  public RobotCentricCommand(SwerveSubsystem subsystem) {
     m_subsystem = subsystem; 
-    //fieldCentric = state; 
+    // robotCentric = state; 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -30,14 +30,14 @@ public class FieldCentricCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_subsystem.SetfeildCentric(true);
+    m_subsystem.SetfeildCentric(false);
    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.toggleFeildCentric();
+    //m_subsystem.toggleFeildCentric();
   }
 
   // Called once the command ends or is interrupted.
