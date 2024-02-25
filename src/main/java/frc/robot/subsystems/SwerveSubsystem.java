@@ -92,8 +92,8 @@ public class SwerveSubsystem extends SubsystemBase
 
     //TODO: Choose verbosity level for dashboard
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary objects being created.
-    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
-    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.LOW; //shows only field position
+    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
+    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.LOW; //shows only field position
     //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.NONE; //shows no swerve data
     //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.MACHINE; //shows only swerve
     try

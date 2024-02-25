@@ -47,12 +47,12 @@ public class IntakeSubsystem extends SubsystemBase {
   private double targetPosition;
   private SparkPIDController positionPID;
   private SlewRateLimiter positionLimiter;
-  private SlewRateLimiter safeModeLimiter;
+ // private SlewRateLimiter safeModeLimiter;
 
   private DigitalInput intakeHomeLimit;
   private boolean homing;
 
-  private boolean safeMode;
+ // private boolean safeMode;
 
   private GravityAssistedFeedForward gravityFF;
  
@@ -67,7 +67,7 @@ public class IntakeSubsystem extends SubsystemBase {
     
     
 
-    safeMode = true;
+    //safeMode = true;
     //setHoming(true);
 
     topSushiMotor.setInverted(false);
@@ -109,16 +109,16 @@ public class IntakeSubsystem extends SubsystemBase {
       //Constants.intakeSubsystem.kPositionInitialValue);
       absolutePositionEncoder.getPosition());
 
-    safeModeLimiter = new SlewRateLimiter(
-      Constants.intakeSubsystem.kSafePositionRateLimit,
-     -Constants.intakeSubsystem.kSafePositionRateLimit,
-     // Constants.intakeSubsystem.kSafePositionInitialValue);
-      absolutePositionEncoder.getPosition());
+    // safeModeLimiter = new SlewRateLimiter(
+    //   Constants.intakeSubsystem.kSafePositionRateLimit,
+    //  -Constants.intakeSubsystem.kSafePositionRateLimit,
+    //  // Constants.intakeSubsystem.kSafePositionInitialValue);
+    //   absolutePositionEncoder.getPosition());
 
     gravityFF = new GravityAssistedFeedForward(Constants.intakeSubsystem.kGravityFF, Constants.intakeSubsystem.kOffsetAngle);
-    //positionPIDtuner = new SparkMaxPIDTuner("PID Tuner", "Intake Position Motor", 1, positionPID);
+    positionPIDtuner = new SparkMaxPIDTuner("PID Tuner", "Intake Position Motor", 1, positionPID);
 
-    //Shuffleboard.getTab("LiveWindow").add(positionMotor);
+    // Shuffleboard.getTab("LiveWindow").add(positionMotor);
     Shuffleboard.getTab("Intake").add("Position", positionMotor);
     Shuffleboard.getTab("Intake").add("Position Limitswitch", intakeHomeLimit);
     // Shuffleboard.getTab("Intake").add("Position Encoder", absolutePositionEncoder);
@@ -170,9 +170,9 @@ public class IntakeSubsystem extends SubsystemBase {
   // }
 
   //TODO: need a command for exiting safe mode?
-  public void setSafeMode(boolean safeModeState){
-    safeMode = safeModeState;
-  }
+  // public void setSafeMode(boolean safeModeState){
+  //   safeMode = safeModeState;
+  // }
 
   // public boolean isHome (){
   //   return intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed;
@@ -199,13 +199,13 @@ public class IntakeSubsystem extends SubsystemBase {
       double FF = MathUtil.clamp(gravityFF.calculate(absolutePositionEncoder.getPosition()), Constants.intakeSubsystem.kMinFF, Constants.intakeSubsystem.kMaxFF);
       positionPID.setFF(FF);
 
-      if(safeMode) {
-        double tempTarget = safeModeLimiter.calculate(targetPosition);
-        positionPID.setReference(tempTarget, ControlType.kPosition);
-      } else {
+      // if(safeMode) {
+      //   double tempTarget = safeModeLimiter.calculate(targetPosition);
+      //   positionPID.setReference(tempTarget, ControlType.kPosition);
+      // } else {
         double tempTarget = positionLimiter.calculate(targetPosition);
         positionPID.setReference(tempTarget, ControlType.kPosition);
-      }
+      // }
       // positionPID.setReference(targetPosition, ControlType.kPosition);
       SmartDashboard.putNumber("Intake Target Position", targetPosition);
       SmartDashboard.putNumber("Intake Actual Position", absolutePositionEncoder.getPosition());
