@@ -89,8 +89,12 @@ public class SwerveSubsystem extends SubsystemBase
     // System.out.println("\t\"drive\": " + driveConversionFactor);
     // System.out.println("}");
 
+    //TODO: Choose verbosity level for dashboard
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary objects being created.
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
+    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.LOW; //shows only field position
+    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.NONE; //shows no swerve data
+    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.MACHINE; //shows only swerve data
     try
     {
       swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
