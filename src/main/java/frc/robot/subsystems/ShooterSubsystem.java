@@ -65,7 +65,7 @@ public class ShooterSubsystem extends SubsystemBase {
       speedPIDL.setFF(Constants.shooterSubsystem.kLeftmotorFF);
       speedPIDL.setIZone(Constants.shooterSubsystem.kLeftMotorIZ);
     
-    shooterLimiter = new SlewRateLimiter(750);
+    shooterLimiter = new SlewRateLimiter(1500);
 
   }
 

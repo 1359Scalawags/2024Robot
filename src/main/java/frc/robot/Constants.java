@@ -63,10 +63,10 @@ public final class Constants {
     public static final double kstopshootingspeed = 0.0;
     public static final double kShootingspeed = 1650;
 
-    public static final double kRightMotorP = 0.0001;
+    public static final double kRightMotorP = 0.0002;
     public static final double kRightMotorI = 0.0;
     public static final double kRightMotorD = 0.0;
-	  public static final double kRightmotorFF = 0.000264;
+	  public static final double kRightmotorFF = 0.00033;
     public static final double kRightMotorIZ = 0.0;
 
     public static final double kLeftMotorP = kRightMotorP;
@@ -88,6 +88,7 @@ public final class Constants {
   public static class intakeSubsystem {
     // public static final int kNoteMotorPort = 53;
     // public static final int kPositionMotorPort = 52;
+    public static final double kSushiMotorSpeed = 0.8;
     public static final double kStarMotorSpeed = 0.5;
     public static final double kStopNoteMotors = 0.0;
     public static final double kpositionUp = 14.4;
@@ -112,19 +113,18 @@ public final class Constants {
     public static final double kHomingVel = 0.1;
     public static final double kHomingPosition = 15;
     public static final double kHomingOffset = 0.0;
-    public static final double kSushiMotorSpeed = 0.5;
     public static final int kHomeLimitID = 0;
    
     public static final double kIntakeConversionFactor = 360.0; // Now using an absolute encoder //4.39007;
 
-    public static final double kIntakeP = 0.001; //0.005
+    public static final double kIntakeP = 0.01; //0.005
     public static final double kIntakeI = 0;
     public static final double kIntakeD = 0.0;
     public static final double kInitialIntakeFF = 0; //0.01; 
 
-    public static final double kGravityFF = 0.002; //0.0001
+    public static final double kGravityFF = 0.0005; //0.0001
     public static final double kOffsetAngle = 0.0;
-    public static final double kMaxFF = 0.1;
+    public static final double kMaxFF = 0.001;
     public static final double kMinFF = -kMaxFF;
     public static final double kPositionEncoderOffset = 210.0; //approximately sets 0 to rear-facing horizontal //avoids meridian flip
     public static final double kPositionTolerance = 0.5; // in degrees
