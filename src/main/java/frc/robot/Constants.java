@@ -156,6 +156,7 @@ public final class Constants {
     public static final int joystick = 0;
     public static final int zeroGyroButton = 7;
     public static final int toggleFeildCentricButton = 8;
+    public static final int toggleRobotCentricButton = 10;
     public static final int driveForwardButton = 12;
 
 

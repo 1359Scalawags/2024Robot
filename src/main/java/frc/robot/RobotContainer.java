@@ -21,6 +21,7 @@ import frc.robot.commands.ShootingCommands.StopShootingCommand;
 import frc.robot.commands.SwerveCommands.DriveForwardCommand;
 import frc.robot.commands.SwerveCommands.FeildCentricDrive;
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
+import frc.robot.commands.SwerveCommands.RobotCentricCommand;
 import frc.robot.commands.SwerveCommands.ZeroGyroCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -172,6 +173,9 @@ public class RobotContainer {
 
     new JoystickButton(driverJoystick,Constants.DriverJoystick.toggleFeildCentricButton)
       .onTrue(new FieldCentricCommand(m_SwerveSubsystem));
+
+    new JoystickButton(driverJoystick,Constants.DriverJoystick.toggleRobotCentricButton)
+      .onTrue(new RobotCentricCommand(m_SwerveSubsystem));
 
     new JoystickButton(driverJoystick,Constants.DriverJoystick.driveForwardButton)
       .onTrue(new DriveForwardCommand(m_SwerveSubsystem));
