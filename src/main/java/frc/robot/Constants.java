@@ -63,10 +63,10 @@ public final class Constants {
     public static final double kstopshootingspeed = 0.0;
     public static final double kShootingspeed = 1650;
 
-    public static final double kRightMotorP = 0.001;
+    public static final double kRightMotorP = 0.0001;
     public static final double kRightMotorI = 0.0;
     public static final double kRightMotorD = 0.0;
-	  public static final double kRightmotorFF = 0.000;
+	  public static final double kRightmotorFF = 0.000264;
     public static final double kRightMotorIZ = 0.0;
 
     public static final double kLeftMotorP = kRightMotorP;
