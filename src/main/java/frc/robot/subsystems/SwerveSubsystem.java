@@ -14,6 +14,7 @@ import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.cscore.CameraServerJNI.TelemetryKind;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -94,7 +95,7 @@ public class SwerveSubsystem extends SubsystemBase
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
     //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.LOW; //shows only field position
     //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.NONE; //shows no swerve data
-    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.MACHINE; //shows only swerve data
+    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.MACHINE; //shows only swerve
     try
     {
       swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
@@ -515,6 +516,17 @@ public boolean getFeildCentric () {
   public void lock()
   {
     swerveDrive.lockPose();
+  }
+
+  //TODO: Test to see if this actually works properly
+  public void reverse(boolean isReversed) {
+    if(isReversed) {
+      Rotation3d turn180 = new Rotation3d(0,0,180);
+      swerveDrive.setGyroOffset(turn180);     
+    } else {
+      Rotation3d turn0 = new Rotation3d(0,0,0);
+      swerveDrive.setGyroOffset(turn0);
+    }
   }
 
   /**
