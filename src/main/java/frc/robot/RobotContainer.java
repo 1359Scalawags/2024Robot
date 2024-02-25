@@ -21,6 +21,7 @@ import frc.robot.commands.ShootingCommands.StopShootingCommand;
 import frc.robot.commands.SwerveCommands.DriveForwardCommand;
 import frc.robot.commands.SwerveCommands.FeildCentricDrive;
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
+import frc.robot.commands.SwerveCommands.ReverseDriveCommand;
 import frc.robot.commands.SwerveCommands.RobotCentricCommand;
 import frc.robot.commands.SwerveCommands.ZeroGyroCommand;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -180,6 +181,11 @@ public class RobotContainer {
     new JoystickButton(driverJoystick,Constants.DriverJoystick.driveForwardButton)
       .onTrue(new DriveForwardCommand(m_SwerveSubsystem));
 
+    new JoystickButton(driverJoystick, Constants.DriverJoystick.reverseDrive)
+      .onTrue(new ReverseDriveCommand(m_SwerveSubsystem));
+
+    // new JoystickButton(driverJoystick, Constants.DriverJoystick.unReverseDrive)
+    //   .onTrue(new UnReverseDriveCommand(m_SwerveSubsystem));
   }
 
 
@@ -204,4 +210,6 @@ public class RobotContainer {
   public Command getIntakeHomingCommand() {
     return new HomeIntakeCommand(m_IntakeSubsystem);
   }
+
+  
 }
