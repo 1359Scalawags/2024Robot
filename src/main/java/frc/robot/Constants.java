@@ -69,11 +69,11 @@ public final class Constants {
 	  public static final double kRightmotorFF = 0.000264;
     public static final double kRightMotorIZ = 0.0;
 
-    public static final double kLeftMotorP = 0.0001;
-    public static final double kLeftMotorI = 0.0;
-    public static final double kLeftMotorD = 0.0;
-    public static final double kLeftmotorFF = 0.000264;
-    public static final double kLeftMotorIZ = 0.0;
+    public static final double kLeftMotorP = kRightMotorP;
+    public static final double kLeftMotorI = kRightMotorI;
+    public static final double kLeftMotorD = kRightMotorD;
+    public static final double kLeftmotorFF = kRightmotorFF;
+    public static final double kLeftMotorIZ = kRightMotorIZ;
 
       //use these vals if we want to have same the PID for the shooter motors.
     // public static final double kShooterMotorP = 0.0;
@@ -91,7 +91,7 @@ public final class Constants {
     public static final double kStarMotorSpeed = 0.5;
     public static final double kStopNoteMotors = 0.0;
     public static final double kpositionUp = 14.4;
-    public static final double kpositionDown = 175.2;
+    public static final double kpositionDown = 174;
 
     // public static final double kMaxIntakePosition = 170.0;
     // public static final double kMinIntakePosition = 5.0;
@@ -107,7 +107,7 @@ public final class Constants {
 
     public static final double kPositionRateLimit = 60.0;
     public static final double kPositionInitialValue = 0.0;
-    public static final double kSafePositionRateLimit = 60.0;
+    //public static final double kSafePositionRateLimit = 60.0;
     public static final boolean kHomeLimitPressed = false;
     public static final double kHomingVel = 0.1;
     public static final double kHomingPosition = 15;
@@ -117,12 +117,12 @@ public final class Constants {
    
     public static final double kIntakeConversionFactor = 360.0; // Now using an absolute encoder //4.39007;
 
-    public static final double kIntakeP = 0.04; //0.005
+    public static final double kIntakeP = 0.001; //0.005
     public static final double kIntakeI = 0;
     public static final double kIntakeD = 0.0;
     public static final double kInitialIntakeFF = 0; //0.01; 
 
-    public static final double kGravityFF = 0.00; //0.0001
+    public static final double kGravityFF = 0.002; //0.0001
     public static final double kOffsetAngle = 0.0;
     public static final double kMaxFF = 0.1;
     public static final double kMinFF = -kMaxFF;
