@@ -158,8 +158,8 @@ public final class Constants {
     public static final int toggleFeildCentricButton = 8;
     public static final int toggleRobotCentricButton = 10;
     public static final int driveForwardButton = 12;
-    public static final int unReverseDrive = 0;
-    public static final int reverseDrive = 0;
+    public static final int unReverseDrive = 16;
+    public static final int reverseDrive = 11;
 
 
   }
