@@ -88,7 +88,7 @@ public final class Constants {
   public static class intakeSubsystem {
     // public static final int kNoteMotorPort = 53;
     // public static final int kPositionMotorPort = 52;
-    public static final double kSushiMotorSpeed = 0.8;
+    public static final double kSushiMotorSpeed = 0.95;
     public static final double kStarMotorSpeed = 0.5;
     public static final double kStopNoteMotors = 0.0;
     public static final double kpositionUp = 14.4;
