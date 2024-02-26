@@ -61,7 +61,8 @@ public final class Constants {
     public static final int kShootingmotorRPort = 28;
     public static final double kIdleshootingspeed = 500;
     public static final double kstopshootingspeed = 0.0;
-    public static final double kShootingspeed = 1650;
+    public static final double kShootingspeed = 1800;
+    public static final double kShootingspeedlimit = 2000;
 
     public static final double kRightMotorP = 0.0002;
     public static final double kRightMotorI = 0.0;
@@ -88,8 +89,11 @@ public final class Constants {
   public static class intakeSubsystem {
     // public static final int kNoteMotorPort = 53;
     // public static final int kPositionMotorPort = 52;
-    public static final double kSushiMotorSpeed = 0.95;
-    public static final double kStarMotorSpeed = 0.5;
+    public static final double kSushiMotorPushOutSpeed = 0.95;
+    public static final double kStarMotorPushOutSpeed = 0.5;
+    public static final double kSushiMotorDrawInSpeed = 0.8;
+    public static final double kStarMotorDrawInSpeed = 0.3;
+
     public static final double kStopNoteMotors = 0.0;
     public static final double kpositionUp = 14.4;
     public static final double kpositionDown = 174;

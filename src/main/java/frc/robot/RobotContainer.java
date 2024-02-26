@@ -187,6 +187,8 @@ public class RobotContainer {
 
     new JoystickButton(driverJoystick, Constants.DriverJoystick.unReverseDrive)
       .onTrue(new UnReverseDriveCommand(m_SwerveSubsystem));
+
+      //TODO: Add lock and unlock climber buttons
   }
 
 
