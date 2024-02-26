@@ -23,6 +23,7 @@ import frc.robot.commands.SwerveCommands.FeildCentricDrive;
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
 import frc.robot.commands.SwerveCommands.ReverseDriveCommand;
 import frc.robot.commands.SwerveCommands.RobotCentricCommand;
+import frc.robot.commands.SwerveCommands.UnReverseDriveCommand;
 import frc.robot.commands.SwerveCommands.ZeroGyroCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -184,8 +185,8 @@ public class RobotContainer {
     new JoystickButton(driverJoystick, Constants.DriverJoystick.reverseDrive)
       .onTrue(new ReverseDriveCommand(m_SwerveSubsystem));
 
-    // new JoystickButton(driverJoystick, Constants.DriverJoystick.unReverseDrive)
-    //   .onTrue(new UnReverseDriveCommand(m_SwerveSubsystem));
+    new JoystickButton(driverJoystick, Constants.DriverJoystick.unReverseDrive)
+      .onTrue(new UnReverseDriveCommand(m_SwerveSubsystem));
   }
 
 
