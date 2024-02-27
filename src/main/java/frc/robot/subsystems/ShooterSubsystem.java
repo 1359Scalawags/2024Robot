@@ -78,7 +78,7 @@ public class ShooterSubsystem extends SubsystemBase {
     // shootingMotorR.set(-Constants.Shooter.kShootingspeed);
   }
 
-  public void idleSpinShootingMotor() {
+  public void ampSpinShootingMotor() {
     currentSpeed = ShooterSpeed.low;
 
     // shootingMotorL.set(Constants.Shooter.kIdleshootingspeed);
@@ -101,7 +101,7 @@ public class ShooterSubsystem extends SubsystemBase {
         targetSpeed = Constants.shooterSubsystem.kstopshootingspeed;
       }
       else if (currentSpeed == ShooterSpeed.low) {
-        targetSpeed = Constants.shooterSubsystem.kIdleshootingspeed;
+        targetSpeed = Constants.shooterSubsystem.kAmpshootingspeed;
       }
       else {
         targetSpeed = Constants.shooterSubsystem.kShootingspeed;

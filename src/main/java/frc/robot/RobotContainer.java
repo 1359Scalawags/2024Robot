@@ -18,8 +18,9 @@ import frc.robot.commands.IntakeCommands.IntakeExtendCommand;
 import frc.robot.commands.IntakeCommands.IntakeRetractCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteInCommand;
+import frc.robot.commands.ShootingCommands.AmpShootCommand;
 import frc.robot.commands.ShootingCommands.ShootCommand;
-import frc.robot.commands.ShootingCommands.StopShootingCommand;
+import frc.robot.commands.ShootingCommands.StopAmpShootingCommand;
 import frc.robot.commands.SwerveCommands.DriveForwardCommand;
 import frc.robot.commands.SwerveCommands.FeildCentricDrive;
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
@@ -140,7 +141,13 @@ public class RobotContainer {
       .onTrue(new ShootCommand(m_shooterSubsystem));
     
     new JoystickButton(assistantJoystick,Constants.AssistantJoystick.shootButton)
-      .onFalse(new StopShootingCommand(m_shooterSubsystem));
+      .onFalse(new StopAmpShootingCommand(m_shooterSubsystem));
+
+    new JoystickButton(assistantJoystick, Constants.AssistantJoystick.ampShootingButton)
+      .onTrue(new AmpShootCommand(m_shooterSubsystem));
+    
+    new JoystickButton(assistantJoystick, Constants.AssistantJoystick.ampShootingButton)
+      .onFalse(new StopAmpShootingCommand(m_shooterSubsystem));
 
 
     //Climber commands/binds above
