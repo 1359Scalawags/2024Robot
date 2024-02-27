@@ -6,8 +6,10 @@ package frc.robot;
 
 import frc.robot.commands.ArmCommands.ExtendArmCommand;
 import frc.robot.commands.ArmCommands.HomeClimberCommand;
+import frc.robot.commands.ArmCommands.LockClimberCommand;
 import frc.robot.commands.ArmCommands.MoveClimberArms;
 import frc.robot.commands.ArmCommands.RetractArmCommand;
+import frc.robot.commands.ArmCommands.UnlockClimberCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteInCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteOutCommand;
@@ -146,7 +148,7 @@ public class RobotContainer {
 
     new JoystickButton(assistantJoystick,Constants.AssistantJoystick.retractClimberArmButton)
       .onTrue(new RetractArmCommand(m_ClimberSubsystem));
-
+      
     // intake commands/binds above
     new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeExtendButton)
       .onTrue(new IntakeExtendCommand(m_IntakeSubsystem));

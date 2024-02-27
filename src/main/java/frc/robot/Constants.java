@@ -45,6 +45,8 @@ public final class Constants {
     public static final int kRightClimberID = 26;
     public static final int kLeftHomeLimitport = 2;
     public static final int kRightHomeLimitport = 1;
+    public static final int kLockClimber = -1;
+    public static final int kUnlockClimber = -1;
     public static final double kUpperPosition = 13.5;
     public static final double kHomingspeed = -0.1;
     public static final double kHomingPosition = 0.0;
@@ -172,6 +174,8 @@ public final class Constants {
     public static final int intakeRetractButton = 4;
     public static final int intakeNoteInbutton = 7;
     public static final int intakeNoteOutbutton = 8;
+    public static final int lockClimber = -1;
+    public static final int unlockClimber = -1;
 
   }
 
