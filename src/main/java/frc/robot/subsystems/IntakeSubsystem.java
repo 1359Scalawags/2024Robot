@@ -73,8 +73,8 @@ public class IntakeSubsystem extends SubsystemBase {
     topSushiMotor.setInverted(false);
     bottomStarMotor.setInverted(false);
 
-    topSushiMotor.setIdleMode(IdleMode.kBrake);
-    bottomStarMotor.setIdleMode(IdleMode.kBrake);
+    topSushiMotor.setIdleMode(IdleMode.kCoast);
+    bottomStarMotor.setIdleMode(IdleMode.kCoast);
 
 
 
@@ -119,6 +119,8 @@ public class IntakeSubsystem extends SubsystemBase {
     positionPIDtuner = new SparkMaxPIDTuner("PID Tuner", "Intake Position Motor", 1, positionPID);
 
     // Shuffleboard.getTab("LiveWindow").add(positionMotor);
+    Shuffleboard.getTab("Intake").add("Star Motor", bottomStarMotor);
+    Shuffleboard.getTab("Intake").add("Sushi Motor", topSushiMotor);
     Shuffleboard.getTab("Intake").add("Position", positionMotor);
     Shuffleboard.getTab("Intake").add("Position Limitswitch", intakeHomeLimit);
     // Shuffleboard.getTab("Intake").add("Position Encoder", absolutePositionEncoder);
@@ -130,13 +132,13 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void ejectNote(){ 
-    topSushiMotor.set(-Constants.intakeSubsystem.kSushiMotorSpeed);
-    bottomStarMotor.set(-Constants.intakeSubsystem.kStarMotorSpeed);
+    topSushiMotor.set(-Constants.intakeSubsystem.kSushiMotorPushOutSpeed);
+    bottomStarMotor.set(-Constants.intakeSubsystem.kStarMotorPushOutSpeed);
   }
 
   public void injectNote(){
-    topSushiMotor.set(Constants.intakeSubsystem.kSushiMotorSpeed);
-    bottomStarMotor.set(Constants.intakeSubsystem.kStarMotorSpeed);
+    topSushiMotor.set(Constants.intakeSubsystem.kSushiMotorDrawInSpeed);
+    bottomStarMotor.set(Constants.intakeSubsystem.kStarMotorDrawInSpeed);
   }
   
   public void stopNoteMotors(){

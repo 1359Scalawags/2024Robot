@@ -25,6 +25,7 @@ import frc.robot.commands.SwerveCommands.FeildCentricDrive;
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
 import frc.robot.commands.SwerveCommands.ReverseDriveCommand;
 import frc.robot.commands.SwerveCommands.RobotCentricCommand;
+import frc.robot.commands.SwerveCommands.UnReverseDriveCommand;
 import frc.robot.commands.SwerveCommands.ZeroGyroCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -169,6 +170,13 @@ public class RobotContainer {
     new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteOutbutton)
     .onFalse(new IntakeWheelsOffCommand(m_IntakeSubsystem));
 
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.lockClimberButton)
+    .onTrue(new LockClimberCommand(m_ClimberSubsystem));
+
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.unlockClimberButtom)
+    .onTrue(new UnlockClimberCommand(m_ClimberSubsystem));
+
+
 
     // Drive subsystem zero gyro, field centric.
     new JoystickButton(driverJoystick,Constants.DriverJoystick.zeroGyroButton)
@@ -186,8 +194,10 @@ public class RobotContainer {
     new JoystickButton(driverJoystick, Constants.DriverJoystick.reverseDrive)
       .onTrue(new ReverseDriveCommand(m_SwerveSubsystem));
 
-    // new JoystickButton(driverJoystick, Constants.DriverJoystick.unReverseDrive)
-    //   .onTrue(new UnReverseDriveCommand(m_SwerveSubsystem));
+    new JoystickButton(driverJoystick, Constants.DriverJoystick.unReverseDrive)
+      .onTrue(new UnReverseDriveCommand(m_SwerveSubsystem));
+
+      //TODO: Add lock and unlock climber buttons
   }
 
 
