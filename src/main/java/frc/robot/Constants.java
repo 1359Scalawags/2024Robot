@@ -137,6 +137,8 @@ public final class Constants {
     public static final double kPositionEncoderOffset = 210.0; //approximately sets 0 to rear-facing horizontal //avoids meridian flip
     public static final double kPositionTolerance = 0.5; // in degrees
     public static final double kZeroOffsetBuffer = 10.0;
+    public static final double kInjectNoteCorrectionStopTime = 0.5;
+    public static final double kInjectNoteCorrectionStartTime = 0.2;
 
 
   }
