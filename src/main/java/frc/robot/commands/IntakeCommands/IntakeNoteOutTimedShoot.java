@@ -4,13 +4,16 @@
 
 package frc.robot.commands.IntakeCommands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
+
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
 public class IntakeNoteOutTimedShoot extends Command {
   private final IntakeSubsystem m_IntakeSubsystem;
-
+  private Timer startTimer;
   /**
    *command to turn belt on
    * 
@@ -18,19 +21,33 @@ public class IntakeNoteOutTimedShoot extends Command {
    */
   public IntakeNoteOutTimedShoot(IntakeSubsystem subsystem) {
     m_IntakeSubsystem = subsystem;
+      startTimer = new Timer();
+
+
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
+      
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    startTimer.reset();
+    startTimer.start();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_IntakeSubsystem.ejectNote();
+      if (startTimer.get() >= Constants.shooterSubsystem.kStartShooterTimer) {
+        m_IntakeSubsystem.ejectNote();
+      }
+
+
+    
   }
 
   // Called once the command ends or is interrupted.
@@ -39,7 +56,7 @@ public class IntakeNoteOutTimedShoot extends Command {
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
+  public boolean isFinished() {    
     return true;
   }
 }
