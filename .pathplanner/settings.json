@@ -2,8 +2,17 @@
   "robotWidth": 0.9,
   "robotLength": 0.9,
   "holonomicMode": true,
-  "pathFolders": [],
-  "autoFolders": [],
+  "pathFolders": [
+    "Move out of Community",
+    "Move to Amp",
+    "Move to Speaker",
+    "Get First Note"
+  ],
+  "autoFolders": [
+    "Basic auto",
+    "Standard Auto",
+    "Notes Autos"
+  ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
