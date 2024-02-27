@@ -176,7 +176,8 @@ public final class Constants {
     public static final int intakeRetractButton = 4;
     public static final int intakeNoteInbutton = 7;
     public static final int intakeNoteOutbutton = 8;
-
+    public static final int unlockClimberButtom = 5;
+    public static final int lockClimberButton = 10;
   }
 
   public static final class UI {

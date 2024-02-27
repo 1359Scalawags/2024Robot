@@ -6,8 +6,10 @@ package frc.robot;
 
 import frc.robot.commands.ArmCommands.ExtendArmCommand;
 import frc.robot.commands.ArmCommands.HomeClimberCommand;
+import frc.robot.commands.ArmCommands.LockClimberCommand;
 import frc.robot.commands.ArmCommands.MoveClimberArms;
 import frc.robot.commands.ArmCommands.RetractArmCommand;
+import frc.robot.commands.ArmCommands.UnlockClimberCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteInCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteOutCommand;
@@ -167,6 +169,13 @@ public class RobotContainer {
 
     new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteOutbutton)
     .onFalse(new IntakeWheelsOffCommand(m_IntakeSubsystem));
+
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.lockClimberButton)
+    .onTrue(new LockClimberCommand(m_ClimberSubsystem));
+
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.unlockClimberButtom)
+    .onTrue(new UnlockClimberCommand(m_ClimberSubsystem));
+
 
 
     // Drive subsystem zero gyro, field centric.
