@@ -50,13 +50,14 @@ public class ShootTimedCommand extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+      m_subsystem.stopSpinShootingMotor();    
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     if (stopTimer.get() >= Constants.shooterSubsystem.kStopShooterTime ) {
-      m_subsystem.stopSpinShootingMotor();
       return true;
     } else {
       return false;
