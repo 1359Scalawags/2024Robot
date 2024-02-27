@@ -53,7 +53,8 @@ public class IntakeNoteOutTimedShoot extends Command {
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {    
+  public boolean isFinished() {  
+    //TODO: This will finish immediately  
     return true;
   }
 }
