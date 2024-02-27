@@ -4,22 +4,29 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.EncoderType;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkAbsoluteEncoder;
+import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.extensions.GravityAssistedFeedForward;
 import frc.robot.extensions.SendableCANSparkMax;
+import frc.robot.extensions.SparkMaxPIDTuner;
 
 
 public class IntakeSubsystem extends SubsystemBase {
@@ -34,19 +41,23 @@ public class IntakeSubsystem extends SubsystemBase {
   private SendableCANSparkMax topSushiMotor;
   private SendableCANSparkMax bottomStarMotor;
   private SendableCANSparkMax positionMotor;
-  private RelativeEncoder positionEncoder;
+  private SparkAbsoluteEncoder absolutePositionEncoder;
+  // private RelativeEncoder positionEncoder;
  
   private double targetPosition;
   private SparkPIDController positionPID;
   private SlewRateLimiter positionLimiter;
-  private SlewRateLimiter safeModeLimiter;
+ // private SlewRateLimiter safeModeLimiter;
 
   private DigitalInput intakeHomeLimit;
   private boolean homing;
 
-  private boolean safeMode;
+ // private boolean safeMode;
+
+  private GravityAssistedFeedForward gravityFF;
  
- 
+  private SparkMaxPIDTuner positionPIDtuner;
+  private RelativeEncoder motorEncoder;
  
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
@@ -54,14 +65,16 @@ public class IntakeSubsystem extends SubsystemBase {
     topSushiMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kTopWheelMotorPortID, MotorType.kBrushless);
     bottomStarMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kBottomStarMotorPortID, MotorType.kBrushless);
     
-    safeMode = true;
-    setHoming(true);
+    
+
+    //safeMode = true;
+    //setHoming(true);
 
     topSushiMotor.setInverted(false);
     bottomStarMotor.setInverted(false);
 
-    topSushiMotor.setIdleMode(IdleMode.kBrake);
-    bottomStarMotor.setIdleMode(IdleMode.kBrake);
+    topSushiMotor.setIdleMode(IdleMode.kCoast);
+    bottomStarMotor.setIdleMode(IdleMode.kCoast);
 
 
 
@@ -73,40 +86,59 @@ public class IntakeSubsystem extends SubsystemBase {
     positionMotor.setInverted(true);
     positionMotor.setIdleMode(IdleMode.kBrake);
 
-    positionEncoder = positionMotor.getEncoder();
-    positionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
-    targetPosition = Constants.intakeSubsystem.kTargetPositionUp;
+    motorEncoder = positionMotor.getEncoder();
+    // positionEncoder = positionMotor.getEncoder();
+    // positionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
+    absolutePositionEncoder = positionMotor.getAbsoluteEncoder();
+    absolutePositionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
+    absolutePositionEncoder.setZeroOffset(Constants.intakeSubsystem.kPositionEncoderOffset);
+    targetPosition = Constants.intakeSubsystem.kpositionUp;
     positionPID = positionMotor.getPIDController();
     positionPID.setP(Constants.intakeSubsystem.kIntakeP);
     positionPID.setI(Constants.intakeSubsystem.kIntakeI);
     positionPID.setD(Constants.intakeSubsystem.kIntakeD);
-    positionPID.setFF(Constants.intakeSubsystem.kIntakeFF);
+    positionPID.setFF(Constants.intakeSubsystem.kInitialIntakeFF);
+    positionPID.setOutputRange(-1, 1);
 
-
+    positionPID.setFeedbackDevice(absolutePositionEncoder);
 
 
     positionLimiter = new SlewRateLimiter(
       Constants.intakeSubsystem.kPositionRateLimit,
      -Constants.intakeSubsystem.kPositionRateLimit,
-      Constants.intakeSubsystem.kPositionInitialValue);
-    safeModeLimiter = new SlewRateLimiter(
-      Constants.intakeSubsystem.kSafePositionRateLimit,
-     -Constants.intakeSubsystem.kSafePositionRateLimit,
-      Constants.intakeSubsystem.kSafePositionInitialValue);
+      //Constants.intakeSubsystem.kPositionInitialValue);
+      absolutePositionEncoder.getPosition());
 
-    //Shuffleboard.getTab("LiveWindow").add(positionMotor);
+    // safeModeLimiter = new SlewRateLimiter(
+    //   Constants.intakeSubsystem.kSafePositionRateLimit,
+    //  -Constants.intakeSubsystem.kSafePositionRateLimit,
+    //  // Constants.intakeSubsystem.kSafePositionInitialValue);
+    //   absolutePositionEncoder.getPosition());
+
+    gravityFF = new GravityAssistedFeedForward(Constants.intakeSubsystem.kGravityFF, Constants.intakeSubsystem.kOffsetAngle);
+    positionPIDtuner = new SparkMaxPIDTuner("PID Tuner", "Intake Position Motor", 1, positionPID);
+
+    // Shuffleboard.getTab("LiveWindow").add(positionMotor);
+    Shuffleboard.getTab("Intake").add("Star Motor", bottomStarMotor);
+    Shuffleboard.getTab("Intake").add("Sushi Motor", topSushiMotor);
     Shuffleboard.getTab("Intake").add("Position", positionMotor);
     Shuffleboard.getTab("Intake").add("Position Limitswitch", intakeHomeLimit);
+    // Shuffleboard.getTab("Intake").add("Position Encoder", absolutePositionEncoder);
+    Shuffleboard.getTab("Intake").addDouble("intake pos", this::getpos);
+  }
+
+  double getpos(){
+    return absolutePositionEncoder.getPosition();
   }
 
   public void ejectNote(){ 
-    topSushiMotor.set(-Constants.intakeSubsystem.kSushiMotorSpeed);
-    bottomStarMotor.set(-Constants.intakeSubsystem.kStarMotorSpeed);
+    topSushiMotor.set(-Constants.intakeSubsystem.kSushiMotorPushOutSpeed);
+    bottomStarMotor.set(-Constants.intakeSubsystem.kStarMotorPushOutSpeed);
   }
 
   public void injectNote(){
-    topSushiMotor.set(Constants.intakeSubsystem.kSushiMotorSpeed);
-    bottomStarMotor.set(Constants.intakeSubsystem.kStarMotorSpeed);
+    topSushiMotor.set(Constants.intakeSubsystem.kSushiMotorDrawInSpeed);
+    bottomStarMotor.set(Constants.intakeSubsystem.kStarMotorDrawInSpeed);
   }
   
   public void stopNoteMotors(){
@@ -116,59 +148,79 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void positionUp(){
     //intakePosition = IntakePositions.Up;
-    targetPosition = Constants.intakeSubsystem.kTargetPositionUp;
+    targetPosition = Constants.intakeSubsystem.kpositionUp;
   }
   
   public void positionDown(){
     //intakePosition = IntakePositions.Down;
-    targetPosition = Constants.intakeSubsystem.kTargetPositionDown;
+    targetPosition = Constants.intakeSubsystem.kpositionDown;
   }
 
-  public void setHoming(boolean homingState){
-    setSafeMode(true);
-    homing = homingState;
-    targetPosition = -180;
+  public boolean isUp() {
+    return Math.abs(absolutePositionEncoder.getPosition() - Constants.intakeSubsystem.kpositionUp) < Constants.intakeSubsystem.kPositionTolerance;
   }
+
+  public boolean isDown() {
+    return Math.abs(absolutePositionEncoder.getPosition() - Constants.intakeSubsystem.kpositionDown) < Constants.intakeSubsystem.kPositionTolerance;
+   
+  }
+
+  // public void setHoming(boolean homingState){
+  //   setSafeMode(true);
+  //   homing = homingState;
+  //   targetPosition = 5;
+  // }
 
   //TODO: need a command for exiting safe mode?
-  public void setSafeMode(boolean safeModeState){
-    safeMode = safeModeState;
-  }
+  // public void setSafeMode(boolean safeModeState){
+  //   safeMode = safeModeState;
+  // }
 
-  public boolean isHome (){
-    return intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed;
-  }
+  // public boolean isHome (){
+  //   return intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed;
+  // }
 
-
-
-
-  int counter = 0;
+  //int counter = 0;
   @Override
   public void periodic() {
     if(!DriverStation.isTest()) {
-      if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed){
-        positionEncoder.setPosition(Constants.intakeSubsystem.kHomingPosition);
-        if(homing){
-          homing = false;
-          targetPosition = Constants.intakeSubsystem.kpositionUp;
-        } else {
-          targetPosition = Math.max(Constants.intakeSubsystem.kHomingPosition, targetPosition);
-        }
-      }
 
-      if(safeMode) {
-        double tempTarget = safeModeLimiter.calculate(targetPosition);
-        positionPID.setReference(tempTarget, ControlType.kPosition);
-      } else {
+      // if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed){
+      //   absolutePositionEncoder.setZeroOffset(-absolutePositionEncoder.getPosition() + Constants.intakeSubsystem.kZeroOffsetBuffer);
+      //   if(homing){
+      //     homing = false;
+      //     targetPosition = Constants.intakeSubsystem.kpositionUp;
+      //   } else {
+      //     targetPosition = Math.max(Constants.intakeSubsystem.kHomingPosition, targetPosition);
+      //   }
+      // }
+      if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed) {
+        // set 
+        targetPosition = absolutePositionEncoder.getPosition()+1;
+      }
+      double FF = MathUtil.clamp(gravityFF.calculate(absolutePositionEncoder.getPosition()), Constants.intakeSubsystem.kMinFF, Constants.intakeSubsystem.kMaxFF);
+      positionPID.setFF(FF);
+
+      // if(safeMode) {
+      //   double tempTarget = safeModeLimiter.calculate(targetPosition);
+      //   positionPID.setReference(tempTarget, ControlType.kPosition);
+      // } else {
         double tempTarget = positionLimiter.calculate(targetPosition);
         positionPID.setReference(tempTarget, ControlType.kPosition);
-      }
+      // }
+      // positionPID.setReference(targetPosition, ControlType.kPosition);
+      SmartDashboard.putNumber("Intake Target Position", targetPosition);
+      SmartDashboard.putNumber("Intake Actual Position", absolutePositionEncoder.getPosition());
+      SmartDashboard.putNumber("Intake Motor Encoder", motorEncoder.getPosition());
+      SmartDashboard.putNumber("Intake Motor Output", positionMotor.getOutputCurrent());
+      SmartDashboard.putNumber("Intake RPM", absolutePositionEncoder.getVelocity());
+      SmartDashboard.putNumber("Intake Gravity FF", FF);
   
-      if(counter > 100) {
-        System.out.println("========>> Target Position: " + targetPosition);
-        System.out.println("========>> Intake Speed: " + positionMotor.getOutputCurrent());
-        counter = 0;
-      }
+      // if(counter > 100) {
+      //   System.out.println("========>> Target Position: " + targetPosition);
+      //   System.out.println("========>> Intake Speed: " + positionMotor.getOutputCurrent());
+      //   counter = 0;
+      // }
   
   
     //   if(intakePosition == IntakePositions.Up){
@@ -187,16 +239,26 @@ public class IntakeSubsystem extends SubsystemBase {
     } else {
       RobotContainer container = Robot.getRobotContainer();
       double joyX = container.assistantGetX();
-      positionMotor.set(joyX / 5);
+      positionMotor.set(joyX/2);
       
-      if(counter > 100) {
-        System.out.println("========>> Target Position: " + targetPosition);
-        System.out.println("========>> Intake Speed: " + positionMotor.getOutputCurrent());
-        System.out.println("=======>> Joystick Raw: " + joyX);
-      }
+      SmartDashboard.putNumber("Intake Target Position", targetPosition);
+      SmartDashboard.putNumber("Intake Actual Position", absolutePositionEncoder.getPosition());
+      SmartDashboard.putNumber("Intake Motor Output", positionMotor.getOutputCurrent());
+      SmartDashboard.putNumber("Intake Test Joystick", joyX);
+
+      
+      // if(counter > 100) {
+      //   System.out.println("========>> Target Position: " + targetPosition);
+      //   System.out.println("========>> Intake Speed: " + positionMotor.getOutputCurrent());
+      //   System.out.println("=======>> Joystick Raw: " + joyX);
+      //   counter = 0;
+      // }
     }
-    counter++;
-   }
+    //counter++;
+
+
+
+  }
 
   @Override
   public void simulationPeriodic() {

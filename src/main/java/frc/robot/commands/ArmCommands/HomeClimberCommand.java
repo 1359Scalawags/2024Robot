@@ -4,6 +4,7 @@
 
 package frc.robot.commands.ArmCommands;
 
+import frc.robot.Constants;
 import frc.robot.Constants.climberSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -43,7 +44,7 @@ public class HomeClimberCommand extends Command {
   @Override
   public boolean isFinished() {
     if (m_ClimberSubsystem.isLeftHomed() && m_ClimberSubsystem.isRigthHomed()) {
-      System.out.println("===================Homing Finished"); 
+      if(Constants.kDebug) System.out.println("===================Homing Finished"); 
       return true;
     }
     else {

@@ -11,8 +11,11 @@ import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
+
+import edu.wpi.first.cscore.CameraServerJNI.TelemetryKind;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -23,7 +26,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
+import frc.robot.Robot;
 import java.io.File;
 import java.util.function.DoubleSupplier;
 import swervelib.SwerveController;
@@ -94,8 +97,12 @@ public class SwerveSubsystem extends SubsystemBase
     // System.out.println("\t\"drive\": " + driveConversionFactor);
     // System.out.println("}");
 
+    //TODO: Choose verbosity level for dashboard
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary objects being created.
-    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
+    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
+    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.LOW; //shows only field position
+    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.NONE; //shows no swerve data
+    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.MACHINE; //shows only swerve
     try
     {
       swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
@@ -119,6 +126,11 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public SwerveSubsystem(SwerveDriveConfiguration driveCfg, SwerveControllerConfiguration controllerCfg)
   {
+    //TODO: Choose verbosity level for dashboard
+    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.LOW; //shows only field position
+    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH; //shows all numeric and visual data
+    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.NONE; //shows no swerve data
+    //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.MACHINE; //shows only swerve data -- THIS IS DEFAULT
     swerveDrive = new SwerveDrive(driveCfg, controllerCfg, maximumSpeed);
   }
 
@@ -327,8 +339,10 @@ public class SwerveSubsystem extends SubsystemBase
    * @param velocity Robot oriented {@link ChassisSpeeds}
    */
   public void drive(ChassisSpeeds velocity)
-  {
-    swerveDrive.drive(velocity);
+  { 
+    if(!DriverStation.isTest()) {
+     swerveDrive.drive(velocity);
+    }
   }
 
   // @Override
@@ -510,6 +524,17 @@ public class SwerveSubsystem extends SubsystemBase
   public void lock()
   {
     swerveDrive.lockPose();
+  }
+
+  //TODO: Test to see if this actually works properly
+  public void reverse(boolean isReversed) {
+    if(isReversed) {
+      Rotation3d turn180 = new Rotation3d(0,0,180);
+      swerveDrive.setGyroOffset(turn180);     
+    } else {
+      Rotation3d turn0 = new Rotation3d(0,0,0);
+      swerveDrive.setGyroOffset(turn0);
+    }
   }
 
   /**

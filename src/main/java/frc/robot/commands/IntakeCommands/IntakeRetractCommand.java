@@ -4,6 +4,7 @@
 
 package frc.robot.commands.IntakeCommands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -26,9 +27,7 @@ public class IntakeRetractCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
-
-    System.out.println("-------------Start Intake Retract-------------  ");
+    if(Constants.kDebug) System.out.println("-------------Start Intake Retract-------------  ");
   }
 
   // Called every time the scheduler runs while the command is scheduled.

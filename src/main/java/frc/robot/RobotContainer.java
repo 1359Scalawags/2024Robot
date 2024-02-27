@@ -23,6 +23,9 @@ import frc.robot.commands.ShootingCommands.StopShootingCommand;
 import frc.robot.commands.SwerveCommands.DriveForwardCommand;
 import frc.robot.commands.SwerveCommands.FeildCentricDrive;
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
+import frc.robot.commands.SwerveCommands.ReverseDriveCommand;
+import frc.robot.commands.SwerveCommands.RobotCentricCommand;
+import frc.robot.commands.SwerveCommands.UnReverseDriveCommand;
 import frc.robot.commands.SwerveCommands.ZeroGyroCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -63,7 +66,7 @@ SendableChooser<Command> autoChooser;
     new File(Filesystem.getDeployDirectory(), "YAGSLConfigJSON/swerve/" + Constants.robotName));
   private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
-  //private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   //private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
   private final Joystick driverJoystick = new Joystick(Constants.DriverJoystick.joystick);
   private final Joystick assistantJoystick = new Joystick(Constants.AssistantJoystick.joystick);
@@ -148,12 +151,12 @@ SendableChooser<Command> autoChooser;
   private void configureBindings() {
     //TODO: finilize button layout, communicate with drive team if possible. Not everything should be on driverJoystick.
 
-    // //Shooter commands/binds above
-    // new JoystickButton(driverJoystick,Constants.DriverJoystick.shootButton)
-    //   .onTrue(new ShootCommand(m_shooterSubsystem));
+    //Shooter commands/binds above
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.shootButton)
+      .onTrue(new ShootCommand(m_shooterSubsystem));
     
-    // new JoystickButton(driverJoystick,Constants.DriverJoystick.shootButton)
-    //   .onFalse(new StopShootingCommand(m_shooterSubsystem));
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.shootButton)
+      .onFalse(new StopShootingCommand(m_shooterSubsystem));
 
 
     //Climber commands/binds above
@@ -163,7 +166,7 @@ SendableChooser<Command> autoChooser;
     new JoystickButton(assistantJoystick,Constants.AssistantJoystick.retractClimberArmButton)
       .onTrue(new RetractArmCommand(m_ClimberSubsystem));
 
-    //intake commands/binds above
+    // intake commands/binds above
     new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeExtendButton)
       .onTrue(new IntakeExtendCommand(m_IntakeSubsystem));
 
@@ -191,9 +194,19 @@ SendableChooser<Command> autoChooser;
     new JoystickButton(driverJoystick,Constants.DriverJoystick.toggleFeildCentricButton)
       .onTrue(new FieldCentricCommand(m_SwerveSubsystem));
 
+    new JoystickButton(driverJoystick,Constants.DriverJoystick.toggleRobotCentricButton)
+      .onTrue(new RobotCentricCommand(m_SwerveSubsystem));
+
     new JoystickButton(driverJoystick,Constants.DriverJoystick.driveForwardButton)
       .onTrue(new DriveForwardCommand(m_SwerveSubsystem));
 
+    new JoystickButton(driverJoystick, Constants.DriverJoystick.reverseDrive)
+      .onTrue(new ReverseDriveCommand(m_SwerveSubsystem));
+
+    new JoystickButton(driverJoystick, Constants.DriverJoystick.unReverseDrive)
+      .onTrue(new UnReverseDriveCommand(m_SwerveSubsystem));
+
+      //TODO: Add lock and unlock climber buttons
   }
 
 
@@ -234,4 +247,6 @@ SendableChooser<Command> autoChooser;
   public Command getIntakeHomingCommand() {
     return new HomeIntakeCommand(m_IntakeSubsystem);
   }
+
+  
 }
