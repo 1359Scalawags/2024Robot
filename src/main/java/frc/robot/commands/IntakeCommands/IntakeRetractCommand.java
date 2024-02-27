@@ -6,12 +6,14 @@ package frc.robot.commands.IntakeCommands;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
 public class IntakeRetractCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final IntakeSubsystem m_IntakeSubsystem;
+  private Timer noteInTimer;
 
   /**
    * Creates a new ExampleCommand.
@@ -20,6 +22,7 @@ public class IntakeRetractCommand extends Command {
    */
   public IntakeRetractCommand(IntakeSubsystem subsystem) {
     m_IntakeSubsystem = subsystem;
+    noteInTimer = new Timer();
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -28,21 +31,31 @@ public class IntakeRetractCommand extends Command {
   @Override
   public void initialize() {
     if(Constants.kDebug) System.out.println("-------------Start Intake Retract-------------  ");
+    m_IntakeSubsystem.positionUp();
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_IntakeSubsystem.positionUp();
+    if(noteInTimer.get() >= Constants.intakeSubsystem.kInjectNoteCorrectionStartTime)
+      m_IntakeSubsystem.injectNote();
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+      m_IntakeSubsystem.stopNoteMotors();    
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    if(noteInTimer.get() >= Constants.intakeSubsystem.kInjectNoteCorrectionStopTime) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
