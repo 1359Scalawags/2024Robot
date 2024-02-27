@@ -36,7 +36,7 @@ public final class Constants {
 
   }
 
-  //TODO: need to set starter constant values.
+  //TODO: need to set starter constant values
 
   public static class climberSubsystem {
    // public static final int kClimberMotorPort = 58;
@@ -45,6 +45,8 @@ public final class Constants {
     public static final int kRightClimberID = 26;
     public static final int kLeftHomeLimitport = 2;
     public static final int kRightHomeLimitport = 1;
+    public static final int kLockClimber = -1;
+    public static final int kUnlockClimber = -1;
     public static final double kUpperPosition = 13.5;
     public static final double kHomingspeed = -0.1;
     public static final double kHomingPosition = 0.0;
@@ -75,6 +77,8 @@ public final class Constants {
     public static final double kLeftMotorD = kRightMotorD;
     public static final double kLeftmotorFF = kRightmotorFF;
     public static final double kLeftMotorIZ = kRightMotorIZ;
+    public static final double kStopShooterTime = 5;
+    public static final double kStartIntakeToShooter = 1.5;
 
       //use these vals if we want to have same the PID for the shooter motors.
     // public static final double kShooterMotorP = 0.0;
@@ -133,6 +137,8 @@ public final class Constants {
     public static final double kPositionEncoderOffset = 210.0; //approximately sets 0 to rear-facing horizontal //avoids meridian flip
     public static final double kPositionTolerance = 0.5; // in degrees
     public static final double kZeroOffsetBuffer = 10.0;
+    public static final double kInjectNoteCorrectionStopTime = 0.6;
+    public static final double kInjectNoteCorrectionStartTime = 0.25;
 
 
   }
@@ -178,6 +184,7 @@ public final class Constants {
     public static final int intakeNoteOutbutton = 8;
     public static final int unlockClimberButtom = 5;
     public static final int lockClimberButton = 10;
+    public static final int shootLoadedNote = 12;
   }
 
   public static final class UI {
