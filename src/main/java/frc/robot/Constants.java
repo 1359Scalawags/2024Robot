@@ -77,8 +77,8 @@ public final class Constants {
     public static final double kLeftMotorD = kRightMotorD;
     public static final double kLeftmotorFF = kRightmotorFF;
     public static final double kLeftMotorIZ = kRightMotorIZ;
-    public static final double kStopShooterTime = 0;
-    public static final double kStartShooterTimer = 0;
+    public static final double kStopShooterTime = 5;
+    public static final double kStartIntakeToShooter = 1.5;
 
       //use these vals if we want to have same the PID for the shooter motors.
     // public static final double kShooterMotorP = 0.0;
@@ -137,8 +137,8 @@ public final class Constants {
     public static final double kPositionEncoderOffset = 210.0; //approximately sets 0 to rear-facing horizontal //avoids meridian flip
     public static final double kPositionTolerance = 0.5; // in degrees
     public static final double kZeroOffsetBuffer = 10.0;
-    public static final double kInjectNoteCorrectionStopTime = 0.5;
-    public static final double kInjectNoteCorrectionStartTime = 0.2;
+    public static final double kInjectNoteCorrectionStopTime = 0.6;
+    public static final double kInjectNoteCorrectionStartTime = 0.25;
 
 
   }
