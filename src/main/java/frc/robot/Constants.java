@@ -182,6 +182,7 @@ public final class Constants {
     public static final int intakeNoteOutbutton = 8;
     public static final int unlockClimberButtom = 5;
     public static final int lockClimberButton = 10;
+    public static final int shootLoadedNote = 12;
   }
 
   public static final class UI {
