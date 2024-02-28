@@ -15,6 +15,7 @@ public class LockClimberCommand extends Command{
     @Override
     public void initialize() {
         m_ClimberSubsystem.lock();
+        m_ClimberSubsystem.stopArm();
     }
 
 

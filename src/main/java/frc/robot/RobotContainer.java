@@ -209,7 +209,7 @@ public class RobotContainer {
       .onTrue(new UnReverseDriveCommand(m_SwerveSubsystem));
 
     new JoystickButton(assistantJoystick, Constants.AssistantJoystick.shootLoadedNote)
-      .onTrue(Commands.deadline(new ShootTimedCommand(m_shooterSubsystem), new IntakeNoteOutTimedShoot(m_IntakeSubsystem)));
+      .onTrue(Commands.parallel(new ShootTimedCommand(m_shooterSubsystem), new IntakeNoteOutTimedShoot(m_IntakeSubsystem)));
   }
 
 

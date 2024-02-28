@@ -54,7 +54,10 @@ public class IntakeNoteOutTimedShoot extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {  
-    //TODO: This will finish immediately  
-    return true;
+    if (startTimer.get() >= Constants.shooterSubsystem.kStopShooterTime ) {
+      return true;
+    } else {
+      return false;
+    }    
   }
 }
