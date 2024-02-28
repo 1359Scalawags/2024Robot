@@ -119,7 +119,9 @@ public class IntakeSubsystem extends SubsystemBase {
     //   absolutePositionEncoder.getPosition());
 
     gravityFF = new GravityAssistedFeedForward(Constants.intakeSubsystem.kGravityFF, Constants.intakeSubsystem.kOffsetAngle);
-    positionPIDtuner = new SparkMaxPIDTuner("PID Tuner", "Intake Position Motor", 1, positionPID);
+    if(Constants.kDebug) {
+      positionPIDtuner = new SparkMaxPIDTuner("PID Tuner", "Intake Position Motor", 1, positionPID);
+    }
 
     // Shuffleboard.getTab("LiveWindow").add(positionMotor);
     Shuffleboard.getTab("Intake").add("Star Motor", bottomStarMotor);
