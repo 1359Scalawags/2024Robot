@@ -37,6 +37,7 @@ import frc.robot.subsystems.VisionSubsystem;
 import java.io.File;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 
@@ -73,6 +74,9 @@ SendableChooser<Command> autoChooser;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    // this is how you add commands to be used in auto routeine
+    NamedCommands.registerCommand("ShootNoteInSpeaker", new ShootCommand(m_shooterSubsystem));
+
     // Configure the trigger bindings
     configureBindings();
     setDefaultCommands(); 
