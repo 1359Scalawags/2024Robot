@@ -103,11 +103,10 @@ public class IntakeSubsystem extends SubsystemBase {
     positionPID.setFeedbackDevice(absolutePositionEncoder);
 
 
-    positionLimiter = new SlewRateLimiter(
-      Constants.intakeSubsystem.kPositionRateLimit,
-     -Constants.intakeSubsystem.kPositionRateLimit,
+    positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit);//,
+     //-Constants.intakeSubsystem.kPositionRateLimit,
       //Constants.intakeSubsystem.kPositionInitialValue);
-      absolutePositionEncoder.getPosition());
+      //absolutePositionEncoder.getPosition());
 
     // safeModeLimiter = new SlewRateLimiter(
     //   Constants.intakeSubsystem.kSafePositionRateLimit,
@@ -209,12 +208,15 @@ public class IntakeSubsystem extends SubsystemBase {
         positionPID.setReference(tempTarget, ControlType.kPosition);
       // }
       // positionPID.setReference(targetPosition, ControlType.kPosition);
-      SmartDashboard.putNumber("Intake Target Position", targetPosition);
-      SmartDashboard.putNumber("Intake Actual Position", absolutePositionEncoder.getPosition());
-      SmartDashboard.putNumber("Intake Motor Encoder", motorEncoder.getPosition());
-      SmartDashboard.putNumber("Intake Motor Output", positionMotor.getOutputCurrent());
-      SmartDashboard.putNumber("Intake RPM", absolutePositionEncoder.getVelocity());
-      SmartDashboard.putNumber("Intake Gravity FF", FF);
+      if(Constants.kDebug) {
+        SmartDashboard.putNumber("Intake Target Position", targetPosition);
+        SmartDashboard.putNumber("Intake Actual Position", absolutePositionEncoder.getPosition());
+        SmartDashboard.putNumber("Intake Motor Encoder", motorEncoder.getPosition());
+        SmartDashboard.putNumber("Intake Motor Output", positionMotor.getOutputCurrent());
+        SmartDashboard.putNumber("Intake RPM", absolutePositionEncoder.getVelocity());
+        SmartDashboard.putNumber("Intake Gravity FF", FF);        
+      }
+
   
       // if(counter > 100) {
       //   System.out.println("========>> Target Position: " + targetPosition);
