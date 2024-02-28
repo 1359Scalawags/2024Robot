@@ -47,10 +47,12 @@ public class IntakeSubsystem extends SubsystemBase {
   private double targetPosition;
   private SparkPIDController positionPID;
   private SlewRateLimiter positionLimiter;
+  private SlewRateLimiter homingLimiter;
+  private SlewRateLimiter activeLimiter;
  // private SlewRateLimiter safeModeLimiter;
 
   private DigitalInput intakeHomeLimit;
-  private boolean homing;
+  private boolean homingState;
 
  // private boolean safeMode;
 
@@ -68,7 +70,7 @@ public class IntakeSubsystem extends SubsystemBase {
     
 
     //safeMode = true;
-    //setHoming(true);
+    setHomingState(true);
 
     topSushiMotor.setInverted(false);
     bottomStarMotor.setInverted(false);
@@ -104,6 +106,8 @@ public class IntakeSubsystem extends SubsystemBase {
 
 
     positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit);//,
+    homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit);
+    activeLimiter = homingLimiter;
      //-Constants.intakeSubsystem.kPositionRateLimit,
       //Constants.intakeSubsystem.kPositionInitialValue);
       //absolutePositionEncoder.getPosition());
@@ -164,11 +168,16 @@ public class IntakeSubsystem extends SubsystemBase {
    
   }
 
-  // public void setHoming(boolean homingState){
+  public void setHomingState(boolean isHoming){
   //   setSafeMode(true);
-  //   homing = homingState;
+    homingState = isHoming;
+    if(isHoming) {
+      activeLimiter = homingLimiter;
+    } else {
+      activeLimiter = positionLimiter;
+    }
   //   targetPosition = 5;
-  // }
+  }
 
   //TODO: need a command for exiting safe mode?
   // public void setSafeMode(boolean safeModeState){
@@ -204,7 +213,7 @@ public class IntakeSubsystem extends SubsystemBase {
       //   double tempTarget = safeModeLimiter.calculate(targetPosition);
       //   positionPID.setReference(tempTarget, ControlType.kPosition);
       // } else {
-        double tempTarget = positionLimiter.calculate(targetPosition);
+        double tempTarget = activeLimiter.calculate(targetPosition);
         positionPID.setReference(tempTarget, ControlType.kPosition);
       // }
       // positionPID.setReference(targetPosition, ControlType.kPosition);
