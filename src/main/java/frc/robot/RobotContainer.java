@@ -13,6 +13,7 @@ import frc.robot.commands.ArmCommands.UnlockClimberCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteInCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteOutCommand;
+import frc.robot.commands.IntakeCommands.IntakeNoteOutTimedShoot;
 import frc.robot.commands.IntakeCommands.HomeIntakeCommand;
 import frc.robot.commands.IntakeCommands.IntakeExtendCommand;
 import frc.robot.commands.IntakeCommands.IntakeRetractCommand;
@@ -20,7 +21,9 @@ import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteInCommand;
 import frc.robot.commands.ShootingCommands.AmpShootCommand;
 import frc.robot.commands.ShootingCommands.ShootCommand;
+import frc.robot.commands.ShootingCommands.ShootTimedCommand;
 import frc.robot.commands.ShootingCommands.StopAmpShootingCommand;
+import frc.robot.commands.ShootingCommands.StopShootingCommand;
 import frc.robot.commands.SwerveCommands.DriveForwardCommand;
 import frc.robot.commands.SwerveCommands.FeildCentricDrive;
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
@@ -40,6 +43,7 @@ import java.io.File;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 // import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -204,7 +208,8 @@ public class RobotContainer {
     new JoystickButton(driverJoystick, Constants.DriverJoystick.unReverseDrive)
       .onTrue(new UnReverseDriveCommand(m_SwerveSubsystem));
 
-      //TODO: Add lock and unlock climber buttons
+    new JoystickButton(assistantJoystick, Constants.AssistantJoystick.shootLoadedNote)
+      .onTrue(Commands.deadline(new ShootTimedCommand(m_shooterSubsystem), new IntakeNoteOutTimedShoot(m_IntakeSubsystem)));
   }
 
 
