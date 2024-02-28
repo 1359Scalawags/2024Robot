@@ -67,8 +67,6 @@ public class ShooterSubsystem extends SubsystemBase {
     
     shooterLimiter = new SlewRateLimiter
       (Constants.shooterSubsystem.kShootingspeedlimit);
-    //TODO:make a constant for ratelimit
-
   }
 
   public void spinShootingMotor() {
