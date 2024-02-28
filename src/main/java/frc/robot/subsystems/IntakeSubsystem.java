@@ -106,7 +106,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
 
     positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit);//,
-    homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit);
+    homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/2);
     activeLimiter = homingLimiter;
      //-Constants.intakeSubsystem.kPositionRateLimit,
       //Constants.intakeSubsystem.kPositionInitialValue);
