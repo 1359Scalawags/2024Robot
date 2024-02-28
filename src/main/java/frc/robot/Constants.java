@@ -61,7 +61,7 @@ public final class Constants {
   public static class shooterSubsystem {
     public static final int kShootingMotorLPort = 27;
     public static final int kShootingmotorRPort = 28;
-    public static final double kIdleshootingspeed = 500;
+    public static final double kAmpshootingspeed = 500;
     public static final double kstopshootingspeed = 0.0;
     public static final double kShootingspeed = 1800;
     public static final double kShootingspeedlimit = 2000;
@@ -185,6 +185,7 @@ public final class Constants {
     public static final int unlockClimberButtom = 5;
     public static final int lockClimberButton = 10;
     public static final int shootLoadedNote = 12;
+    public static final int ampShootingButton = 13;
   }
 
   public static final class UI {
