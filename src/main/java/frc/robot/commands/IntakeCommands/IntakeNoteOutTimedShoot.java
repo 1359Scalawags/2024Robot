@@ -43,7 +43,7 @@ public class IntakeNoteOutTimedShoot extends Command {
   @Override
   public void execute() {
       if (startTimer.get() >= Constants.shooterSubsystem.kStartIntakeToShooter) {
-        m_IntakeSubsystem.ejectNote();
+        m_IntakeSubsystem.ejectNoteToShooter();
       }
   }
 

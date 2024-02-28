@@ -139,6 +139,11 @@ public class IntakeSubsystem extends SubsystemBase {
     bottomStarMotor.set(-Constants.intakeSubsystem.kStarMotorPushOutSpeed);
   }
 
+  public void ejectNoteToShooter(){ 
+    topSushiMotor.set(-Constants.intakeSubsystem.kSushiMotorFeedShooterSpeed);
+    bottomStarMotor.set(-Constants.intakeSubsystem.kStarMotorFeedShooterSpeed);
+  }
+  
   public void injectNote(){
     topSushiMotor.set(Constants.intakeSubsystem.kSushiMotorDrawInSpeed);
     bottomStarMotor.set(Constants.intakeSubsystem.kStarMotorDrawInSpeed);
