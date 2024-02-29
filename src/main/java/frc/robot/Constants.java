@@ -79,8 +79,8 @@ public final class Constants {
     public static final double kLeftMotorD = kRightMotorD;
     public static final double kLeftmotorFF = kRightmotorFF;
     public static final double kLeftMotorIZ = kRightMotorIZ;
-    public static final double kStopShooterTime = 5;
-    public static final double kStartIntakeToShooter = 1.5;
+    public static final double kStopShooterTime = 3.5;
+    public static final double kStartIntakeToShooter = 1.0;
 
       //use these vals if we want to have same the PID for the shooter motors.
     // public static final double kShooterMotorP = 0.0;
@@ -179,7 +179,7 @@ public final class Constants {
   }
   public static class AssistantJoystick{
     public static final int joystick = 1;
-    public static final int shootButton = 1;
+    //public static final int shootButton = 1;
     public static final int extendClimberArmButton = 11;
     public static final int retractClimberArmButton = 16;
     public static final int intakeExtendButton = 3;
@@ -188,7 +188,7 @@ public final class Constants {
     public static final int intakeNoteOutbutton = 8;
     public static final int unlockClimberButtom = 5;
     public static final int lockClimberButton = 10;
-    public static final int shootLoadedNote = 12;
+    public static final int shootLoadedNote = 1;
     public static final int ampShootingButton = 13;
   }
 
