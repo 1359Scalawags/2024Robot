@@ -331,6 +331,11 @@ public class SwerveSubsystem extends SubsystemBase
   return isFeildCentric;
 }
 
+
+//Does this do what I want it to do?
+//   public void resetPose(){
+//     swerveDrive.resetPosition();
+// }
   
 
   /**

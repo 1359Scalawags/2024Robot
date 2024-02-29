@@ -83,9 +83,10 @@ SendableChooser<Command> autoChooser;
 
     autoChooser = AutoBuilder.buildAutoChooser();
 
-    autoChooser.addOption("Example Auto", getAutonomousCommand("Example Auto"));
-    autoChooser.addOption("Second Auto", getAutonomousCommand("Second Auto"));
-    
+    // autoChooser.addOption("Example Auto", getAutonomousCommand("Example Auto"));
+    // autoChooser.addOption("Second Auto", getAutonomousCommand("Second Auto"));
+    autoChooser.addOption("Test Auto", getAutonomousCommand("Test Auto"));
+    autoChooser.addOption("Test Auto Two", getAutonomousCommand("Test Auto Two"));
     //autoChooser.addOption("Example Path", Path("example Path"));
     //autoChooser.addOption("New Auto", Auto("New Auto"));
     SmartDashboard.putData("Auto Chooser ", autoChooser);
