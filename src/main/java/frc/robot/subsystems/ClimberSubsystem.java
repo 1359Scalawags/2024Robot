@@ -118,33 +118,40 @@ public class ClimberSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    double appliedRightSpeed = rightClimberSpeed;
+    double appliedLeftSpeed = leftClimberSpeed;
 
-
-    if(rightClimberSpeed > 0){ //moving up
+    if(appliedRightSpeed > 0){ //moving up
       if(rightPositionEncoder.getPosition() >= Constants.climberSubsystem.kUpperPosition){
-        rightClimberSpeed = 0;
+        appliedRightSpeed = 0;
       }
     }
-    else if(rightClimberSpeed < 0){ //moving down
+    else if(appliedRightSpeed < 0){ //moving down
       if(rightClimbHomeLimit.get() == Constants.climberSubsystem.kHomePressed){
-        rightClimberSpeed = 0;
+        appliedRightSpeed = 0;
         rightPositionEncoder.setPosition(Constants.climberSubsystem.kHomingPosition - Constants.climberSubsystem.kHomingOffset);
+      } else if(rightPositionEncoder.getPosition() < Constants.climberSubsystem.kLowerCautionPosition) {
+        appliedRightSpeed = appliedRightSpeed * Constants.climberSubsystem.kCautionSpeedMultiplier;
       }
     }
-    rightClimberMotor.set(rightClimberSpeed);
-
-    if(leftClimberSpeed > 0){ //moving up
+    
+    if(appliedLeftSpeed > 0){ //moving up
       if(leftPositionEncoder.getPosition() >= Constants.climberSubsystem.kUpperPosition){
-        leftClimberSpeed = 0;
+        appliedLeftSpeed = 0;
       }
     }
-    else if(leftClimberSpeed < 0){ //moving down
+    else if(appliedLeftSpeed < 0){ //moving down
       if(leftClimbHomeLimit.get() == Constants.climberSubsystem.kHomePressed){
-        leftClimberSpeed = 0;
+        appliedLeftSpeed = 0;
         leftPositionEncoder.setPosition(Constants.climberSubsystem.kHomingPosition - Constants.climberSubsystem.kHomingOffset);
+      } else if(leftPositionEncoder.getPosition() < Constants.climberSubsystem.kLowerCautionPosition) {
+        appliedLeftSpeed = appliedLeftSpeed * Constants.climberSubsystem.kCautionSpeedMultiplier;
       }
     }
-    leftClimberMotor.set(leftClimberSpeed);
+
+    rightClimberMotor.set(appliedRightSpeed);
+    leftClimberMotor.set(appliedLeftSpeed);
+    
   }
 
   @Override
