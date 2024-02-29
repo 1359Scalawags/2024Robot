@@ -57,8 +57,8 @@ public final class Constants {
     public static final boolean kRightEncoderInverted = false;
     public static final boolean kLeftEncoderInverted = false;
     public static final double kConversionFactor = 0.1;
-    public static final double kLowerCautionPosition = 0.5;
-    public static final double kCautionSpeedMultiplier = 0.75;
+    public static final double kLowerCautionPosition = 2.5;
+    public static final double kCautionSpeedMultiplier = 0.25;
   }
 
 
@@ -67,8 +67,8 @@ public final class Constants {
     public static final int kShootingmotorRPort = 28;
     public static final double kAmpshootingspeed = 500;
     public static final double kstopshootingspeed = 0.0;
-    public static final double kShootingspeed = 1800;
-    public static final double kShootingspeedlimit = 2000;
+    public static final double kShootingspeed = 1800; //3000 for one working side
+    public static final double kShootingspeedlimit = 2000; //3500 for one working side
 
     public static final double kRightMotorP = 0.0002;
     public static final double kRightMotorI = 0.0;
