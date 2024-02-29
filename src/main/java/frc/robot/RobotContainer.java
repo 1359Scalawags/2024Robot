@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.commands.SetDefaultPipelineCommand;
 import frc.robot.commands.ArmCommands.ExtendArmCommand;
 import frc.robot.commands.ArmCommands.HomeClimberCommand;
 import frc.robot.commands.ArmCommands.LockClimberCommand;
@@ -66,7 +67,7 @@ public class RobotContainer {
   private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-  //private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
+  private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
   private final Joystick driverJoystick = new Joystick(Constants.DriverJoystick.joystick);
   private final Joystick assistantJoystick = new Joystick(Constants.AssistantJoystick.joystick);
 
@@ -100,6 +101,9 @@ public class RobotContainer {
       new MoveClimberArms(m_ClimberSubsystem,
       this::assistantGetY
       ));
+    // m_VisionSubsystem.setDefaultCommand() {
+    //   new setDefaultPipeline();
+    // };
   }
   
   public double assistantGetY() {
@@ -235,5 +239,8 @@ public class RobotContainer {
     return new HomeIntakeCommand(m_IntakeSubsystem);
   }
 
+  public Command getStartingVisionPipe() {
+    return new SetDefaultPipelineCommand(m_VisionSubsystem);
+  }
   
 }

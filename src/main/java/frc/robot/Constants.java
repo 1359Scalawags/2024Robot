@@ -17,6 +17,8 @@ public final class Constants {
 
   public static final String robotName = "Siren";
   public static final boolean kDebug = true;
+  public static int kDefaultPipeline;
+
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
@@ -196,8 +198,4 @@ public final class Constants {
     public static final double deadband = 0.05;
     public static final double delayCounter = 5.0;
 }
-
-
-
-
 }

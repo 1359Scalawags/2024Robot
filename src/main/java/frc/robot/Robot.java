@@ -88,6 +88,7 @@ public class Robot extends TimedRobot {
     }
     m_robotContainer.getClimberHomingCommand().schedule();
     m_robotContainer.getIntakeHomingCommand().schedule();
+    m_robotContainer.getStartingVisionPipe().schedule();
   }
 
   /** This function is called periodically during operator control. */
