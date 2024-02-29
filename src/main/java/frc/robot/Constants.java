@@ -55,8 +55,8 @@ public final class Constants {
     public static final boolean kRightEncoderInverted = false;
     public static final boolean kLeftEncoderInverted = false;
     public static final double kConversionFactor = 0.1;
-    public static final double kLowerCautionPosition = 0.5;
-    public static final double kCautionSpeedMultiplier = 0.75;
+    public static final double kLowerCautionPosition = 2.5;
+    public static final double kCautionSpeedMultiplier = 0.25;
   }
 
 

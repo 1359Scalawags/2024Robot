@@ -143,7 +143,7 @@ public class RobotContainer {
     //Shooter commands/binds above
     // new JoystickButton(assistantJoystick,Constants.AssistantJoystick.shootButton)
     //   .onTrue(new ShootCommand(m_shooterSubsystem));
-    
+   
     // new JoystickButton(assistantJoystick,Constants.AssistantJoystick.shootButton)
     //   .onFalse(new StopAmpShootingCommand(m_shooterSubsystem));
 
