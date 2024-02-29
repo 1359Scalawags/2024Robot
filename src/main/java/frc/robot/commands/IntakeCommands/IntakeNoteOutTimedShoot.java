@@ -21,7 +21,7 @@ public class IntakeNoteOutTimedShoot extends Command {
    */
   public IntakeNoteOutTimedShoot(IntakeSubsystem subsystem) {
     m_IntakeSubsystem = subsystem;
-      startTimer = new Timer();
+    startTimer = new Timer();
 
 
 
@@ -49,7 +49,9 @@ public class IntakeNoteOutTimedShoot extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_IntakeSubsystem.stopNoteMotors();
+  }
 
   // Returns true when the command should end.
   @Override

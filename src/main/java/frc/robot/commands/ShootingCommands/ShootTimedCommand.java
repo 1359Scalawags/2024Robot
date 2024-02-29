@@ -23,7 +23,7 @@ public class ShootTimedCommand extends Command {
    */
   public ShootTimedCommand(ShooterSubsystem subsystem) {
     m_subsystem = subsystem;
-        stopTimer = new Timer();
+    stopTimer = new Timer();
         
 
 
@@ -43,9 +43,8 @@ public class ShootTimedCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-
     m_subsystem.spinShootingMotor();
+    
   }
 
   // Called once the command ends or is interrupted.
