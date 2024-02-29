@@ -214,8 +214,10 @@ public class IntakeSubsystem extends SubsystemBase {
         targetPosition = absolutePositionEncoder.getPosition()+1;
       }
       double FF = MathUtil.clamp(gravityFF.calculate(absolutePositionEncoder.getPosition()), Constants.intakeSubsystem.kMinFF, Constants.intakeSubsystem.kMaxFF);
-      positionPID.setFF(FF);
-
+      if(!homingState) {
+        positionPID.setFF(FF);
+      }
+      
       // if(safeMode) {
       //   double tempTarget = safeModeLimiter.calculate(targetPosition);
       //   positionPID.setReference(tempTarget, ControlType.kPosition);
