@@ -4,59 +4,62 @@
 
 package frc.robot.commands.IntakeCommands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
+
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class HomeIntakeCommand extends Command {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+public class IntakeNoteOutTimedShoot extends Command {
   private final IntakeSubsystem m_IntakeSubsystem;
-
+  private Timer startTimer;
   /**
-   * Creates a new ExampleCommand.
-   *
+   *command to turn belt on
+   * 
    * @param subsystem The subsystem used by this command.
    */
-  public HomeIntakeCommand(IntakeSubsystem subsystem) {
+  public IntakeNoteOutTimedShoot(IntakeSubsystem subsystem) {
     m_IntakeSubsystem = subsystem;
+    startTimer = new Timer();
+
+
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
+      
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      
-    m_IntakeSubsystem.setHomingState(true);
-    m_IntakeSubsystem.positionUp();
-    System.out.println("================= HOME INTAKE ================");
+    startTimer.reset();
+    startTimer.start();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+      if (startTimer.get() >= Constants.shooterSubsystem.kStartIntakeToShooter) {
+        m_IntakeSubsystem.ejectNoteToShooter();
+      }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_IntakeSubsystem.setHomingState(false);
+    m_IntakeSubsystem.stopNoteMotors();
   }
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
-    if(m_IntakeSubsystem.isUp()) {
+  public boolean isFinished() {  
+    if (startTimer.get() >= Constants.shooterSubsystem.kStopShooterTime ) {
       return true;
     } else {
       return false;
-    }
-    //return m_IntakeSubsystem.isUp();
-    // if (m_IntakeSubsystem.isHome()) {
-    //   System.out.println("===================Homing Finished"); 
-    //   return true;
-    // }
-    // else {
-    //   return false; 
-    // }
+    }    
   }
 }

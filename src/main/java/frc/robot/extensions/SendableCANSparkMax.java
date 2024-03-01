@@ -7,6 +7,7 @@ import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class SendableCANSparkMax extends CANSparkMax implements Sendable {
 
@@ -33,11 +34,13 @@ public class SendableCANSparkMax extends CANSparkMax implements Sendable {
         builder.setActuator(true);
         builder.setSafeState(this::stopMotor);
         builder.addDoubleProperty("Value", this::get, this::set);
-        builder.addDoubleProperty("RPM?", this.encoder::getVelocity, null);
-        builder.addDoubleProperty("Position?", this.encoder::getPosition, null);
-        builder.addBooleanProperty("Inverted?", this::getInverted, null);
-        builder.addDoubleProperty("Temperature?", this::getMotorTemperature, null);
-        builder.addStringProperty("IdleMode?", this::getIdleModeString, null);
+        builder.addDoubleProperty("Position", this.encoder::getPosition, null);
+        if(Constants.kDebug) {
+            builder.addDoubleProperty("RPM?", this.encoder::getVelocity, null);
+            builder.addBooleanProperty("Inverted?", this::getInverted, null);
+            builder.addDoubleProperty("Temperature?", this::getMotorTemperature, null);
+            builder.addStringProperty("IdleMode?", this::getIdleModeString, null);            
+        }
     }
 
     public String getIdleModeString() {

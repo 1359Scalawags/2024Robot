@@ -6,19 +6,26 @@ package frc.robot;
 
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
 import frc.robot.Constants.swerveSubsystem;
+import frc.robot.commands.SetDefaultPipelineCommand;
 import frc.robot.commands.ArmCommands.ExtendArmCommand;
 import frc.robot.commands.ArmCommands.HomeClimberCommand;
+import frc.robot.commands.ArmCommands.LockClimberCommand;
 import frc.robot.commands.ArmCommands.MoveClimberArms;
 import frc.robot.commands.ArmCommands.RetractArmCommand;
+import frc.robot.commands.ArmCommands.UnlockClimberCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteInCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteOutCommand;
+import frc.robot.commands.IntakeCommands.IntakeNoteOutTimedShoot;
 import frc.robot.commands.IntakeCommands.HomeIntakeCommand;
 import frc.robot.commands.IntakeCommands.IntakeExtendCommand;
 import frc.robot.commands.IntakeCommands.IntakeRetractCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteInCommand;
+import frc.robot.commands.ShootingCommands.AmpShootCommand;
 import frc.robot.commands.ShootingCommands.ShootCommand;
+import frc.robot.commands.ShootingCommands.ShootTimedCommand;
+import frc.robot.commands.ShootingCommands.StopAmpShootingCommand;
 import frc.robot.commands.ShootingCommands.StopShootingCommand;
 import frc.robot.commands.SwerveCommands.DriveForwardCommand;
 import frc.robot.commands.SwerveCommands.FeildCentricDrive;
@@ -46,6 +53,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 // import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -68,7 +76,7 @@ SendableChooser<Command> autoChooser;
   private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-  //private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
+  private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
   private final Joystick driverJoystick = new Joystick(Constants.DriverJoystick.joystick);
   private final Joystick assistantJoystick = new Joystick(Constants.AssistantJoystick.joystick);
 
@@ -116,6 +124,9 @@ SendableChooser<Command> autoChooser;
       new MoveClimberArms(m_ClimberSubsystem,
       this::assistantGetY
       ));
+    // m_VisionSubsystem.setDefaultCommand() {
+    //   new setDefaultPipeline();
+    // };
   }
   
   public double assistantGetY() {
@@ -157,11 +168,17 @@ SendableChooser<Command> autoChooser;
     //TODO: finilize button layout, communicate with drive team if possible. Not everything should be on driverJoystick.
 
     //Shooter commands/binds above
-    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.shootButton)
-      .onTrue(new ShootCommand(m_shooterSubsystem));
+    // new JoystickButton(assistantJoystick,Constants.AssistantJoystick.shootButton)
+    //   .onTrue(new ShootCommand(m_shooterSubsystem));
+   
+    // new JoystickButton(assistantJoystick,Constants.AssistantJoystick.shootButton)
+    //   .onFalse(new StopAmpShootingCommand(m_shooterSubsystem));
+
+    new JoystickButton(assistantJoystick, Constants.AssistantJoystick.ampShootingButton)
+      .onTrue(new AmpShootCommand(m_shooterSubsystem));
     
-    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.shootButton)
-      .onFalse(new StopShootingCommand(m_shooterSubsystem));
+    new JoystickButton(assistantJoystick, Constants.AssistantJoystick.ampShootingButton)
+      .onFalse(new StopAmpShootingCommand(m_shooterSubsystem));
 
 
     //Climber commands/binds above
@@ -170,7 +187,7 @@ SendableChooser<Command> autoChooser;
 
     new JoystickButton(assistantJoystick,Constants.AssistantJoystick.retractClimberArmButton)
       .onTrue(new RetractArmCommand(m_ClimberSubsystem));
-
+      
     // intake commands/binds above
     new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeExtendButton)
       .onTrue(new IntakeExtendCommand(m_IntakeSubsystem));
@@ -190,6 +207,13 @@ SendableChooser<Command> autoChooser;
 
     new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteOutbutton)
     .onFalse(new IntakeWheelsOffCommand(m_IntakeSubsystem));
+
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.lockClimberButton)
+    .onTrue(new LockClimberCommand(m_ClimberSubsystem));
+
+    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.unlockClimberButtom)
+    .onTrue(new UnlockClimberCommand(m_ClimberSubsystem));
+
 
 
     // Drive subsystem zero gyro, field centric.
@@ -211,7 +235,8 @@ SendableChooser<Command> autoChooser;
     new JoystickButton(driverJoystick, Constants.DriverJoystick.unReverseDrive)
       .onTrue(new UnReverseDriveCommand(m_SwerveSubsystem));
 
-      //TODO: Add lock and unlock climber buttons
+    new JoystickButton(assistantJoystick, Constants.AssistantJoystick.shootLoadedNote)
+      .onTrue(Commands.parallel(new ShootTimedCommand(m_shooterSubsystem), new IntakeNoteOutTimedShoot(m_IntakeSubsystem)));
   }
 
 
@@ -253,5 +278,8 @@ SendableChooser<Command> autoChooser;
     return new HomeIntakeCommand(m_IntakeSubsystem);
   }
 
+  public Command getStartingVisionPipe() {
+    return new SetDefaultPipelineCommand(m_VisionSubsystem);
+  }
   
 }

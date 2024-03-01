@@ -138,6 +138,10 @@ public class VisionSubsystem extends SubsystemBase {
         getLimelightEntry("camMode").setNumber(mode.ordinal());
     }
 
+    public void setDefaultPipeline(){
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(Constants.kDefaultPipeline);
+    }
+
     int counter = 0;
 
     @Override

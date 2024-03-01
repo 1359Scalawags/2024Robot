@@ -47,10 +47,12 @@ public class IntakeSubsystem extends SubsystemBase {
   private double targetPosition;
   private SparkPIDController positionPID;
   private SlewRateLimiter positionLimiter;
+  private SlewRateLimiter homingLimiter;
+  private SlewRateLimiter activeLimiter;
  // private SlewRateLimiter safeModeLimiter;
 
   private DigitalInput intakeHomeLimit;
-  private boolean homing;
+  private boolean homingState;
 
  // private boolean safeMode;
 
@@ -68,7 +70,7 @@ public class IntakeSubsystem extends SubsystemBase {
     
 
     //safeMode = true;
-    //setHoming(true);
+    setHomingState(true);
 
     topSushiMotor.setInverted(false);
     bottomStarMotor.setInverted(false);
@@ -103,11 +105,12 @@ public class IntakeSubsystem extends SubsystemBase {
     positionPID.setFeedbackDevice(absolutePositionEncoder);
 
 
-    positionLimiter = new SlewRateLimiter(
-      Constants.intakeSubsystem.kPositionRateLimit,
-     -Constants.intakeSubsystem.kPositionRateLimit,
+    positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit);//,
+    homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/2);
+    activeLimiter = homingLimiter;
+     //-Constants.intakeSubsystem.kPositionRateLimit,
       //Constants.intakeSubsystem.kPositionInitialValue);
-      absolutePositionEncoder.getPosition());
+      //absolutePositionEncoder.getPosition());
 
     // safeModeLimiter = new SlewRateLimiter(
     //   Constants.intakeSubsystem.kSafePositionRateLimit,
@@ -116,7 +119,9 @@ public class IntakeSubsystem extends SubsystemBase {
     //   absolutePositionEncoder.getPosition());
 
     gravityFF = new GravityAssistedFeedForward(Constants.intakeSubsystem.kGravityFF, Constants.intakeSubsystem.kOffsetAngle);
-    positionPIDtuner = new SparkMaxPIDTuner("PID Tuner", "Intake Position Motor", 1, positionPID);
+    if(Constants.kDebug) {
+      positionPIDtuner = new SparkMaxPIDTuner("PID Tuner", "Intake Position Motor", 1, positionPID);
+    }
 
     // Shuffleboard.getTab("LiveWindow").add(positionMotor);
     Shuffleboard.getTab("Intake").add("Star Motor", bottomStarMotor);
@@ -136,6 +141,11 @@ public class IntakeSubsystem extends SubsystemBase {
     bottomStarMotor.set(-Constants.intakeSubsystem.kStarMotorPushOutSpeed);
   }
 
+  public void ejectNoteToShooter(){ 
+    topSushiMotor.set(-Constants.intakeSubsystem.kSushiMotorFeedShooterSpeed);
+    bottomStarMotor.set(-Constants.intakeSubsystem.kStarMotorFeedShooterSpeed);
+  }
+  
   public void injectNote(){
     topSushiMotor.set(Constants.intakeSubsystem.kSushiMotorDrawInSpeed);
     bottomStarMotor.set(Constants.intakeSubsystem.kStarMotorDrawInSpeed);
@@ -165,11 +175,16 @@ public class IntakeSubsystem extends SubsystemBase {
    
   }
 
-  // public void setHoming(boolean homingState){
+  public void setHomingState(boolean isHoming){
   //   setSafeMode(true);
-  //   homing = homingState;
+    homingState = isHoming;
+    if(isHoming) {
+      activeLimiter = homingLimiter;
+    } else {
+      activeLimiter = positionLimiter;
+    }
   //   targetPosition = 5;
-  // }
+  }
 
   //TODO: need a command for exiting safe mode?
   // public void setSafeMode(boolean safeModeState){
@@ -199,22 +214,27 @@ public class IntakeSubsystem extends SubsystemBase {
         targetPosition = absolutePositionEncoder.getPosition()+1;
       }
       double FF = MathUtil.clamp(gravityFF.calculate(absolutePositionEncoder.getPosition()), Constants.intakeSubsystem.kMinFF, Constants.intakeSubsystem.kMaxFF);
-      positionPID.setFF(FF);
-
+      if(!homingState) {
+        positionPID.setFF(FF);
+      }
+      
       // if(safeMode) {
       //   double tempTarget = safeModeLimiter.calculate(targetPosition);
       //   positionPID.setReference(tempTarget, ControlType.kPosition);
       // } else {
-        double tempTarget = positionLimiter.calculate(targetPosition);
+        double tempTarget = activeLimiter.calculate(targetPosition);
         positionPID.setReference(tempTarget, ControlType.kPosition);
       // }
       // positionPID.setReference(targetPosition, ControlType.kPosition);
-      SmartDashboard.putNumber("Intake Target Position", targetPosition);
-      SmartDashboard.putNumber("Intake Actual Position", absolutePositionEncoder.getPosition());
-      SmartDashboard.putNumber("Intake Motor Encoder", motorEncoder.getPosition());
-      SmartDashboard.putNumber("Intake Motor Output", positionMotor.getOutputCurrent());
-      SmartDashboard.putNumber("Intake RPM", absolutePositionEncoder.getVelocity());
-      SmartDashboard.putNumber("Intake Gravity FF", FF);
+      if(Constants.kDebug) {
+        SmartDashboard.putNumber("Intake Target Position", targetPosition);
+        SmartDashboard.putNumber("Intake Actual Position", absolutePositionEncoder.getPosition());
+        SmartDashboard.putNumber("Intake Motor Encoder", motorEncoder.getPosition());
+        SmartDashboard.putNumber("Intake Motor Output", positionMotor.getOutputCurrent());
+        SmartDashboard.putNumber("Intake RPM", absolutePositionEncoder.getVelocity());
+        SmartDashboard.putNumber("Intake Gravity FF", FF);        
+      }
+
   
       // if(counter > 100) {
       //   System.out.println("========>> Target Position: " + targetPosition);
