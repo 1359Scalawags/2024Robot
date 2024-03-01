@@ -1,0 +1,44 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Move to Speaker 1"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShootTimedCommand"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeNoteOutTimedShoot"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Copy of Community from pos 1 speaker"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Basic autos",
+  "choreoAuto": false
+}

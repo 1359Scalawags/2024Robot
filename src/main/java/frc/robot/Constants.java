@@ -4,6 +4,11 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.util.PIDConstants;
+
+import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.util.Units;
+import swervelib.math.Matter;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -34,6 +39,24 @@ public final class Constants {
     //public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
     //public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
 
+    public static final double kMaxRobotSpeed = 9.0;
+    public static final double kDriveConversionFactor = 4.0;
+    public static final double kAngleConversionFactor = 21.4285714286;
+    public static final double kDriveGearRatio = 6.75;
+
+
+    public static final PIDConstants TranslationPID = new PIDConstants(2.5, 0, 0.1);
+    //3.5
+    public static final PIDConstants RotationPID = new PIDConstants(0.1, 0, 0.01);
+    public static final double MaxModuleSpeed = 4.5;
+
+    // public static final double kPDriveHollonmic = 0.01;
+    // public static final double kIDriveHollonmic = 0.0;
+    // public static final double kDDriveHollonmic = 0.0;
+
+    // public static final double kIAngleHollonmic = 0.1;
+    // public static final double kDAngleHollonmic = 0.0;
+    // public static final double kPAngleHollonmic = 0.0;
       public static final double kTeleopDeadzone = 0.1;
 
   }

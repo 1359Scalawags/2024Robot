@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import frc.robot.commands.SwerveCommands.FieldCentricCommand;
+import frc.robot.Constants.swerveSubsystem;
 import frc.robot.commands.SetDefaultPipelineCommand;
 import frc.robot.commands.ArmCommands.ExtendArmCommand;
 import frc.robot.commands.ArmCommands.HomeClimberCommand;
@@ -41,8 +43,15 @@ import frc.robot.subsystems.VisionSubsystem;
 
 import java.io.File;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
+
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -58,8 +67,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
 
-  
 
+SendableChooser<Command> autoChooser;
     
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_SwerveSubsystem = new SwerveSubsystem(
@@ -73,9 +82,26 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    // this is how you add commands to be used in auto routeine
+    NamedCommands.registerCommand("ShootCommand", new ShootCommand(m_shooterSubsystem));
+    NamedCommands.registerCommand("ShootTimedCommand", new ShootTimedCommand(m_shooterSubsystem));
+    NamedCommands.registerCommand("IntakeNoteOutTimedShoot", new IntakeNoteOutTimedShoot(m_IntakeSubsystem));
+
     // Configure the trigger bindings
     configureBindings();
     setDefaultCommands(); 
+
+    autoChooser = AutoBuilder.buildAutoChooser();
+
+    // autoChooser.addOption("Example Auto", getAutonomousCommand("Example Auto"));
+    // autoChooser.addOption("Second Auto", getAutonomousCommand("Second Auto"));
+    autoChooser.setDefaultOption("Test Auto", getAutonomousCommand("Test Auto"));
+    autoChooser.addOption("Test Auto Two", getAutonomousCommand("Test Auto Two"));
+    autoChooser.addOption("Basic Pos 1", getAutonomousCommand("Basic Pos 1"));
+    //autoChooser.addOption("Example Path", Path("example Path"));
+    //autoChooser.addOption("New Auto", Auto("New Auto"));
+     SmartDashboard.putData("Auto Chooser ", autoChooser);
+    // SmartDashboard.putData("Second Chooser ", autoChooser);
   }
     /*
      *  SwerveSubsystem swerve,
@@ -124,10 +150,10 @@ public class RobotContainer {
   }
 
   public double driverGetZ() {
-    return driverJoystick.getZ();
+    return -driverJoystick.getZ();
   }
   public double driverGetThrottle() {
-    return driverJoystick.getThrottle();
+    return -driverJoystick.getThrottle();
   }
   
 
@@ -225,11 +251,28 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    //return Autos.exampleAuto(m_exampleSubsystem);
-    return null;
+    m_SwerveSubsystem.zeroGyro();
+    return getAutonomousCommandForChooser();
   }
 
+  /**
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
+   * @return the command to run in autonomous
+   */
+  public Command getAutonomousCommandForChooser() {
+    return m_SwerveSubsystem.getAutonomousCommand(autoChooser.getSelected().getName());
+  }
+
+// Do i need .getName()?
+
+    public Command getAutonomousCommand(String exampleAuto){
+    //return m_SwerveSubsystem.getAutonomousCommand(autoChooser.getSelected().getName());
+    return m_SwerveSubsystem.getAutonomousCommand("Basic Pos 1");
+  }
+  // public Command Path(String examplePath){
+  //   return new PathPlannerAuto(examplePath);
+  // }
   public Command getClimberHomingCommand() {
     return new HomeClimberCommand(m_ClimberSubsystem);
   }
