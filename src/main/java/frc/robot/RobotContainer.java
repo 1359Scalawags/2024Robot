@@ -267,8 +267,8 @@ SendableChooser<Command> autoChooser;
 // Do i need .getName()?
 
     public Command getAutonomousCommand(String exampleAuto){
-    // return m_SwerveSubsystem.getAutonomousCommand(autoChooser.getSelected().getName());
-    return m_SwerveSubsystem.getAutonomousCommand("Test Auto");
+    //return m_SwerveSubsystem.getAutonomousCommand(autoChooser.getSelected().getName());
+    return m_SwerveSubsystem.getAutonomousCommand("Basic Pos 1");
   }
   // public Command Path(String examplePath){
   //   return new PathPlannerAuto(examplePath);
