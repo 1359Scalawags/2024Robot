@@ -4,15 +4,15 @@
   "holonomicMode": true,
   "pathFolders": [
     "Get First Note",
-    "Move to Community",
+    "Move out of Community",
     "Move to Speaker"
   ],
   "autoFolders": [
     "Basic autos"
   ],
-  "defaultMaxVel": 3.0,
-  "defaultMaxAccel": 3.0,
-  "defaultMaxAngVel": 540.0,
+  "defaultMaxVel": 0.5,
+  "defaultMaxAccel": 1.5,
+  "defaultMaxAngVel": 360.0,
   "defaultMaxAngAccel": 720.0,
   "maxModuleSpeed": 4.5
 }

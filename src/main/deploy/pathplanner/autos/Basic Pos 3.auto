@@ -4,7 +4,20 @@
   "command": {
     "type": "sequential",
     "data": {
-      "commands": []
+      "commands": [
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Move to Speaker 3"
+          }
+        }
+      ]
     }
   },
   "folder": "Basic autos",

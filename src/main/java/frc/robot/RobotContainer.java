@@ -83,7 +83,9 @@ SendableChooser<Command> autoChooser;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // this is how you add commands to be used in auto routeine
-    NamedCommands.registerCommand("ShootNoteInSpeaker", new ShootCommand(m_shooterSubsystem));
+    NamedCommands.registerCommand("ShootCommand", new ShootCommand(m_shooterSubsystem));
+    NamedCommands.registerCommand("ShootTimedCommand", new ShootTimedCommand(m_shooterSubsystem));
+    NamedCommands.registerCommand("IntakeNoteOutTimedShoot", new IntakeNoteOutTimedShoot(m_IntakeSubsystem));
 
     // Configure the trigger bindings
     configureBindings();
@@ -95,6 +97,7 @@ SendableChooser<Command> autoChooser;
     // autoChooser.addOption("Second Auto", getAutonomousCommand("Second Auto"));
     autoChooser.setDefaultOption("Test Auto", getAutonomousCommand("Test Auto"));
     autoChooser.addOption("Test Auto Two", getAutonomousCommand("Test Auto Two"));
+    autoChooser.addOption("Basic Pos 1", getAutonomousCommand("Basic Pos 1"));
     //autoChooser.addOption("Example Path", Path("example Path"));
     //autoChooser.addOption("New Auto", Auto("New Auto"));
      SmartDashboard.putData("Auto Chooser ", autoChooser);

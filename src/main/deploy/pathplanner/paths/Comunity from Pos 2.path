@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3375005258227979,
-        "y": 4.6493408626627675
+        "x": 1.3935117917629198,
+        "y": 5.417746570090297
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3375005258227979,
-        "y": 4.610434244565171
+        "x": 1.3935117917629198,
+        "y": 5.378839951992701
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.60366255245785,
-        "y": 4.8467021839227
+        "x": 2.4148105168248253,
+        "y": 5.417746570090297
       },
       "prevControl": {
-        "x": 2.584209243409052,
-        "y": 4.827248874873902
+        "x": 2.405083862300426,
+        "y": 5.398293261041498
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,20 +32,20 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
+    "maxVelocity": 0.5,
+    "maxAcceleration": 1.5,
+    "maxAngularVelocity": 360.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Move to Community",
+  "folder": "Move out of Community",
   "previewStartingState": {
-    "rotation": 180.0,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

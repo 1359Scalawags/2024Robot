@@ -8,13 +8,32 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Move to amp1"
+            "pathName": "Move to Speaker 1"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShootTimedCommand"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeNoteOutTimedShoot"
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Comunity from Amp"
+            "pathName": "Copy of Community from pos 1 speaker"
           }
         }
       ]
