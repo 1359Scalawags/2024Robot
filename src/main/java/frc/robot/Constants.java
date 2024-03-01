@@ -49,8 +49,8 @@ public final class Constants {
     public static final int kRightHomeLimitport = 1;
     public static final int kLockClimber = -1;
     public static final int kUnlockClimber = -1;
-    public static final double kUpperPosition = 13.5;
-    public static final double kHomingspeed = -0.25;
+    public static final double kUpperPosition = 15.0;
+    public static final double kHomingspeed = -0.5;
     public static final double kHomingPosition = 0.0;
     public static final boolean kHomePressed = false;
     public static final double kHomingOffset = 0;
