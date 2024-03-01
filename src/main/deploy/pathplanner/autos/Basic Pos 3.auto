@@ -8,12 +8,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Comunity From pos 3"
+            "pathName": "Comunity from pos 3"
           }
         }
       ]
     }
   },
-  "folder": "Basic auto",
+  "folder": null,
   "choreoAuto": false
 }

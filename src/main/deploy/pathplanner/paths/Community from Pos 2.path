@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.9126811185953203,
-        "y": 4.588153136206022
+        "x": 1.3935117917629198,
+        "y": 4.532621008369978
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.562558288023845,
-        "y": 4.937922657800203
+        "x": 1.4093084637724698,
+        "y": 4.496542189582733
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.367098849485919,
-        "y": 6.162115983379837
+        "x": 2.7552434251787936,
+        "y": 4.804967335053154
       },
       "prevControl": {
-        "x": 1.552624258130722,
-        "y": 6.429586794010681
+        "x": 2.8038766978007903,
+        "y": 4.911960534821546
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Move out of Community",
+  "folder": null,
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
