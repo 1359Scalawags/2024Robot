@@ -12,12 +12,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": null
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Comunity from Amp"
@@ -26,6 +20,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "Basic autos",
   "choreoAuto": false
 }

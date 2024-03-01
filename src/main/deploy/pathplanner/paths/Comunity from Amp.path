@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 6.295087477393,
-        "y": 6.769068976734444
+        "x": 6.14011919966968,
+        "y": 6.77947820350617
       },
       "prevControl": {
-        "x": 5.122330846165453,
-        "y": 6.614758893678188
+        "x": 4.967362568442133,
+        "y": 6.6251681204499135
       },
       "nextControl": null,
       "isLocked": false,
@@ -65,7 +65,7 @@
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "Move out of Community",
+  "folder": "Move to Community",
   "previewStartingState": {
     "rotation": -178.6181857991116,
     "velocity": 0

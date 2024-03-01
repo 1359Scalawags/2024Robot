@@ -93,12 +93,12 @@ SendableChooser<Command> autoChooser;
 
     // autoChooser.addOption("Example Auto", getAutonomousCommand("Example Auto"));
     // autoChooser.addOption("Second Auto", getAutonomousCommand("Second Auto"));
-    autoChooser.addOption("Test Auto", getAutonomousCommand("Test Auto"));
+    autoChooser.setDefaultOption("Test Auto", getAutonomousCommand("Test Auto"));
     autoChooser.addOption("Test Auto Two", getAutonomousCommand("Test Auto Two"));
     //autoChooser.addOption("Example Path", Path("example Path"));
     //autoChooser.addOption("New Auto", Auto("New Auto"));
-    SmartDashboard.putData("Auto Chooser ", autoChooser);
-    SmartDashboard.putData("Second Chooser ", autoChooser);
+     SmartDashboard.putData("Auto Chooser ", autoChooser);
+    // SmartDashboard.putData("Second Chooser ", autoChooser);
   }
     /*
      *  SwerveSubsystem swerve,
@@ -249,7 +249,7 @@ SendableChooser<Command> autoChooser;
    */
   public Command getAutonomousCommand() {
     m_SwerveSubsystem.zeroGyro();
-    return getAutonomousCommand();
+    return getAutonomousCommandForChooser();
   }
 
   /**
@@ -257,14 +257,15 @@ SendableChooser<Command> autoChooser;
    *
    * @return the command to run in autonomous
    */
-  // public Command getAutonomousCommandForChooser() {
-  //   return m_SwerveSubsystem.getAutonomousCommand(autoChooser.getSelected().getName());
-  // }
+  public Command getAutonomousCommandForChooser() {
+    return m_SwerveSubsystem.getAutonomousCommand(autoChooser.getSelected().getName());
+  }
 
 // Do i need .getName()?
 
     public Command getAutonomousCommand(String exampleAuto){
-    return m_SwerveSubsystem.getAutonomousCommand(autoChooser.getSelected().getName());
+    // return m_SwerveSubsystem.getAutonomousCommand(autoChooser.getSelected().getName());
+    return m_SwerveSubsystem.getAutonomousCommand("Test Auto");
   }
   // public Command Path(String examplePath){
   //   return new PathPlannerAuto(examplePath);

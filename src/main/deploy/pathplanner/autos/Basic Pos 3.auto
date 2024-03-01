@@ -4,16 +4,9 @@
   "command": {
     "type": "sequential",
     "data": {
-      "commands": [
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Comunity from pos 3"
-          }
-        }
-      ]
+      "commands": []
     }
   },
-  "folder": null,
+  "folder": "Basic autos",
   "choreoAuto": false
 }
