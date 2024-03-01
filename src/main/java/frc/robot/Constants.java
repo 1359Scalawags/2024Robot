@@ -16,7 +16,7 @@ package frc.robot;
 public final class Constants {
 
   public static final String robotName = "Siren";
-  public static final boolean kDebug = true;
+  public static final boolean kDebug = false;
   public static int kDefaultPipeline;
 
 
