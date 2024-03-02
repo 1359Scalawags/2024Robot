@@ -58,7 +58,7 @@ public final class Constants {
     // public static final double kDAngleHollonmic = 0.0;
     // public static final double kPAngleHollonmic = 0.0;
     public static final double kTeleopDeadzone = 0.1;
-    public static final double kAngleSpeedMultiplier = 0.75;
+    public static final double kAngleSpeedMultiplier = 1;
 
   }
 
@@ -87,12 +87,16 @@ public final class Constants {
 
 
   public static class shooterSubsystem {
+    public static final boolean kTwoMotorUsed = true;
+
     public static final int kShootingMotorLPort = 27;
     public static final int kShootingmotorRPort = 28;
     public static final double kAmpshootingspeed = 500;
     public static final double kstopshootingspeed = 0.0;
-    public static final double kShootingspeed = 1800; //3000 for one working side
-    public static final double kShootingspeedlimit = 2000; //3500 for one working side
+    public static final double kShootingspeed = 1800;
+    // public static final double kShootingspeed = 3000; For only one working
+    public static final double kShootingspeedlimit = 2000;
+    // public static final double kShootingspeedlimit = 3500; 3500 for one working side
 
     public static final double kRightMotorP = 0.0002;
     public static final double kRightMotorI = 0.0;

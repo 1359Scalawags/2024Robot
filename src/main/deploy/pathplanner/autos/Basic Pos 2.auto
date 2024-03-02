@@ -1,6 +1,12 @@
 {
   "version": 1.0,
-  "startingPose": null,
+  "startingPose": {
+    "position": {
+      "x": 1.35,
+      "y": 5.57
+    },
+    "rotation": 0
+  },
   "command": {
     "type": "sequential",
     "data": {
@@ -27,7 +33,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Leave Comunity From pos 3"
+            "pathName": "Leave Comunity from Speaker"
           }
         }
       ]

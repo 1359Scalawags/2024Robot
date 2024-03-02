@@ -66,7 +66,7 @@ public class ShooterSubsystem extends SubsystemBase {
       speedPIDL.setIZone(Constants.shooterSubsystem.kLeftMotorIZ);
     
     shooterLimiter = new SlewRateLimiter
-      (Constants.shooterSubsystem.kShootingspeedlimit);
+      (Constants.shooterSubsystem.kTwoMotorUsed ? Constants.shooterSubsystem.kShootingspeedlimit : 3500);
   }
 
   public void spinShootingMotor() {
@@ -105,8 +105,9 @@ public class ShooterSubsystem extends SubsystemBase {
         targetSpeed = Constants.shooterSubsystem.kShootingspeed;
       }
       double limitSpeed = shooterLimiter.calculate(targetSpeed);
-      speedPIDR.setReference(limitSpeed, ControlType.kVelocity);
-      speedPIDL.setReference(limitSpeed, ControlType.kVelocity);
+      //speedPIDR.setReference(0, ControlType.kVelocity); //Right motor
+      speedPIDR.setReference(Constants.shooterSubsystem.kTwoMotorUsed ? limitSpeed : 0, ControlType.kVelocity); //Right motor
+      speedPIDL.setReference(Constants.shooterSubsystem.kTwoMotorUsed ? limitSpeed : 3000, ControlType.kVelocity); // Left motor
     }
     else {
       double joyX = Robot.getRobotContainer().driverGetX()/2;
