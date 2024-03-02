@@ -6,12 +6,6 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "Move to Speaker 1"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -33,7 +27,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Copy of Community from pos 1 speaker"
+            "pathName": "Leave Community from pos 1"
           }
         }
       ]

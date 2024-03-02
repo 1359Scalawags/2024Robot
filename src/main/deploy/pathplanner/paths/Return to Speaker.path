@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.218432010323736,
-        "y": 2.392757013002176
+        "x": 2.220277426336843,
+        "y": 4.1046482092964185
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.218432010323736,
-        "y": 2.35385039490458
+        "x": 2.181370808239247,
+        "y": 4.1046482092964185
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.803876697800789,
-        "y": 1.9647842139286162
+        "x": 1.0919855015065476,
+        "y": 4.668794171711566
       },
       "prevControl": {
-        "x": 2.784423388751991,
-        "y": 1.9453309048798186
+        "x": 1.1017121560309469,
+        "y": 4.62988755361397
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
+    "rotation": -40.23635830927392,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Move out of Community",
+  "folder": "Get First Note",
   "previewStartingState": {
-    "rotation": 180.0,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

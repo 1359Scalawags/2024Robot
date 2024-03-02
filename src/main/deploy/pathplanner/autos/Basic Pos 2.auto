@@ -6,9 +6,28 @@
     "data": {
       "commands": [
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShootTimedCommand"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeNoteOutTimedShoot"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "Move to Speaker 2"
+            "pathName": "Leave Comunity From pos 3"
           }
         }
       ]

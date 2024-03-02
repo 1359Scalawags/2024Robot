@@ -5,9 +5,14 @@
   "pathFolders": [
     "Get First Note",
     "Move out of Community",
-    "Move to Speaker"
+    "Move to Speaker",
+    "Move to Amp",
+    "Test Paths"
   ],
   "autoFolders": [
+    "Testing",
+    "No Movement",
+    "Advanced Autos",
     "Basic autos"
   ],
   "defaultMaxVel": 0.5,

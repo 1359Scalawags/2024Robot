@@ -3,38 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4,
-        "y": 5.5
+        "x": 0.9655389926893594,
+        "y": 4.571527626467575
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4000000000000004,
-        "y": 5.5
+        "x": 0.9655389926893594,
+        "y": 4.532621008369979
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.15,
-        "y": 4.1
+        "x": 2.424537171349224,
+        "y": 1.7702511234406335
       },
       "prevControl": {
-        "x": 1.15,
-        "y": 4.1
+        "x": 2.3970302279382625,
+        "y": 1.7697709879574182
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.25,
-      "rotationDegrees": 180.0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -45,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
-    "rotateFast": true
+    "rotation": 0.0,
+    "rotateFast": false
   },
   "reversed": false,
-  "folder": "Get First Note",
+  "folder": "Move out of Community",
   "previewStartingState": {
-    "rotation": -178.93908830973572,
+    "rotation": -51.34019174590991,
     "velocity": 0
   },
   "useDefaultConstraints": true

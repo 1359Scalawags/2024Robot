@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.033625574360153,
-        "y": 7.31444420234812
+        "x": 1.07,
+        "y": 7.129637766384538
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.0399166011602161,
-        "y": 7.346815423488667
+        "x": 1.0762910268000632,
+        "y": 7.162008987525084
       },
       "isLocked": false,
       "linkedName": null
@@ -40,7 +40,7 @@
   "goalEndState": {
     "velocity": 0,
     "rotation": 40.914383220025165,
-    "rotateFast": false
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "Move to Speaker",
