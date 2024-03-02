@@ -57,7 +57,8 @@ public final class Constants {
     // public static final double kIAngleHollonmic = 0.1;
     // public static final double kDAngleHollonmic = 0.0;
     // public static final double kPAngleHollonmic = 0.0;
-      public static final double kTeleopDeadzone = 0.1;
+    public static final double kTeleopDeadzone = 0.1;
+    public static final double kAngleSpeedMultiplier = 0.75;
 
   }
 

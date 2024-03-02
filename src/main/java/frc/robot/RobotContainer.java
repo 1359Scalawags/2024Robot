@@ -97,7 +97,8 @@ SendableChooser<Command> autoChooser;
     // autoChooser.addOption("Second Auto", getAutonomousCommand("Second Auto"));
     autoChooser.setDefaultOption("Test Auto", getAutonomousCommand("Test Auto"));
     autoChooser.addOption("Test Auto Two", getAutonomousCommand("Test Auto Two"));
-    autoChooser.addOption("Basic Pos 1", getAutonomousCommand("Basic Pos 1"));
+    autoChooser.addOption("Shooting Auto", getAutonomousCommand("Shooting Auto"));
+    autoChooser.addOption("Nothing Auto", getAutonomousCommand("Nothing Auto"));
     //autoChooser.addOption("Example Path", Path("example Path"));
     //autoChooser.addOption("New Auto", Auto("New Auto"));
      SmartDashboard.putData("Auto Chooser ", autoChooser);
@@ -150,10 +151,10 @@ SendableChooser<Command> autoChooser;
   }
 
   public double driverGetZ() {
-    return -driverJoystick.getZ();
+    return driverJoystick.getZ();
   }
   public double driverGetThrottle() {
-    return -driverJoystick.getThrottle();
+    return driverJoystick.getThrottle();
   }
   
 
@@ -268,7 +269,7 @@ SendableChooser<Command> autoChooser;
 
     public Command getAutonomousCommand(String exampleAuto){
     //return m_SwerveSubsystem.getAutonomousCommand(autoChooser.getSelected().getName());
-    return m_SwerveSubsystem.getAutonomousCommand("Basic Pos 1");
+    return m_SwerveSubsystem.getAutonomousCommand(exampleAuto);
   }
   // public Command Path(String examplePath){
   //   return new PathPlannerAuto(examplePath);
