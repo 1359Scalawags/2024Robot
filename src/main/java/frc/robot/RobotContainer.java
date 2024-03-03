@@ -279,9 +279,11 @@ SendableChooser<Command> autoChooser;
   }
 
 
-  public Command getIntakeHomingCommand() {
-    return new HomeIntakeCommand(m_IntakeSubsystem);
-  }
+ @Deprecated
+ public Command getIntakeHomingCommand() {
+  //   return new HomeIntakeCommand(m_IntakeSubsystem);
+  return null;
+ }
 
   public Command getStartingVisionPipe() {
     return new SetDefaultPipelineCommand(m_VisionSubsystem);

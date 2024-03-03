@@ -23,6 +23,7 @@ public final class Constants {
   public static final String robotName = "Siren";
   public static final boolean kDebug = false;
   public static int kDefaultPipeline;
+  public static final double kDeltaTime = 0.02;
 
 
   public static class OperatorConstants {

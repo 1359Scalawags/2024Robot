@@ -45,14 +45,14 @@ public class IntakeMotionProfileExampleSubsystem extends SubsystemBase {
   private SparkAbsoluteEncoder absolutePositionEncoder;
   // private RelativeEncoder positionEncoder;
 
-  private double targetPosition;
+  //private double targetPosition;
   private SparkPIDController positionPID;
   // private SlewRateLimiter positionLimiter;
   // private SlewRateLimiter homingLimiter;
   // private SlewRateLimiter activeLimiter;
   // private SlewRateLimiter safeModeLimiter;
   private TrapezoidProfile trapezoidProfile;
-  private TrapezoidProfile.State positionState;  // current state of the position motor
+  private TrapezoidProfile.State positionSetpoint;  // current state of the position motor
   private TrapezoidProfile.State positionGoal; // goal state of the position motor
 
   private DigitalInput intakeHomeLimit;
@@ -89,12 +89,11 @@ public class IntakeMotionProfileExampleSubsystem extends SubsystemBase {
     positionMotor.setIdleMode(IdleMode.kBrake);
 
     motorEncoder = positionMotor.getEncoder();
-    // positionEncoder = positionMotor.getEncoder();
-    // positionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
+
     absolutePositionEncoder = positionMotor.getAbsoluteEncoder();
     absolutePositionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
     absolutePositionEncoder.setZeroOffset(Constants.intakeSubsystem.kPositionEncoderOffset);
-    targetPosition = Constants.intakeSubsystem.kpositionUp;
+    // targetPosition = Constants.intakeSubsystem.kpositionUp;
 
     // Get PID controller and initialize its values
     positionPID = positionMotor.getPIDController();
@@ -112,18 +111,9 @@ public class IntakeMotionProfileExampleSubsystem extends SubsystemBase {
     // set the max velocity and max acceleration of the intake arm
     Constraints trapezoidConstraints = new Constraints(Constants.intakeSubsystem.kPositionRateLimit, Constants.intakeSubsystem.kPositionAccelerationLimit);
     trapezoidProfile = new TrapezoidProfile(trapezoidConstraints);
+    positionSetpoint = new TrapezoidProfile.State(getpos(), 0);
     
-    
-    // -Constants.intakeSubsystem.kPositionRateLimit,
-    // Constants.intakeSubsystem.kPositionInitialValue);
-    // absolutePositionEncoder.getPosition());
-
-    // safeModeLimiter = new SlewRateLimiter(
-    // Constants.intakeSubsystem.kSafePositionRateLimit,
-    // -Constants.intakeSubsystem.kSafePositionRateLimit,
-    // // Constants.intakeSubsystem.kSafePositionInitialValue);
-    // absolutePositionEncoder.getPosition());
-
+    // instantiate feedfoward provider that adapts to arms position
     gravityFF = new GravityAssistedFeedForward(Constants.intakeSubsystem.kGravityFF,
         Constants.intakeSubsystem.kOffsetAngle);
 
@@ -132,14 +122,15 @@ public class IntakeMotionProfileExampleSubsystem extends SubsystemBase {
       positionPIDtuner = new SparkMaxPIDTuner("PID Tuner", "Intake Position Motor", 1, positionPID);
     }
 
-    // Shuffleboard.getTab("LiveWindow").add(positionMotor);
-    Shuffleboard.getTab("Intake").add("Star Motor", bottomStarMotor);
-    Shuffleboard.getTab("Intake").add("Sushi Motor", topSushiMotor);
     Shuffleboard.getTab("Intake").add("Position", positionMotor);
-    Shuffleboard.getTab("Intake").add("Position Limitswitch", intakeHomeLimit);
-    // Shuffleboard.getTab("Intake").add("Position Encoder",
-    // absolutePositionEncoder);
-    Shuffleboard.getTab("Intake").addDouble("intake pos", this::getpos);
+    // only show this data when debugging
+    if(Constants.kDebug) {
+      Shuffleboard.getTab("Intake").add("Star Motor", bottomStarMotor);
+      Shuffleboard.getTab("Intake").add("Sushi Motor", topSushiMotor);
+      Shuffleboard.getTab("Intake").add("Position Limitswitch", intakeHomeLimit);
+      Shuffleboard.getTab("Intake").addDouble("intake pos", this::getpos);
+    }
+
   }
 
   double getpos() {
@@ -167,14 +158,12 @@ public class IntakeMotionProfileExampleSubsystem extends SubsystemBase {
   }
 
   public void positionUp() {
-    // intakePosition = IntakePositions.Up;
-    targetPosition = Constants.intakeSubsystem.kpositionUp;
+    // targetPosition = Constants.intakeSubsystem.kpositionUp;
     positionGoal = new TrapezoidProfile.State(Constants.intakeSubsystem.kpositionUp, 0); // end at up position with 0 velocity
   }
 
   public void positionDown() {
-    // intakePosition = IntakePositions.Down;
-    targetPosition = Constants.intakeSubsystem.kpositionDown;
+    // targetPosition = Constants.intakeSubsystem.kpositionDown;
     positionGoal = new TrapezoidProfile.State(Constants.intakeSubsystem.kpositionDown, 0); // end at down position with 0 velocity
   }
 
@@ -189,28 +178,15 @@ public class IntakeMotionProfileExampleSubsystem extends SubsystemBase {
 
   }
 
-  @Deprecated
-  public void setHomingState(boolean isHoming) {
-    // setSafeMode(true);
+  // public void setHomingState(boolean isHoming) {
     // homingState = isHoming;
     // if (isHoming) {
     //   activeLimiter = homingLimiter;
     // } else {
     //   activeLimiter = positionLimiter;
     // }
-    // targetPosition = 5;
-  }
-
-  // TODO: need a command for exiting safe mode?
-  // public void setSafeMode(boolean safeModeState){
-  // safeMode = safeModeState;
   // }
 
-  // public boolean isHome (){
-  // return intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed;
-  // }
-
-  // int counter = 0;
   @Override
   public void periodic() {
     if (!DriverStation.isTest()) {
@@ -227,25 +203,26 @@ public class IntakeMotionProfileExampleSubsystem extends SubsystemBase {
       // }
       // }
       if (intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed) {
-        // set
-        targetPosition = absolutePositionEncoder.getPosition() + 1;
+        // targetPosition = absolutePositionEncoder.getPosition() + 1;
+        positionGoal = new TrapezoidProfile.State(getpos() + 0.5, 0);
       }
-      double FF = MathUtil.clamp(gravityFF.calculate(absolutePositionEncoder.getPosition()),
-          Constants.intakeSubsystem.kMinFF, Constants.intakeSubsystem.kMaxFF);
-      if (!homingState) {
-        positionPID.setFF(FF);
-      }
-
-      // if(safeMode) {
-      // double tempTarget = safeModeLimiter.calculate(targetPosition);
-      // positionPID.setReference(tempTarget, ControlType.kPosition);
-      // } else {
-      double tempTarget = activeLimiter.calculate(targetPosition);
-      positionPID.setReference(tempTarget, ControlType.kPosition);
+      // double FF = MathUtil.clamp(gravityFF.calculate(absolutePositionEncoder.getPosition()), Constants.intakeSubsystem.kMinFF, Constants.intakeSubsystem.kMaxFF);
+      // if (!homingState) {
+      // positionPID.setFF(FF);
       // }
-      // positionPID.setReference(targetPosition, ControlType.kPosition);
+
+      // double tempTarget = activeLimiter.calculate(targetPosition);
+      // positionPID.setReference(tempTarget, ControlType.kPosition);
+
+      positionSetpoint = trapezoidProfile.calculate(Constants.kDeltaTime, positionSetpoint, positionGoal);
+
+      double FF = MathUtil.clamp(gravityFF.calculate(positionSetpoint.position), -positionSetpoint.velocity / 20, -positionSetpoint.velocity / 20);
+      positionPID.setFF(FF);
+      positionPID.setReference(positionSetpoint.position, ControlType.kPosition);
+
       if (Constants.kDebug) {
-        SmartDashboard.putNumber("Intake Target Position", targetPosition);
+        //SmartDashboard.putNumber("Intake Target Position", targetPosition);
+        SmartDashboard.putNumber("Intake Goal State", positionGoal.position);
         SmartDashboard.putNumber("Intake Actual Position", absolutePositionEncoder.getPosition());
         SmartDashboard.putNumber("Intake Motor Encoder", motorEncoder.getPosition());
         SmartDashboard.putNumber("Intake Motor Output", positionMotor.getOutputCurrent());
@@ -253,45 +230,19 @@ public class IntakeMotionProfileExampleSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Intake Gravity FF", FF);
       }
 
-      // if(counter > 100) {
-      // System.out.println("========>> Target Position: " + targetPosition);
-      // System.out.println("========>> Intake Speed: " +
-      // positionMotor.getOutputCurrent());
-      // counter = 0;
-      // }
-
-      // if(intakePosition == IntakePositions.Up){
-      // if(positionEncoder.getPosition() < Constants.Intake.kMaxIntakePosition){
-      // positionMotor.set(Constants.Intake.kPositionMotorupSpeed);
-      // } else{
-      // positionMotor.set(0);
-      // }
-      // } else {
-      // if(positionEncoder.getPosition() > Constants.Intake.kMinIntakePosition){
-      // positionMotor.set(Constants.Intake.kPositionMotorDownSpeed);
-      // } else{
-      // positionMotor.set(0);
-      // }
-      // }
     } else {
       RobotContainer container = Robot.getRobotContainer();
       double joyX = container.assistantGetX();
       positionMotor.set(joyX / 2);
 
-      SmartDashboard.putNumber("Intake Target Position", targetPosition);
+      //SmartDashboard.putNumber("Intake Target Position", targetPosition);
+      
       SmartDashboard.putNumber("Intake Actual Position", absolutePositionEncoder.getPosition());
       SmartDashboard.putNumber("Intake Motor Output", positionMotor.getOutputCurrent());
       SmartDashboard.putNumber("Intake Test Joystick", joyX);
 
-      // if(counter > 100) {
-      // System.out.println("========>> Target Position: " + targetPosition);
-      // System.out.println("========>> Intake Speed: " +
-      // positionMotor.getOutputCurrent());
-      // System.out.println("=======>> Joystick Raw: " + joyX);
-      // counter = 0;
-      // }
     }
-    // counter++;
+
 
   }
 

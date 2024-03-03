@@ -87,7 +87,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     m_robotContainer.getClimberHomingCommand().schedule();
-    m_robotContainer.getIntakeHomingCommand().schedule();
+    //m_robotContainer.getIntakeHomingCommand().schedule(); // This command is deprecated with motion profiling
     m_robotContainer.getStartingVisionPipe().schedule();
   }
 
