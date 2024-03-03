@@ -27,7 +27,8 @@ import frc.robot.commands.ShootingCommands.ShootCommand;
 import frc.robot.commands.ShootingCommands.ShootTimedCommand;
 import frc.robot.commands.ShootingCommands.StopAmpShootingCommand;
 import frc.robot.commands.ShootingCommands.StopShootingCommand;
-import frc.robot.commands.SwerveCommands.DriveForwardCommand;
+import frc.robot.commands.SwerveCommands.AutoCommunity1Command;
+import frc.robot.commands.SwerveCommands.AutoCommunity2Command;
 import frc.robot.commands.SwerveCommands.FeildCentricDrive;
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
 import frc.robot.commands.SwerveCommands.ReverseDriveCommand;
@@ -86,6 +87,8 @@ SendableChooser<Command> autoChooser;
     NamedCommands.registerCommand("ShootCommand", new ShootCommand(m_shooterSubsystem));
     NamedCommands.registerCommand("ShootTimedCommand", new ShootTimedCommand(m_shooterSubsystem));
     NamedCommands.registerCommand("IntakeNoteOutTimedShoot", new IntakeNoteOutTimedShoot(m_IntakeSubsystem));
+    NamedCommands.registerCommand("AutoCommunity2Command", new AutoCommunity2Command(m_SwerveSubsystem));
+    NamedCommands.registerCommand("AutoCommunity1Command", new AutoCommunity1Command(m_SwerveSubsystem));
 
     // Configure the trigger bindings
     configureBindings();
@@ -93,12 +96,16 @@ SendableChooser<Command> autoChooser;
 
     autoChooser = AutoBuilder.buildAutoChooser();
 
-    // autoChooser.addOption("Example Auto", getAutonomousCommand("Example Auto"));
-    // autoChooser.addOption("Second Auto", getAutonomousCommand("Second Auto"));
-    autoChooser.setDefaultOption("Test Auto", getAutonomousCommand("Test Auto"));
-    autoChooser.addOption("Test Auto Two", getAutonomousCommand("Test Auto Two"));
+    // autoChooser.addOption("Test Auto", getAutonomousCommand("Test Auto"));
+    // autoChooser.addOption("Test Auto Two", getAutonomousCommand("Test Auto Two"));
     autoChooser.addOption("Shooting Auto", getAutonomousCommand("Shooting Auto"));
     autoChooser.addOption("Nothing Auto", getAutonomousCommand("Nothing Auto"));
+    autoChooser.addOption("Basic Pos 2", getAutonomousCommand("Basic Pos 2"));
+    autoChooser.addOption("Basic Pos 3", getAutonomousCommand("Basic Pos 3"));
+    autoChooser.addOption("Basic Pos 1", getAutonomousCommand("Basic Pos 1"));
+    //autoChooser.addOption("MoveOnly", getAutonomousCommand("MoveOnly"));
+    autoChooser.addOption("MoveAndShoot", getAutonomousCommand("MoveAndShoot"));
+
     //autoChooser.addOption("Example Path", Path("example Path"));
     //autoChooser.addOption("New Auto", Auto("New Auto"));
      SmartDashboard.putData("Auto Chooser ", autoChooser);
@@ -231,7 +238,7 @@ SendableChooser<Command> autoChooser;
       .onTrue(new RobotCentricCommand(m_SwerveSubsystem));
 
     new JoystickButton(driverJoystick,Constants.DriverJoystick.driveForwardButton)
-      .onTrue(new DriveForwardCommand(m_SwerveSubsystem));
+      .onTrue(new AutoCommunity2Command(m_SwerveSubsystem));
 
     new JoystickButton(driverJoystick, Constants.DriverJoystick.reverseDrive)
       .onTrue(new ReverseDriveCommand(m_SwerveSubsystem));

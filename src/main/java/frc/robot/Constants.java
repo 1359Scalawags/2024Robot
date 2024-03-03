@@ -21,7 +21,7 @@ import swervelib.math.Matter;
 public final class Constants {
 
   public static final String robotName = "Siren";
-  public static final boolean kDebug = false;
+  public static final boolean kDebug = true;
   public static int kDefaultPipeline;
 
 
@@ -59,6 +59,8 @@ public final class Constants {
     // public static final double kPAngleHollonmic = 0.0;
     public static final double kTeleopDeadzone = 0.1;
     public static final double kAngleSpeedMultiplier = 1;
+    public static final double CommunityAutoTime = 2.25;
+    public static final double kPositionOneYCF = 1.76;
 
   }
 
