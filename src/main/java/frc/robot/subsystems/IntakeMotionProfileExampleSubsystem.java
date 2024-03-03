@@ -4,22 +4,18 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.EncoderType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkAbsoluteEncoder;
-import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -112,6 +108,7 @@ public class IntakeMotionProfileExampleSubsystem extends SubsystemBase {
     Constraints trapezoidConstraints = new Constraints(Constants.intakeSubsystem.kPositionRateLimit, Constants.intakeSubsystem.kPositionAccelerationLimit);
     trapezoidProfile = new TrapezoidProfile(trapezoidConstraints);
     positionSetpoint = new TrapezoidProfile.State(getpos(), 0);
+    positionGoal = new TrapezoidProfile.State(Constants.intakeSubsystem.kpositionUp, 0);
     
     // instantiate feedfoward provider that adapts to arms position
     gravityFF = new GravityAssistedFeedForward(Constants.intakeSubsystem.kGravityFF,
@@ -216,8 +213,8 @@ public class IntakeMotionProfileExampleSubsystem extends SubsystemBase {
 
       positionSetpoint = trapezoidProfile.calculate(Constants.kDeltaTime, positionSetpoint, positionGoal);
 
-      double FF = MathUtil.clamp(gravityFF.calculate(positionSetpoint.position), -positionSetpoint.velocity / 20, -positionSetpoint.velocity / 20);
-      positionPID.setFF(FF);
+      // double FF = MathUtil.clamp(gravityFF.calculate(positionSetpoint.position), -positionSetpoint.velocity / 20, positionSetpoint.velocity / 20);
+      // positionPID.setFF(FF);
       positionPID.setReference(positionSetpoint.position, ControlType.kPosition);
 
       if (Constants.kDebug) {
@@ -227,7 +224,7 @@ public class IntakeMotionProfileExampleSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Intake Motor Encoder", motorEncoder.getPosition());
         SmartDashboard.putNumber("Intake Motor Output", positionMotor.getOutputCurrent());
         SmartDashboard.putNumber("Intake RPM", absolutePositionEncoder.getVelocity());
-        SmartDashboard.putNumber("Intake Gravity FF", FF);
+        //SmartDashboard.putNumber("Intake Gravity FF", FF);
       }
 
     } else {
