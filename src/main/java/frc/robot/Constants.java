@@ -173,6 +173,7 @@ public final class Constants {
     public static final double kZeroOffsetBuffer = 10.0;
     public static final double kInjectNoteCorrectionStopTime = 0.6;
     public static final double kInjectNoteCorrectionStartTime = 0.25;
+    public static final double kPositionAccelerationLimit = 60.0;
 
 
   }
