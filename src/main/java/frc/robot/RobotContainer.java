@@ -29,6 +29,7 @@ import frc.robot.commands.ShootingCommands.StopAmpShootingCommand;
 import frc.robot.commands.ShootingCommands.StopShootingCommand;
 import frc.robot.commands.SwerveCommands.AutoCommunity1Command;
 import frc.robot.commands.SwerveCommands.AutoCommunity2Command;
+import frc.robot.commands.SwerveCommands.DriveRightCommand;
 import frc.robot.commands.SwerveCommands.FeildCentricDrive;
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
 import frc.robot.commands.SwerveCommands.ReverseDriveCommand;
@@ -123,8 +124,8 @@ SendableChooser<Command> autoChooser;
   private void setDefaultCommands() {
     m_SwerveSubsystem.setDefaultCommand(
       new FeildCentricDrive(m_SwerveSubsystem,
-      this::driverGetX,
-      this::driverGetY,
+      this::driverGetForward,
+      this::driverGetRight,
       this::driverGetZ,
       this::driverGetThrottle,
       m_SwerveSubsystem::getFeildCentric, 
@@ -149,12 +150,12 @@ SendableChooser<Command> autoChooser;
   public double assistantGetZ() {
     return -assistantJoystick.getZ();
   }
-  public double driverGetY() {
-    return driverJoystick.getY();
+  public double driverGetRight() {
+    return -driverJoystick.getX();
   }
 
-  public double driverGetX() {
-    return -driverJoystick.getX();
+  public double driverGetForward() {
+    return -driverJoystick.getY();
   }
 
   public double driverGetZ() {
@@ -237,8 +238,11 @@ SendableChooser<Command> autoChooser;
     new JoystickButton(driverJoystick,Constants.DriverJoystick.toggleRobotCentricButton)
       .onTrue(new RobotCentricCommand(m_SwerveSubsystem));
 
-    new JoystickButton(driverJoystick,Constants.DriverJoystick.driveForwardButton)
+    new JoystickButton(driverJoystick,Constants.DriverJoystick.auto2driveForwardButton)
       .onTrue(new AutoCommunity2Command(m_SwerveSubsystem));
+
+    new JoystickButton(driverJoystick,Constants.DriverJoystick.driveForwardButton)
+      .onTrue(new DriveRightCommand(m_SwerveSubsystem));
 
     new JoystickButton(driverJoystick, Constants.DriverJoystick.reverseDrive)
       .onTrue(new ReverseDriveCommand(m_SwerveSubsystem));

@@ -110,7 +110,7 @@ public class ShooterSubsystem extends SubsystemBase {
       speedPIDL.setReference(Constants.shooterSubsystem.kTwoMotorUsed ? limitSpeed : 3000, ControlType.kVelocity); // Left motor
     }
     else {
-      double joyX = Robot.getRobotContainer().driverGetX()/2;
+      double joyX = Robot.getRobotContainer().driverGetForward()/2;
       shootingMotorL.set(joyX);
       shootingMotorR.set(joyX);
 
