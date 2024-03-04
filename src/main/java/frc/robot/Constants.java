@@ -163,12 +163,12 @@ public final class Constants {
     public static final double kIntakeP = 0.01; //0.005
     public static final double kIntakeI = 0;
     public static final double kIntakeD = 0.0;
-    public static final double kInitialIntakeFF = 0; //0.01; 
+    // public static final double kInitialIntakeFF = 0; //0.01; 
 
     public static final double kGravityFF = 0.0005; //0.0001
     public static final double kOffsetAngle = 0.0;
-    public static final double kMaxFF = 0.001;
-    public static final double kMinFF = -kMaxFF;
+    // public static final double kMaxFF = 0.001;
+    // public static final double kMinFF = -kMaxFF;
     public static final double kPositionEncoderOffset = 210.0; //approximately sets 0 to rear-facing horizontal //avoids meridian flip
     public static final double kPositionTolerance = 0.5; // in degrees
     public static final double kZeroOffsetBuffer = 10.0;

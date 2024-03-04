@@ -28,8 +28,8 @@ public class HomeIntakeCommand extends Command {
   @Override
   public void initialize() {
       
-    m_IntakeSubsystem.setHomingState(true);
-    m_IntakeSubsystem.positionUp();
+    // m_IntakeSubsystem.setHomingState(true);
+    // m_IntakeSubsystem.positionUp();
     System.out.println("================= HOME INTAKE ================");
   }
 
@@ -40,24 +40,17 @@ public class HomeIntakeCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_IntakeSubsystem.setHomingState(false);
+    // m_IntakeSubsystem.setHomingState(false);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(m_IntakeSubsystem.isUp()) {
-      return true;
-    } else {
-      return false;
-    }
-    //return m_IntakeSubsystem.isUp();
-    // if (m_IntakeSubsystem.isHome()) {
-    //   System.out.println("===================Homing Finished"); 
+    // if(m_IntakeSubsystem.isUp()) {
     //   return true;
+    // } else {
+    //   return false;
     // }
-    // else {
-    //   return false; 
-    // }
+    return true;
   }
 }
