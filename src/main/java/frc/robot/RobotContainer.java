@@ -88,6 +88,7 @@ SendableChooser<Command> autoChooser;
     NamedCommands.registerCommand("ShootCommand", new ShootCommand(m_shooterSubsystem));
     NamedCommands.registerCommand("ShootTimedCommand", new ShootTimedCommand(m_shooterSubsystem));
     NamedCommands.registerCommand("IntakeNoteOutTimedShoot", new IntakeNoteOutTimedShoot(m_IntakeSubsystem));
+    NamedCommands.registerCommand("IntakeExtendCommand", new IntakeExtendCommand(m_IntakeSubsystem));
     NamedCommands.registerCommand("AutoCommunity2Command", new AutoCommunity2Command(m_SwerveSubsystem));
     NamedCommands.registerCommand("AutoCommunity1Command", new AutoCommunity1Command(m_SwerveSubsystem));
 

@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 2.424537171349224,
-        "y": 1.7702511234406335
+        "x": 2.3858987066345065,
+        "y": 1.018446548171292
       },
       "prevControl": {
-        "x": 2.3970302279382625,
-        "y": 1.7697709879574182
+        "x": 2.358391763223545,
+        "y": 1.0179664126880767
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,21 +32,21 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 0.5,
+    "maxVelocity": 0.8,
     "maxAcceleration": 1.5,
     "maxAngularVelocity": 360.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 180.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Move out of Community",
   "previewStartingState": {
-    "rotation": -51.34019174590991,
+    "rotation": 135.0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

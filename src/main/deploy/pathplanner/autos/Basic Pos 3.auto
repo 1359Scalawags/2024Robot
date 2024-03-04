@@ -5,7 +5,7 @@
       "x": 0.97,
       "y": 4.57
     },
-    "rotation": -51.34000000000003
+    "rotation": 135.0
   },
   "command": {
     "type": "sequential",
@@ -39,6 +39,6 @@
       ]
     }
   },
-  "folder": "Basic autos",
+  "folder": "Three Note Auto",
   "choreoAuto": false
 }

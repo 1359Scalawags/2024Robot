@@ -10,10 +10,11 @@
     "Test Paths"
   ],
   "autoFolders": [
+    "Two Note Autos",
     "Testing",
     "No Movement",
-    "Advanced Autos",
-    "Basic autos"
+    "New Folder",
+    "Three Note Auto"
   ],
   "defaultMaxVel": 0.5,
   "defaultMaxAccel": 1.5,

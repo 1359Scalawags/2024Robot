@@ -38,14 +38,14 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 40.914383220025165,
+    "velocity": 0.0,
+    "rotation": -130.91,
     "rotateFast": true
   },
   "reversed": false,
   "folder": "Move to Speaker",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": false

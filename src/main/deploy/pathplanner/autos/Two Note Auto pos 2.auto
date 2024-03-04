@@ -1,0 +1,76 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeNoteOutTimedShoot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShootTimedCommand"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "get Note from Center"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeExtendCommand"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Return to Speaker"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeNoteOutTimedShoot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShootTimedCommand"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Two Note Autos",
+  "choreoAuto": false
+}

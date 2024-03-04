@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 2.3175439715808337,
-        "y": 5.573373042480681
+        "x": 2.55049612856118,
+        "y": 4.855623946836867
       },
       "prevControl": {
-        "x": 2.3078173170564344,
-        "y": 5.553919733431883
+        "x": 2.5407694740367806,
+        "y": 4.836170637788069
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 180.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Move out of Community",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": true
