@@ -160,7 +160,7 @@ public final class Constants {
    
     public static final double kIntakeConversionFactor = 360.0; // Now using an absolute encoder //4.39007;
 
-    public static final double kIntakeP = 0.01; //0.005
+    public static final double kIntakeP = 0.0; //0.01; // set to 0 only while tuning FF
     public static final double kIntakeI = 0;
     public static final double kIntakeD = 0.0;
     // public static final double kInitialIntakeFF = 0; //0.01; 
