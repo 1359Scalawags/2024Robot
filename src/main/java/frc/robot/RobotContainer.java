@@ -29,6 +29,7 @@ import frc.robot.commands.ShootingCommands.StopAmpShootingCommand;
 import frc.robot.commands.ShootingCommands.StopShootingCommand;
 import frc.robot.commands.SwerveCommands.AutoCommunity1Command;
 import frc.robot.commands.SwerveCommands.AutoCommunity2Command;
+import frc.robot.commands.SwerveCommands.DriveForwardCommand;
 import frc.robot.commands.SwerveCommands.DriveRightCommand;
 import frc.robot.commands.SwerveCommands.FeildCentricDrive;
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
@@ -243,6 +244,9 @@ SendableChooser<Command> autoChooser;
       .onTrue(new AutoCommunity2Command(m_SwerveSubsystem));
 
     new JoystickButton(driverJoystick,Constants.DriverJoystick.driveForwardButton)
+      .onTrue(new DriveForwardCommand(m_SwerveSubsystem));
+
+      new JoystickButton(driverJoystick,Constants.DriverJoystick.driveRightButton)
       .onTrue(new DriveRightCommand(m_SwerveSubsystem));
 
     new JoystickButton(driverJoystick, Constants.DriverJoystick.reverseDrive)

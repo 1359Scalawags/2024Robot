@@ -206,6 +206,7 @@ public final class Constants {
     public static final int toggleRobotCentricButton = 10;
     public static final int reverseDrive = 11;    
     public static final int driveForwardButton = 12;
+    public static final int driveRightButton = 13;
     public static final int unReverseDrive = 16;
     public static final int auto2driveForwardButton = 0;
 
