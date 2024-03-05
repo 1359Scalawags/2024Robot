@@ -43,9 +43,9 @@ public class DriveForwardCommand extends Command {
     public void execute() {
       
         //Translation2d translation, double rotation, boolean fieldRelative
-       
+        // +X is forward, +Y is left
         swerve.drive(
-            new Translation2d(0.0, 0.5),
+            new Translation2d(0.5, 0.0),
             0.0,
             false);
 

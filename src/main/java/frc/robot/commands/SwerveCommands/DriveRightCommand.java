@@ -45,7 +45,7 @@ public class DriveRightCommand extends Command {
         //Translation2d translation, double rotation, boolean fieldRelative
        
         swerve.drive(
-            new Translation2d(0.5, 0.0),
+            new Translation2d(0.0, -0.5),
             0.0,
             false);
 
