@@ -149,7 +149,7 @@ public final class Constants {
     public static final int kPositionMotorPortID = 24;
     public static final int kBottomStarMotorPortID = 22;
 
-    public static final double kPositionRateLimit = 120.0;
+    public static final double kPositionRateLimit = 30.0;
     //public static final double kPositionInitialValue = 0.0;
     //public static final double kSafePositionRateLimit = 60.0;
     public static final boolean kHomeLimitPressed = false;
