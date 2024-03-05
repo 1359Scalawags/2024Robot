@@ -46,7 +46,7 @@ public class RotateRightCommand extends Command {
        
         swerve.drive(
             new Translation2d(0.0, 0.0),
-            0.5,
+            -0.5,
             false);
 
        
