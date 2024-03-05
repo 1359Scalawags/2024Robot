@@ -393,6 +393,17 @@ public class SwerveSubsystem extends SubsystemBase
   }
 
   /**
+   * Gets the current pose of the robot with CW rotation converted to CCW. 
+   * @return
+   */
+  public Pose2d getInvertedPose() 
+  {
+    Pose2d original = swerveDrive.getPose();
+    Rotation2d invertedRotation = original.getRotation().times(-1);
+    return new Pose2d(original.getTranslation(), invertedRotation);
+  }
+
+  /**
    * Set chassis speeds with closed-loop velocity control.
    *
    * @param chassisSpeeds Chassis Speeds to set.
