@@ -35,6 +35,7 @@ import frc.robot.commands.SwerveCommands.FeildCentricDrive;
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
 import frc.robot.commands.SwerveCommands.ReverseDriveCommand;
 import frc.robot.commands.SwerveCommands.RobotCentricCommand;
+import frc.robot.commands.SwerveCommands.RotateCCWCommand;
 import frc.robot.commands.SwerveCommands.UnReverseDriveCommand;
 import frc.robot.commands.SwerveCommands.ZeroGyroCommand;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -246,8 +247,11 @@ SendableChooser<Command> autoChooser;
     new JoystickButton(driverJoystick,Constants.DriverJoystick.driveForwardButton)
       .onTrue(new DriveForwardCommand(m_SwerveSubsystem));
 
-      new JoystickButton(driverJoystick,Constants.DriverJoystick.driveRightButton)
+    new JoystickButton(driverJoystick,Constants.DriverJoystick.driveRightButton)
       .onTrue(new DriveRightCommand(m_SwerveSubsystem));
+
+    new JoystickButton(driverJoystick,Constants.DriverJoystick.rotateCCWButton)
+      .onTrue(new RotateCCWCommand(m_SwerveSubsystem));    
 
     new JoystickButton(driverJoystick, Constants.DriverJoystick.reverseDrive)
       .onTrue(new ReverseDriveCommand(m_SwerveSubsystem));
