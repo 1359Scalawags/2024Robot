@@ -200,12 +200,13 @@ public final class Constants {
   }
   public static class DriverJoystick{
     public static final int joystick = 0;
+
     public static final int zeroGyroButton = 7;
     public static final int toggleFeildCentricButton = 8;
     public static final int toggleRobotCentricButton = 10;
+    public static final int reverseDrive = 11;    
     public static final int driveForwardButton = 12;
     public static final int unReverseDrive = 16;
-    public static final int reverseDrive = 11;
     public static final int auto2driveForwardButton = 0;
 
 
@@ -213,16 +214,17 @@ public final class Constants {
   public static class AssistantJoystick{
     public static final int joystick = 1;
     //public static final int shootButton = 1;
-    public static final int extendClimberArmButton = 11;
-    public static final int retractClimberArmButton = 16;
-    public static final int intakeExtendButton = 3;
-    public static final int intakeRetractButton = 4;
+    public static final int shootLoadedNote = 1;    
+    public static final int intakeExtendButton = 3;   
+    public static final int intakeRetractButton = 4;   
+    public static final int unlockClimberButtom = 5;
     public static final int intakeNoteInbutton = 7;
     public static final int intakeNoteOutbutton = 8;
-    public static final int unlockClimberButtom = 5;
     public static final int lockClimberButton = 10;
-    public static final int shootLoadedNote = 1;
+    public static final int extendClimberArmButton = 11;
     public static final int ampShootingButton = 13;
+    public static final int retractClimberArmButton = 16;
+
   }
 
   public static final class UI {
