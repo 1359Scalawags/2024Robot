@@ -41,22 +41,6 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
-/*
- * 
- * 
- * 
- * 
- * 
- * 
- * NOTE, THIS IS A EXAMPLE FROM THE YAGSL-EXAMPLE GITHUB REPO. NOT INTENDED TO BE THE FINAL PRODUCT*************
- * 
- * 
- * 
- *
- * 
- * 
- * 
- */
 
  //TODO: Clean up unused methods.
 
@@ -100,7 +84,12 @@ public class SwerveSubsystem extends SubsystemBase
     //TODO: Choose verbosity level for dashboard
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary objects being created.
     //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
-    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH; //shows only field position
+    if (Constants.kDebug) {
+      SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;}
+     else {
+      SwerveDriveTelemetry.verbosity = TelemetryVerbosity.LOW;}
+     
+      //shows only field position
     //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.NONE; //shows no swerve data
     //SwerveDriveTelemetry.verbosity = TelemetryVerbosity.MACHINE; //shows only swerve
     try
