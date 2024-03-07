@@ -62,7 +62,7 @@ public class FeildCentricDrive extends Command {
         //Translation2d translation, double rotation, boolean fieldRelative
         double xVelocity = (modvX * swerve.getMaxSpeed()) * MathUtil.clamp(throttle.getAsDouble(), 0.1, 1);
         double yVelocity = (modvY * swerve.getMaxSpeed()) * MathUtil.clamp(throttle.getAsDouble(), 0.1, 1);
-        double angVelocity = (Math.pow(MathUtil.applyDeadband(omega.getAsDouble(), 0.2), 3) * controller.config.maxAngularVelocity) * Constants.swerveSubsystem.kAngleSpeedMultiplier;
+        double angVelocity = (Math.pow(MathUtil.applyDeadband(omega.getAsDouble(), 0.2), 3) * controller.config.maxAngularVelocity) * Constants.swerveSubsystem.kAngleSpeedMultiplier * MathUtil.clamp(throttle.getAsDouble(), 0.1, 1);
         swerve.drive(
             new Translation2d(xVelocity, yVelocity),
             angVelocity,
