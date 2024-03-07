@@ -62,6 +62,9 @@ public final class Constants {
     public static final double CommunityAutoTime = 2.25;
     public static final double kPositionOneYCF = 1.76;
 
+    public static final boolean kEnableDynamicReplanning = true;
+    public static final boolean kEnableIntialReplanning = true;
+
   }
 
   //TODO: need to set starter constant values
@@ -93,7 +96,7 @@ public final class Constants {
 
     public static final int kShootingMotorLPort = 27;
     public static final int kShootingmotorRPort = 28;
-    public static final double kAmpshootingspeed = 390; //originally 500
+    public static final double kAmpshootingspeed = 500; //originally 500
     public static final double kstopshootingspeed = 0.0;
     public static final double kShootingspeed = 1800;
     // public static final double kShootingspeed = 3000; For only one working
