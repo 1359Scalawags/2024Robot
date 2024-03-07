@@ -20,8 +20,24 @@
         "y": 7.0
       },
       "prevControl": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 1.98469249068824,
+        "y": 6.985103093013204
+      },
+      "nextControl": {
+        "x": 3.1110136782004663,
+        "y": 7.001628827151624
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.0,
+        "y": 5.925507189360244
+      },
+      "prevControl": {
+        "x": 3.034001055470783,
+        "y": 5.90493251161941
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,13 +55,13 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 0,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Test Paths",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": false
