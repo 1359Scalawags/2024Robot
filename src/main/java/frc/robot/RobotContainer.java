@@ -110,6 +110,7 @@ SendableChooser<Command> autoChooser;
     //autoChooser.addOption("MoveOnly", getAutonomousCommand("MoveOnly"));
     autoChooser.addOption("MoveAndShoot", getAutonomousCommand("MoveAndShoot"));
     autoChooser.addOption("Test Auto Two", getAutonomousCommand("Test Auto Two"));
+    autoChooser.addOption("Test Auto", getAutonomousCommand("Test Auto"));
 
 
     //autoChooser.addOption("Example Path", Path("example Path"));
