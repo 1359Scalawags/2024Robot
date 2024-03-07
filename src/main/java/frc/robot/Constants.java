@@ -70,7 +70,7 @@ public final class Constants {
     public static final double kShootingspeed = 1800; //3000 for one working side
     public static final double kShootingspeedlimit = 2000; //3500 for one working side
 
-    public static final double kRightMotorP = 0.0002;
+    public static final double kRightMotorP = 0.0004; //0.0002
     public static final double kRightMotorI = 0.0;
     public static final double kRightMotorD = 0.0;
 	  public static final double kRightmotorFF = 0.00033;
