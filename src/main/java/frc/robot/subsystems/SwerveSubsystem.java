@@ -50,6 +50,7 @@ public class SwerveSubsystem extends SubsystemBase
   
 
   private boolean isFeildCentric = true;
+  private boolean isTeleopReversed = false;
 
   /**
    * Swerve drive object.
@@ -532,14 +533,22 @@ public class SwerveSubsystem extends SubsystemBase
   }
 
   //TODO: Test to see if this actually works properly
-  public void reverse(boolean isReversed) {
-    if(isReversed) {
-      Rotation3d turn180 = new Rotation3d(0,0,180);
-      swerveDrive.setGyroOffset(turn180);     
-    } else {
-      Rotation3d turn0 = new Rotation3d(0,0,0);
-      swerveDrive.setGyroOffset(turn0);
-    }
+  // public void reverse(boolean isReversed) {
+  //   if(isReversed) {
+  //     Rotation3d turn180 = new Rotation3d(0,0,180);
+  //     swerveDrive.setGyroOffset(turn180);     
+  //   } else {
+  //     Rotation3d turn0 = new Rotation3d(0,0,0);
+  //     swerveDrive.setGyroOffset(turn0);
+  //   }
+  // }
+
+  public void reverseTeleopDrive(boolean reverse) {
+    this.isTeleopReversed = reverse;
+  }
+
+  public boolean isReversedTeleopDrive() {
+    return this.isTeleopReversed;
   }
 
   /**

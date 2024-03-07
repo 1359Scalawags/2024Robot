@@ -26,7 +26,8 @@ public class UnReverseDriveCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_subsystem.reverse(false);
+    //m_subsystem.reverse(false);
+    m_subsystem.reverseTeleopDrive(false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
