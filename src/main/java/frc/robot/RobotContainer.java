@@ -278,11 +278,8 @@ SendableChooser<Command> autoChooser;
     return new HomeClimberCommand(m_ClimberSubsystem);
   }
 
-
- @Deprecated
  public Command getIntakeHomingCommand() {
-  //   return new HomeIntakeCommand(m_IntakeSubsystem);
-  return null;
+  return new HomeIntakeCommand(m_IntakeSubsystem);
  }
 
   public Command getStartingVisionPipe() {

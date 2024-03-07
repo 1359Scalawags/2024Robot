@@ -4,11 +4,11 @@
 
 package frc.robot.commands.IntakeCommands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-@Deprecated
 public class HomeIntakeCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final IntakeSubsystem m_IntakeSubsystem;
@@ -26,11 +26,12 @@ public class HomeIntakeCommand extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-      
-    // m_IntakeSubsystem.setHomingState(true);
-    // m_IntakeSubsystem.positionUp();
-    System.out.println("================= HOME INTAKE ================");
+  public void initialize()
+  {    
+    m_IntakeSubsystem.positionUp();
+    if(Constants.kDebug) {
+      System.out.println("================= HOME INTAKE ================");
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -40,17 +41,16 @@ public class HomeIntakeCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // m_IntakeSubsystem.setHomingState(false);
+    m_IntakeSubsystem.setOutputRange(-1, 1);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // if(m_IntakeSubsystem.isUp()) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
-    return true;
+    if(m_IntakeSubsystem.isUp()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
