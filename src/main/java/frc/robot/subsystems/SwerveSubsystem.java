@@ -543,11 +543,19 @@ public class SwerveSubsystem extends SubsystemBase
   //   }
   // }
 
-  public void reverseTeleopDrive(boolean reverse) {
+  /**
+   * Set a flag to indicate whether the drive should be reversed in Teleop Mode
+   * @param reverse Should the drive be operated in reverse.
+   */
+  public void reverse(boolean reverse) {
     this.isTeleopReversed = reverse;
   }
 
-  public boolean isReversedTeleopDrive() {
+  /**
+   * Is the reverse flag set on the drive? Use this to change how commands send information to the drive system.
+   * @return Should the drive be operated in reverse
+   */
+  public boolean isReversed() {
     return this.isTeleopReversed;
   }
 

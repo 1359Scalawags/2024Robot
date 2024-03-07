@@ -64,7 +64,7 @@ public class FeildCentricDrive extends Command {
         double yVelocity = (modvY * swerve.getMaxSpeed()) * MathUtil.clamp(throttle.getAsDouble(), 0.1, 1);
         double angVelocity = (Math.pow(MathUtil.applyDeadband(omega.getAsDouble(), 0.2), 3) * controller.config.maxAngularVelocity) * Constants.swerveSubsystem.kAngleSpeedMultiplier * MathUtil.clamp(throttle.getAsDouble(), 0.1, 1);
         
-        if(swerve.isReversedTeleopDrive()) {
+        if(swerve.isReversed()) {
             if(feildRelitive.getAsBoolean()) {
                 //if field relative, just need to flip forward backward
                 swerve.drive(
