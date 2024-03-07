@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class RotateRightCommand extends Command {
+public class RotateCCWCommand extends Command {
     private SwerveSubsystem swerve;
     private SwerveController controller;
 
@@ -31,7 +31,7 @@ public class RotateRightCommand extends Command {
      * @param feildRelitive
      * @param isOpenLoop
      */
-    public RotateRightCommand(SwerveSubsystem swerve) {
+    public RotateCCWCommand(SwerveSubsystem swerve) {
         this.swerve = swerve;
         this.controller = swerve.getSwerveController();
         addRequirements(swerve);

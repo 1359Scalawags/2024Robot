@@ -45,7 +45,7 @@
   "reversed": false,
   "folder": "Move out of Community",
   "previewStartingState": {
-    "rotation": -135.0,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

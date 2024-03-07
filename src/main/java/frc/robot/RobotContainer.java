@@ -35,6 +35,7 @@ import frc.robot.commands.SwerveCommands.FeildCentricDrive;
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
 import frc.robot.commands.SwerveCommands.ReverseDriveCommand;
 import frc.robot.commands.SwerveCommands.RobotCentricCommand;
+import frc.robot.commands.SwerveCommands.RotateCCWCommand;
 import frc.robot.commands.SwerveCommands.UnReverseDriveCommand;
 import frc.robot.commands.SwerveCommands.ZeroGyroCommand;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -108,6 +109,8 @@ SendableChooser<Command> autoChooser;
     autoChooser.addOption("Basic Pos 1", getAutonomousCommand("Basic Pos 1"));
     //autoChooser.addOption("MoveOnly", getAutonomousCommand("MoveOnly"));
     autoChooser.addOption("MoveAndShoot", getAutonomousCommand("MoveAndShoot"));
+    autoChooser.addOption("Test Auto Two", getAutonomousCommand("Test Auto Two"));
+
 
     //autoChooser.addOption("Example Path", Path("example Path"));
     //autoChooser.addOption("New Auto", Auto("New Auto"));
@@ -161,7 +164,7 @@ SendableChooser<Command> autoChooser;
   }
 
   public double driverGetZ() {
-    return driverJoystick.getZ();
+    return -driverJoystick.getZ();
   }
   public double driverGetThrottle() {
     return driverJoystick.getThrottle();
@@ -239,24 +242,29 @@ SendableChooser<Command> autoChooser;
 
     new JoystickButton(driverJoystick,Constants.DriverJoystick.toggleRobotCentricButton)
       .onTrue(new RobotCentricCommand(m_SwerveSubsystem));
+    
+    new JoystickButton(assistantJoystick, Constants.AssistantJoystick.shootLoadedNote)
+      .onTrue(Commands.parallel(new ShootTimedCommand(m_shooterSubsystem), new IntakeNoteOutTimedShoot(m_IntakeSubsystem)));
 
+      
+      // test buttons
     new JoystickButton(driverJoystick,Constants.DriverJoystick.auto2driveForwardButton)
       .onTrue(new AutoCommunity2Command(m_SwerveSubsystem));
 
     new JoystickButton(driverJoystick,Constants.DriverJoystick.driveForwardButton)
       .onTrue(new DriveForwardCommand(m_SwerveSubsystem));
 
-      new JoystickButton(driverJoystick,Constants.DriverJoystick.driveRightButton)
+    new JoystickButton(driverJoystick,Constants.DriverJoystick.driveRightButton)
       .onTrue(new DriveRightCommand(m_SwerveSubsystem));
+
+    new JoystickButton(driverJoystick,Constants.DriverJoystick.rotateCCWButton)
+      .onTrue(new RotateCCWCommand(m_SwerveSubsystem));    
 
     new JoystickButton(driverJoystick, Constants.DriverJoystick.reverseDrive)
       .onTrue(new ReverseDriveCommand(m_SwerveSubsystem));
 
     new JoystickButton(driverJoystick, Constants.DriverJoystick.unReverseDrive)
       .onTrue(new UnReverseDriveCommand(m_SwerveSubsystem));
-
-    new JoystickButton(assistantJoystick, Constants.AssistantJoystick.shootLoadedNote)
-      .onTrue(Commands.parallel(new ShootTimedCommand(m_shooterSubsystem), new IntakeNoteOutTimedShoot(m_IntakeSubsystem)));
   }
 
 

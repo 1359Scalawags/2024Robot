@@ -11,10 +11,10 @@
   ],
   "autoFolders": [
     "Two Note Autos",
+    "Basic Auto",
     "Testing",
     "No Movement",
-    "New Folder",
-    "Three Note Auto"
+    "New Folder"
   ],
   "defaultMaxVel": 0.5,
   "defaultMaxAccel": 1.5,
