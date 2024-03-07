@@ -93,7 +93,7 @@ public final class Constants {
 
     public static final int kShootingMotorLPort = 27;
     public static final int kShootingmotorRPort = 28;
-    public static final double kAmpshootingspeed = 500;
+    public static final double kAmpshootingspeed = 390; //originally 500
     public static final double kstopshootingspeed = 0.0;
     public static final double kShootingspeed = 1800;
     // public static final double kShootingspeed = 3000; For only one working
@@ -150,7 +150,7 @@ public final class Constants {
     public static final int kPositionMotorPortID = 24;
     public static final int kBottomStarMotorPortID = 22;
 
-    public static final double kPositionRateLimit = 120.0;
+    public static final double kPositionRateLimit = 240.0;
     //public static final double kPositionInitialValue = 0.0;
     //public static final double kSafePositionRateLimit = 60.0;
     public static final boolean kHomeLimitPressed = false;
