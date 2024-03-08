@@ -114,8 +114,17 @@ public final class Constants {
     public static final double kLeftMotorD = kRightMotorD;
     public static final double kLeftmotorFF = kRightmotorFF;
     public static final double kLeftMotorIZ = kRightMotorIZ;
+
+
+    //TODO: fix thes Constants so that they are in the right place.
     public static final double kStopShooterTime = 3.5;
     public static final double kStartIntakeToShooter = 1.0;
+
+    public static final double kIntakeNoteInTime = 2.0;
+
+    public static final double kStopIntakeInTime = 0;
+
+
 
       //use these vals if we want to have same the PID for the shooter motors.
     // public static final double kShooterMotorP = 0.0;
@@ -178,6 +187,9 @@ public final class Constants {
     public static final double kZeroOffsetBuffer = 10.0;
     public static final double kInjectNoteCorrectionStopTime = 0.6;
     public static final double kInjectNoteCorrectionStartTime = 0.25;
+
+    public static final double kIntakeNoteInTime = 1.0;
+    public static final double kStopIntakeInTime = 4.0;
 
 
   }

@@ -14,9 +14,9 @@ import frc.robot.commands.ArmCommands.MoveClimberArms;
 import frc.robot.commands.ArmCommands.RetractArmCommand;
 import frc.robot.commands.ArmCommands.UnlockClimberCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
+import frc.robot.commands.IntakeCommands.TimedCommands.IntakeNoteInTimedShoot;
 import frc.robot.commands.IntakeCommands.IntakeNoteInCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteOutCommand;
-import frc.robot.commands.IntakeCommands.IntakeNoteOutTimedShoot;
 import frc.robot.commands.IntakeCommands.HomeIntakeCommand;
 import frc.robot.commands.IntakeCommands.IntakeExtendCommand;
 import frc.robot.commands.IntakeCommands.IntakeRetractCommand;
@@ -89,10 +89,13 @@ SendableChooser<Command> autoChooser;
     // this is how you add commands to be used in auto routeine
     NamedCommands.registerCommand("ShootCommand", new ShootCommand(m_shooterSubsystem));
     NamedCommands.registerCommand("ShootTimedCommand", new ShootTimedCommand(m_shooterSubsystem));
-    NamedCommands.registerCommand("IntakeNoteOutTimedShoot", new IntakeNoteOutTimedShoot(m_IntakeSubsystem));
+    NamedCommands.registerCommand("IntakeNoteOutTimedShoot", new IntakeNoteInTimedShoot(m_IntakeSubsystem));
     NamedCommands.registerCommand("IntakeExtendCommand", new IntakeExtendCommand(m_IntakeSubsystem));
+    NamedCommands.registerCommand("IntakeNoteInCommand", new IntakeNoteInCommand(m_IntakeSubsystem));
+    NamedCommands.registerCommand("IntakeRetractCommand", new IntakeRetractCommand(m_IntakeSubsystem));
     NamedCommands.registerCommand("AutoCommunity2Command", new AutoCommunity2Command(m_SwerveSubsystem));
     NamedCommands.registerCommand("AutoCommunity1Command", new AutoCommunity1Command(m_SwerveSubsystem));
+    
 
     // Configure the trigger bindings
     configureBindings();
@@ -246,7 +249,7 @@ SendableChooser<Command> autoChooser;
       .onTrue(new RobotCentricCommand(m_SwerveSubsystem));
     
     new JoystickButton(assistantJoystick, Constants.AssistantJoystick.shootLoadedNote)
-      .onTrue(Commands.parallel(new ShootTimedCommand(m_shooterSubsystem), new IntakeNoteOutTimedShoot(m_IntakeSubsystem)));
+      .onTrue(Commands.parallel(new ShootTimedCommand(m_shooterSubsystem), new IntakeNoteInTimedShoot(m_IntakeSubsystem)));
 
       
       // test buttons

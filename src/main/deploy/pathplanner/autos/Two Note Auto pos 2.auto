@@ -37,16 +37,34 @@
           }
         },
         {
-          "type": "sequential",
+          "type": "named",
+          "data": {
+            "name": "IntakeExtendCommand"
+          }
+        },
+        {
+          "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "named",
                 "data": {
-                  "name": "IntakeExtendCommand"
+                  "name": "IntakeNoteInCommand"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Get Note"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeRetractCommand"
           }
         },
         {
