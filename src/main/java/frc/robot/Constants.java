@@ -6,9 +6,9 @@ package frc.robot;
 
 import com.pathplanner.lib.util.PIDConstants;
 
-import edu.wpi.first.math.geometry.Translation3d;
-import edu.wpi.first.math.util.Units;
-import swervelib.math.Matter;
+// import edu.wpi.first.math.geometry.Translation3d;
+// import edu.wpi.first.math.util.Units;
+// import swervelib.math.Matter;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -117,12 +117,12 @@ public final class Constants {
 
 
     //TODO: fix thes Constants so that they are in the right place.
-    public static final double kStopShooterTime = 3.5;
-    public static final double kStartIntakeToShooter = 1.0;
+    // public static final double kStopShooterTime = 3.5;
+    // public static final double kStartIntakeToShooter = 1.0;
 
-    public static final double kIntakeNoteInTime = 2.0;
+    //public static final double kIntakeNoteInTime = 2.0;
 
-    public static final double kStopIntakeInTime = 0;
+    //public static final double kStopIntakeInTime = 0;
 
 
 
@@ -188,8 +188,12 @@ public final class Constants {
     public static final double kInjectNoteCorrectionStopTime = 0.6;
     public static final double kInjectNoteCorrectionStartTime = 0.25;
 
+    
+    public static final double kStopShooterTime = 3.5;
+    public static final double kStartIntakeToShooter = 1.0;
+
     public static final double kIntakeNoteInTime = 1.0;
-    public static final double kStopIntakeInTime = 4.0;
+    public static final double kStopIntakeInTime = 3.5;
 
 
   }

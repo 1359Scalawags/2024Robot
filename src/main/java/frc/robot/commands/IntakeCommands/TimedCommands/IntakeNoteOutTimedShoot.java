@@ -42,7 +42,7 @@ public class IntakeNoteOutTimedShoot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      if (startTimer.get() >= Constants.shooterSubsystem.kStartIntakeToShooter) {
+      if (startTimer.get() >= Constants.intakeSubsystem.kStartIntakeToShooter) {
         m_IntakeSubsystem.ejectNoteToShooter();
       }
   }
@@ -56,7 +56,7 @@ public class IntakeNoteOutTimedShoot extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {  
-    if (startTimer.get() >= Constants.shooterSubsystem.kStopShooterTime ) {
+    if (startTimer.get() >= Constants.intakeSubsystem.kStopShooterTime ) {
       return true;
     } else {
       return false;
