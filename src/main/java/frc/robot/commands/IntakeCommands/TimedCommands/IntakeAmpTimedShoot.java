@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class IntakeNoteInTimedShoot extends Command {
+public class IntakeAmpTimedShoot extends Command {
   private final IntakeSubsystem m_IntakeSubsystem;
   private Timer startTimer;
   /**
@@ -19,7 +19,7 @@ public class IntakeNoteInTimedShoot extends Command {
    * 
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeNoteInTimedShoot(IntakeSubsystem subsystem) {
+  public IntakeAmpTimedShoot(IntakeSubsystem subsystem) {
     m_IntakeSubsystem = subsystem;
     startTimer = new Timer();
 
@@ -42,8 +42,9 @@ public class IntakeNoteInTimedShoot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      if (startTimer.get() >= Constants.intakeSubsystem.kIntakeNoteInTime) {
-        m_IntakeSubsystem.injectNote();      }
+      // if (startTimer.get() >= Constants.intakeSubsystem.kStartIntakeToShooter) {
+        m_IntakeSubsystem.ejectNoteToAmp();
+      // }
   }
 
   // Called once the command ends or is interrupted.
@@ -55,10 +56,10 @@ public class IntakeNoteInTimedShoot extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {  
-    if (startTimer.get() >= Constants.intakeSubsystem.kStopIntakeInTime ) {
+    if (startTimer.get() >= Constants.intakeSubsystem.kStopIntakeAmpShootTime ) {
       return true;
     } else {
       return false;
-    }   
+    }    
   }
 }

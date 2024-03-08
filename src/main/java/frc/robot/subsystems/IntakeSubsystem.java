@@ -150,6 +150,10 @@ public class IntakeSubsystem extends SubsystemBase {
     topSushiMotor.set(Constants.intakeSubsystem.kSushiMotorDrawInSpeed);
     bottomStarMotor.set(Constants.intakeSubsystem.kStarMotorDrawInSpeed);
   }
+  public void ejectNoteToAmp(){ 
+    topSushiMotor.set(-Constants.intakeSubsystem.kSushiMotorFeedAmpSpeed);
+    bottomStarMotor.set(-Constants.intakeSubsystem.kStarMotorFeedAmpSpeed);
+  }
   
   public void stopNoteMotors(){
     topSushiMotor.set(Constants.intakeSubsystem.kStopNoteMotors);
@@ -165,13 +169,21 @@ public class IntakeSubsystem extends SubsystemBase {
     //intakePosition = IntakePositions.Down;
     targetPosition = Constants.intakeSubsystem.kpositionDown;
   }
+  public void positionAmp(){
 
+    targetPosition = Constants.intakeSubsystem.kPositionAmp;
+
+  }
   public boolean isUp() {
     return Math.abs(absolutePositionEncoder.getPosition() - Constants.intakeSubsystem.kpositionUp) < Constants.intakeSubsystem.kPositionTolerance;
   }
 
   public boolean isDown() {
     return Math.abs(absolutePositionEncoder.getPosition() - Constants.intakeSubsystem.kpositionDown) < Constants.intakeSubsystem.kPositionTolerance;
+   
+  }
+  public boolean isAmp() {
+    return Math.abs(absolutePositionEncoder.getPosition() - Constants.intakeSubsystem.kPositionAmp) < Constants.intakeSubsystem.kPositionTolerance;
    
   }
 

@@ -14,10 +14,13 @@ import frc.robot.commands.ArmCommands.MoveClimberArms;
 import frc.robot.commands.ArmCommands.RetractArmCommand;
 import frc.robot.commands.ArmCommands.UnlockClimberCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
+import frc.robot.commands.IntakeCommands.TimedCommands.IntakeAmpTimedShoot;
 import frc.robot.commands.IntakeCommands.TimedCommands.IntakeNoteInTimedShoot;
+import frc.robot.commands.IntakeCommands.TimedCommands.IntakeNoteOutTimedShoot;
 import frc.robot.commands.IntakeCommands.IntakeNoteInCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteOutCommand;
 import frc.robot.commands.IntakeCommands.HomeIntakeCommand;
+import frc.robot.commands.IntakeCommands.IntakeExtendAmpCommand;
 import frc.robot.commands.IntakeCommands.IntakeExtendCommand;
 import frc.robot.commands.IntakeCommands.IntakeRetractCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
@@ -89,9 +92,9 @@ SendableChooser<Command> autoChooser;
     // this is how you add commands to be used in auto routeine
     NamedCommands.registerCommand("ShootCommand", new ShootCommand(m_shooterSubsystem));
     NamedCommands.registerCommand("ShootTimedCommand", new ShootTimedCommand(m_shooterSubsystem));
-    NamedCommands.registerCommand("IntakeNoteOutTimedShoot", new IntakeNoteInTimedShoot(m_IntakeSubsystem));
+    NamedCommands.registerCommand("IntakeNoteOutTimedShoot", new IntakeNoteOutTimedShoot(m_IntakeSubsystem));
     NamedCommands.registerCommand("IntakeExtendCommand", new IntakeExtendCommand(m_IntakeSubsystem));
-    NamedCommands.registerCommand("IntakeNoteInCommand", new IntakeNoteInCommand(m_IntakeSubsystem));
+    NamedCommands.registerCommand("IntakeNoteInTimedShoot", new IntakeNoteInTimedShoot(m_IntakeSubsystem));
     NamedCommands.registerCommand("IntakeRetractCommand", new IntakeRetractCommand(m_IntakeSubsystem));
     NamedCommands.registerCommand("AutoCommunity2Command", new AutoCommunity2Command(m_SwerveSubsystem));
     NamedCommands.registerCommand("AutoCommunity1Command", new AutoCommunity1Command(m_SwerveSubsystem));
@@ -224,7 +227,6 @@ SendableChooser<Command> autoChooser;
       new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteInbutton)
       .onFalse(new IntakeWheelsOffCommand(m_IntakeSubsystem));
 
-      
     new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteOutbutton)
     .onTrue(new IntakeNoteOutCommand(m_IntakeSubsystem));
 
@@ -237,7 +239,8 @@ SendableChooser<Command> autoChooser;
     new JoystickButton(assistantJoystick,Constants.AssistantJoystick.unlockClimberButtom)
     .onTrue(new UnlockClimberCommand(m_ClimberSubsystem));
 
-
+    // new JoystickButton(assistantJoystick,Constants.AssistantJoystick.ampShootingButton)
+    // .onTrue(Commands.sequence(new IntakeExtendAmpCommand(m_IntakeSubsystem), new IntakeAmpTimedShoot(m_IntakeSubsystem)));
 
     // Drive subsystem zero gyro, field centric.
     new JoystickButton(driverJoystick,Constants.DriverJoystick.zeroGyroButton)
@@ -250,27 +253,29 @@ SendableChooser<Command> autoChooser;
       .onTrue(new RobotCentricCommand(m_SwerveSubsystem));
     
     new JoystickButton(assistantJoystick, Constants.AssistantJoystick.shootLoadedNote)
-      .onTrue(Commands.parallel(new ShootTimedCommand(m_shooterSubsystem), new IntakeNoteInTimedShoot(m_IntakeSubsystem)));
-
-      
-      // test buttons
-    new JoystickButton(driverJoystick,Constants.DriverJoystick.auto2driveForwardButton)
-      .onTrue(new AutoCommunity2Command(m_SwerveSubsystem));
-
-    new JoystickButton(driverJoystick,Constants.DriverJoystick.driveForwardButton)
-      .onTrue(new DriveForwardCommand(m_SwerveSubsystem));
-
-    new JoystickButton(driverJoystick,Constants.DriverJoystick.driveRightButton)
-      .onTrue(new DriveRightCommand(m_SwerveSubsystem));
-
-    new JoystickButton(driverJoystick,Constants.DriverJoystick.rotateCCWButton)
-      .onTrue(new RotateCCWCommand(m_SwerveSubsystem));    
+      .onTrue(Commands.parallel(new ShootTimedCommand(m_shooterSubsystem), new IntakeNoteOutTimedShoot(m_IntakeSubsystem)));
 
     new JoystickButton(driverJoystick, Constants.DriverJoystick.reverseDrive)
       .onTrue(new ReverseDriveCommand(m_SwerveSubsystem));
 
     new JoystickButton(driverJoystick, Constants.DriverJoystick.unReverseDrive)
       .onTrue(new UnReverseDriveCommand(m_SwerveSubsystem));
+      
+      // test buttons
+    // new JoystickButton(driverJoystick,Constants.DriverJoystick.auto2driveForwardButton)
+    //   .onTrue(new AutoCommunity2Command(m_SwerveSubsystem));
+
+    if (Constants.kDebug) {
+      new JoystickButton(driverJoystick,Constants.DriverJoystick.driveForwardButton)
+        .onTrue(new DriveForwardCommand(m_SwerveSubsystem));
+
+      new JoystickButton(driverJoystick,Constants.DriverJoystick.driveRightButton)
+        .onTrue(new DriveRightCommand(m_SwerveSubsystem));
+
+      new JoystickButton(driverJoystick,Constants.DriverJoystick.rotateCCWButton)
+        .onTrue(new RotateCCWCommand(m_SwerveSubsystem));    
+    }
+
   }
 
 
