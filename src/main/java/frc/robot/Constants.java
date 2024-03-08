@@ -115,6 +115,8 @@ public final class Constants {
     public static final double kLeftmotorFF = kRightmotorFF;
     public static final double kLeftMotorIZ = kRightMotorIZ;
 
+    public static final double kStopShooterTime = 3.5;
+
     // public static final double kStopShooterTime = 3.5;
     // public static final double kStartIntakeToShooter = 1.0;
 
