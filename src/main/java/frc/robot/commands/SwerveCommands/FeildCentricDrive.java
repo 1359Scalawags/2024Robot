@@ -65,19 +65,19 @@ public class FeildCentricDrive extends Command {
         double angVelocity = (Math.pow(MathUtil.applyDeadband(omega.getAsDouble(), 0.2), 3) * controller.config.maxAngularVelocity) * Constants.swerveSubsystem.kAngleSpeedMultiplier * MathUtil.clamp(throttle.getAsDouble(), 0.1, 1);
         
         if(swerve.isReversed()) {
-            if(feildRelitive.getAsBoolean()) {
+            // if(feildRelitive.getAsBoolean()) {
                 //if field relative, just need to flip forward backward
-                swerve.drive(
-                    new Translation2d(-xVelocity, yVelocity),
-                    angVelocity,
-                    feildRelitive.getAsBoolean());
-            } else {
-                //if robot relative, need a 180 rotation...flip both axes
                 swerve.drive(
                     new Translation2d(-xVelocity, -yVelocity),
                     angVelocity,
-                    feildRelitive.getAsBoolean());                
-            }
+                    feildRelitive.getAsBoolean());
+            // } else {
+            //     //if robot relative, need a 180 rotation...flip both axes
+            //     swerve.drive(
+            //         new Translation2d(-xVelocity, -yVelocity),
+            //         angVelocity,
+            //         feildRelitive.getAsBoolean());                
+            // }
         } else {
             swerve.drive(
                 new Translation2d(xVelocity, yVelocity),
