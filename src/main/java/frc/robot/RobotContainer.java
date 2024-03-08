@@ -109,9 +109,9 @@ SendableChooser<Command> autoChooser;
     autoChooser.addOption("Basic Pos 1", getAutonomousCommand("Basic Pos 1"));
     //autoChooser.addOption("MoveOnly", getAutonomousCommand("MoveOnly"));
     autoChooser.addOption("MoveAndShoot", getAutonomousCommand("MoveAndShoot"));
-    autoChooser.addOption("Test Auto Two", getAutonomousCommand("Test Auto Two"));
-    autoChooser.addOption("Test Auto", getAutonomousCommand("Test Auto"));
-    autoChooser.addOption("Two Note Auto pos 2", getAutonomousCommand("Two Note Auto pos 2"));
+    //autoChooser.addOption("Test Auto Two", getAutonomousCommand("Test Auto Two"));
+    //autoChooser.addOption("Test Auto", getAutonomousCommand("Test Auto"));
+    //autoChooser.addOption("Two Note Auto pos 2", getAutonomousCommand("Two Note Auto pos 2"));
 
 
     //autoChooser.addOption("Example Path", Path("example Path"));
