@@ -50,6 +50,7 @@ public class SwerveSubsystem extends SubsystemBase
   
 
   private boolean isFeildCentric = true;
+  private boolean isTeleopReversed = false;
 
   /**
    * Swerve drive object.
@@ -532,14 +533,30 @@ public class SwerveSubsystem extends SubsystemBase
   }
 
   //TODO: Test to see if this actually works properly
-  public void reverse(boolean isReversed) {
-    if(isReversed) {
-      Rotation3d turn180 = new Rotation3d(0,0,180);
-      swerveDrive.setGyroOffset(turn180);     
-    } else {
-      Rotation3d turn0 = new Rotation3d(0,0,0);
-      swerveDrive.setGyroOffset(turn0);
-    }
+  // public void reverse(boolean isReversed) {
+  //   if(isReversed) {
+  //     Rotation3d turn180 = new Rotation3d(0,0,180);
+  //     swerveDrive.setGyroOffset(turn180);     
+  //   } else {
+  //     Rotation3d turn0 = new Rotation3d(0,0,0);
+  //     swerveDrive.setGyroOffset(turn0);
+  //   }
+  // }
+
+  /**
+   * Set a flag to indicate whether the drive should be reversed in Teleop Mode
+   * @param reverse Should the drive be operated in reverse.
+   */
+  public void reverse(boolean reverse) {
+    this.isTeleopReversed = reverse;
+  }
+
+  /**
+   * Is the reverse flag set on the drive? Use this to change how commands send information to the drive system.
+   * @return Should the drive be operated in reverse
+   */
+  public boolean isReversed() {
+    return this.isTeleopReversed;
   }
 
   /**
