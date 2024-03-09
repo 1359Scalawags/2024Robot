@@ -115,7 +115,7 @@ public final class Constants {
     public static final double kLeftmotorFF = kRightmotorFF;
     public static final double kLeftMotorIZ = kRightMotorIZ;
 
-    public static final double kStopShooterTime = 3.5;
+    public static final double kStopShooterTime = 3.5; //try: 2.0
 
     // public static final double kStopShooterTime = 3.5;
     // public static final double kStartIntakeToShooter = 1.0;
@@ -191,11 +191,11 @@ public final class Constants {
     public static final double kInjectNoteCorrectionStartTime = 0.25;
 
 
-    public static final double kStopShooterTime = 3.5;
+    public static final double kStopShooterTime = 3.5; // try 2.0
     public static final double kStartIntakeToShooter = 1.0;
 
     public static final double kIntakeNoteInTime = 1.0;
-    public static final double kStopIntakeInTime = 3.5;
+    public static final double kStopIntakeInTime = 3.5; // try: 2.0
     public static final double kStopIntakeAmpShootTime = 1.5;
     
 

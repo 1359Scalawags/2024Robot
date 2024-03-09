@@ -221,10 +221,10 @@ public class IntakeSubsystem extends SubsystemBase {
       //     targetPosition = Math.max(Constants.intakeSubsystem.kHomingPosition, targetPosition);
       //   }
       // }
-      if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed) {
-        // set 
-        targetPosition = absolutePositionEncoder.getPosition()+1;
-      }
+      // if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed) {
+      //   // set 
+      //   targetPosition = absolutePositionEncoder.getPosition()+1;
+      // }
       double FF = MathUtil.clamp(gravityFF.calculate(absolutePositionEncoder.getPosition()), Constants.intakeSubsystem.kMinFF, Constants.intakeSubsystem.kMaxFF);
       if(!homingState) {
         positionPID.setFF(FF);
