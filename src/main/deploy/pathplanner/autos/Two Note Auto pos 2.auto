@@ -31,15 +31,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "get Note from Center"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeExtendCommand"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "get Note from Center"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeExtendCommand"
+                }
+              }
+            ]
           }
         },
         {
@@ -49,7 +56,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "IntakeNoteOutTimedShoot"
+                  "name": "IntakeNoteInTimedShoot"
                 }
               },
               {
@@ -62,15 +69,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "IntakeRetractCommand"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Return to Speaker"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeRetractCommand"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Return to Speaker"
+                }
+              }
+            ]
           }
         },
         {
