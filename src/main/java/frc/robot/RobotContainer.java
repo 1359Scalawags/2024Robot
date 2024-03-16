@@ -20,6 +20,7 @@ import frc.robot.commands.IntakeCommands.TimedCommands.IntakeNoteOutTimedShoot;
 import frc.robot.commands.IntakeCommands.IntakeNoteInCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteOutCommand;
 import frc.robot.commands.IntakeCommands.HomeIntakeCommand;
+import frc.robot.commands.IntakeCommands.InitializeIntake;
 import frc.robot.commands.IntakeCommands.IntakeExtendAmpCommand;
 import frc.robot.commands.IntakeCommands.IntakeExtendCommand;
 import frc.robot.commands.IntakeCommands.IntakeRetractCommand;
@@ -316,6 +317,10 @@ SendableChooser<Command> autoChooser;
 
   public Command getIntakeHomingCommand() {
     return new HomeIntakeCommand(m_IntakeSubsystem);
+  }
+
+  public Command getInitializeIntakeCommand() {
+    return new InitializeIntake(m_IntakeSubsystem);
   }
 
   public Command getStartingVisionPipe() {

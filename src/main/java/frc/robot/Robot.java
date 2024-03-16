@@ -87,7 +87,8 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     m_robotContainer.getClimberHomingCommand().schedule();
-    m_robotContainer.getIntakeHomingCommand().schedule();
+    //m_robotContainer.getIntakeHomingCommand().schedule();
+    m_robotContainer.getInitializeIntakeCommand().schedule();
     m_robotContainer.getStartingVisionPipe().schedule();
   }
 

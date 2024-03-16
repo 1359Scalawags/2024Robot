@@ -53,6 +53,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   private DigitalInput intakeHomeLimit;
   private boolean homingState;
+  private boolean isEnabled;
 
  // private boolean safeMode;
 
@@ -63,6 +64,7 @@ public class IntakeSubsystem extends SubsystemBase {
  
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
+    isEnabled = false;
     //intakePosition = IntakePositions.Up;S
     topSushiMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kTopWheelMotorPortID, MotorType.kBrushless);
     bottomStarMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kBottomStarMotorPortID, MotorType.kBrushless);
@@ -100,13 +102,13 @@ public class IntakeSubsystem extends SubsystemBase {
     positionPID.setI(Constants.intakeSubsystem.kIntakeI);
     positionPID.setD(Constants.intakeSubsystem.kIntakeD);
     positionPID.setFF(Constants.intakeSubsystem.kInitialIntakeFF);
-    positionPID.setOutputRange(-1, 1);
+    positionPID.setOutputRange(-0.1, 0.1); // begin with low voltage until initialized
 
     positionPID.setFeedbackDevice(absolutePositionEncoder);
 
 
     positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit);//,
-    homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/2);
+    homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/3);
     activeLimiter = homingLimiter;
      //-Constants.intakeSubsystem.kPositionRateLimit,
       //Constants.intakeSubsystem.kPositionInitialValue);
@@ -130,6 +132,18 @@ public class IntakeSubsystem extends SubsystemBase {
     Shuffleboard.getTab("Intake").add("Position Limitswitch", intakeHomeLimit);
     // Shuffleboard.getTab("Intake").add("Position Encoder", absolutePositionEncoder);
     Shuffleboard.getTab("Intake").addDouble("intake pos", this::getpos);
+  }
+
+  public void initializeIntakeArm() {
+    positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit, -Constants.intakeSubsystem.kPositionRateLimit, absolutePositionEncoder.getPosition());
+    homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/2, -Constants.intakeSubsystem.kPositionRateLimit/2, absolutePositionEncoder.getPosition());
+    positionLimiter.reset(absolutePositionEncoder.getPosition());
+    homingLimiter.reset(absolutePositionEncoder.getPosition());
+    positionPID.setReference(absolutePositionEncoder.getPosition(), ControlType.kPosition);
+  }
+
+  public void enableIntakeArm() {
+    isEnabled = true;
   }
 
   double getpos(){
@@ -210,7 +224,7 @@ public class IntakeSubsystem extends SubsystemBase {
   //int counter = 0;
   @Override
   public void periodic() {
-    if(!DriverStation.isTest()) {
+    if(!DriverStation.isTest() && isEnabled) {
 
       // if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed){
       //   absolutePositionEncoder.setZeroOffset(-absolutePositionEncoder.getPosition() + Constants.intakeSubsystem.kZeroOffsetBuffer);

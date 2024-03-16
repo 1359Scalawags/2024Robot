@@ -197,9 +197,9 @@ public final class Constants {
     public static final double kIntakeNoteInTime = 1.0;
     public static final double kStopIntakeInTime = 3.5; // try: 2.0
     public static final double kStopIntakeAmpShootTime = 1.5;
+    public static final double kIntakeEnableWaitTime = 0.5;
+    public static final double kIntakeInitializeWaitTime = 0.25;
     
-
-
   }
  
   
