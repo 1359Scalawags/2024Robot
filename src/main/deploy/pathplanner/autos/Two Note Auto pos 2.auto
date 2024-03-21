@@ -94,13 +94,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "IntakeNoteOutTimedShoot"
+                  "name": "SecondShootTimedCommand"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "ShootTimedCommand"
+                  "name": "SecondIntakeNoteOutTimedShoot"
                 }
               }
             ]

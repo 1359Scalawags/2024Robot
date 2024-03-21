@@ -21,7 +21,7 @@ import com.pathplanner.lib.util.PIDConstants;
 public final class Constants {
 
   public static final String robotName = "Siren";
-  public static final boolean kDebug = false;
+  public static final boolean kDebug = true;
   public static int kDefaultPipeline;
 
 
@@ -47,7 +47,7 @@ public final class Constants {
 
     public static final PIDConstants TranslationPID = new PIDConstants(1.0, 0, 0.0);
     //3.5
-    public static final PIDConstants RotationPID = new PIDConstants(0.4, 0, 0.0);
+    public static final PIDConstants RotationPID = new PIDConstants(4.0, 0, 0.0);
     public static final double MaxModuleSpeed = 4.5;
 
     // public static final double kPDriveHollonmic = 0.01;
@@ -184,7 +184,7 @@ public final class Constants {
     public static final double kOffsetAngle = 0.0;
     public static final double kMaxFF = 0.001;
     public static final double kMinFF = -kMaxFF;
-    public static final double kPositionEncoderOffset = 210.0; //approximately sets 0 to rear-facing horizontal //avoids meridian flip
+    public static final double kPositionEncoderOffset = 100.0; //approximately sets 0 to rear-facing horizontal //avoids meridian flip
     public static final double kPositionTolerance = 0.5; // in degrees
     public static final double kZeroOffsetBuffer = 10.0;
     public static final double kInjectNoteCorrectionStopTime = 0.6;

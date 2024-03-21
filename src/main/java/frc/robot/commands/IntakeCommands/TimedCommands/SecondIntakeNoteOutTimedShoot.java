@@ -2,61 +2,64 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.IntakeCommands;
+package frc.robot.commands.IntakeCommands.TimedCommands;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class IntakeRetractCommand extends Command {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+public class SecondIntakeNoteOutTimedShoot extends Command {
   private final IntakeSubsystem m_IntakeSubsystem;
-  private Timer noteInTimer;
-
+  private Timer startTimer;
   /**
-   * Creates a new ExampleCommand.
-   *
+   *command to turn belt on
+   * 
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeRetractCommand(IntakeSubsystem subsystem) {
+  public SecondIntakeNoteOutTimedShoot(IntakeSubsystem subsystem) {
     m_IntakeSubsystem = subsystem;
-    noteInTimer = new Timer();
+    startTimer = new Timer();
+
+
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
+      
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    noteInTimer.restart();
-    if(Constants.kDebug) System.out.println("-------------Start Intake Retract-------------  ");
-    m_IntakeSubsystem.positionUp();
-    
+    startTimer.reset();
+    startTimer.start();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(noteInTimer.get() >= Constants.intakeSubsystem.kInjectNoteCorrectionStartTime)
-      m_IntakeSubsystem.injectNote();
-
+      if (startTimer.get() >= Constants.intakeSubsystem.kStartIntakeToShooter) {
+        m_IntakeSubsystem.ejectNoteToShooter();
+      }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-      m_IntakeSubsystem.stopNoteMotors();    
+    m_IntakeSubsystem.stopNoteMotors();
   }
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
-    if(noteInTimer.get() >= Constants.intakeSubsystem.kInjectNoteCorrectionStopTime) {
+  public boolean isFinished() {  
+    if (startTimer.get() >= Constants.intakeSubsystem.kStopShooterTime ) {
       return true;
     } else {
       return false;
-    }
+    }    
   }
 }

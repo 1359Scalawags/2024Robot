@@ -17,6 +17,7 @@ import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
 import frc.robot.commands.IntakeCommands.TimedCommands.IntakeAmpTimedShoot;
 import frc.robot.commands.IntakeCommands.TimedCommands.IntakeNoteInTimedShoot;
 import frc.robot.commands.IntakeCommands.TimedCommands.IntakeNoteOutTimedShoot;
+import frc.robot.commands.IntakeCommands.TimedCommands.SecondIntakeNoteOutTimedShoot;
 import frc.robot.commands.IntakeCommands.IntakeNoteInCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteOutCommand;
 import frc.robot.commands.IntakeCommands.HomeIntakeCommand;
@@ -26,6 +27,7 @@ import frc.robot.commands.IntakeCommands.IntakeRetractCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
 import frc.robot.commands.IntakeCommands.IntakeNoteInCommand;
 import frc.robot.commands.ShootingCommands.AmpShootCommand;
+import frc.robot.commands.ShootingCommands.SecondShootTimedCommand;
 import frc.robot.commands.ShootingCommands.ShootCommand;
 import frc.robot.commands.ShootingCommands.ShootTimedCommand;
 import frc.robot.commands.ShootingCommands.StopAmpShootingCommand;
@@ -98,7 +100,9 @@ SendableChooser<Command> autoChooser;
     NamedCommands.registerCommand("IntakeRetractCommand", new IntakeRetractCommand(m_IntakeSubsystem));
     NamedCommands.registerCommand("AutoCommunity2Command", new AutoCommunity2Command(m_SwerveSubsystem));
     NamedCommands.registerCommand("AutoCommunity1Command", new AutoCommunity1Command(m_SwerveSubsystem));
-    
+    NamedCommands.registerCommand("SecondShootTimedCommand", new SecondShootTimedCommand(m_shooterSubsystem));
+    NamedCommands.registerCommand("SecondIntakeNoteOutTimedShoot", new SecondIntakeNoteOutTimedShoot(m_IntakeSubsystem));
+
 
     // Configure the trigger bindings
     configureBindings();
@@ -107,7 +111,7 @@ SendableChooser<Command> autoChooser;
     autoChooser = AutoBuilder.buildAutoChooser();
 
     // autoChooser.addOption("Test Auto", getAutonomousCommand("Test Auto"));
-    // autoChooser.addOption("Test Auto Two", getAutonomousCommand("Test Auto Two"));
+    autoChooser.addOption("Test Auto Two", getAutonomousCommand("Test Auto Two"));
     autoChooser.addOption("Shooting Auto", getAutonomousCommand("Shooting Auto"));
     autoChooser.addOption("Nothing Auto", getAutonomousCommand("Nothing Auto"));
     autoChooser.addOption("Basic Pos 2", getAutonomousCommand("Basic Pos 2"));

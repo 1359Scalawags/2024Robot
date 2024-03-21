@@ -128,7 +128,7 @@ public class IntakeSubsystem extends SubsystemBase {
     Shuffleboard.getTab("Intake").add("Sushi Motor", topSushiMotor);
     Shuffleboard.getTab("Intake").add("Position", positionMotor);
     Shuffleboard.getTab("Intake").add("Position Limitswitch", intakeHomeLimit);
-    // Shuffleboard.getTab("Intake").add("Position Encoder", absolutePositionEncoder);
+    Shuffleboard.getTab("Intake").add("Position Encoder", absolutePositionEncoder.getPosition());
     Shuffleboard.getTab("Intake").addDouble("intake pos", this::getpos);
   }
 
