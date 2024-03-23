@@ -4,18 +4,25 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.REVPhysicsSim;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.simulation.ElevatorSim;
+import edu.wpi.first.wpilibj.simulation.EncoderSim;
+import edu.wpi.first.wpilibj.simulation.LinearSystemSim;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.SendableCANSparkMax;
 import frc.robot.extensions.SparkMaxPIDTuner;
 
-public class ClimberSubsystem extends SubsystemBase {
+public class ClimberSubsystem extends SubsystemBase implements AutoCloseable {
  
  private SendableCANSparkMax rightClimberMotor;
  private SendableCANSparkMax leftClimberMotor;
@@ -23,6 +30,8 @@ public class ClimberSubsystem extends SubsystemBase {
  private RelativeEncoder rightPositionEncoder;
  private RelativeEncoder leftPositionEncoder;
 
+ //private EncoderSim rightEncoderSim;
+ //private EncoderSim leftEncoderSim;
 
  private DigitalInput rightClimbHomeLimit; 
  private DigitalInput leftClimbHomeLimit; 
@@ -48,9 +57,6 @@ public class ClimberSubsystem extends SubsystemBase {
     rightPositionEncoder = rightClimberMotor.getEncoder();
     leftPositionEncoder = leftClimberMotor.getEncoder();
   
-    // rightPositionEncoder.setInverted(Constants.climberSubsystem.kRightEncoderInverted);
-    // leftPositionEncoder.setInverted(Constants.climberSubsystem.kLeftEncoderInverted);
-    
     rightPositionEncoder.setPositionConversionFactor(Constants.climberSubsystem.kConversionFactor);
     leftPositionEncoder.setPositionConversionFactor(Constants.climberSubsystem.kConversionFactor);
 
@@ -59,13 +65,29 @@ public class ClimberSubsystem extends SubsystemBase {
 
     locked = true;
 
-    Shuffleboard.getTab("Climber").add("Right", rightClimberMotor);
-    Shuffleboard.getTab("Climber").add("left", leftClimberMotor);
+    // Shuffleboard is put into a try catch block because when preforming unit tests.
+    try{
+      Shuffleboard.getTab("Climber").add("Right", rightClimberMotor);
+      Shuffleboard.getTab("Climber").add("left", leftClimberMotor);
+  
+      Shuffleboard.getTab("Climber").add("leftLimit", leftClimbHomeLimit);
+      Shuffleboard.getTab("Climber").add("RightLimit", rightClimbHomeLimit);
+    }catch(Exception e){
+      System.out.print(e);
+    }
 
-    Shuffleboard.getTab("Climber").add("leftLimit", leftClimbHomeLimit);
-    Shuffleboard.getTab("Climber").add("RightLimit", rightClimbHomeLimit);
+    // Add the motors to the REVPhysicsSim system for simulation
+    REVPhysicsSim.getInstance().addSparkMax(leftClimberMotor, DCMotor.getNeo550(1));
+    REVPhysicsSim.getInstance().addSparkMax(rightClimberMotor, DCMotor.getNeo550(1));
+  }
 
-    // home();
+  // This function is required for unit testing
+  @Override
+  public void close() throws Exception {
+      rightClimberMotor.close();
+      leftClimberMotor.close();
+      rightClimbHomeLimit.close();
+      leftClimbHomeLimit.close();
   }
 
   public final void setSpeed (double speed){
@@ -106,6 +128,10 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public boolean isLocked(){
     return locked;
+  }
+
+  public double getLeftSpeed(){
+    return leftClimberMotor.get();
   }
 
   public void unlock(){
@@ -151,10 +177,29 @@ public class ClimberSubsystem extends SubsystemBase {
 
     rightClimberMotor.set(appliedRightSpeed);
     leftClimberMotor.set(appliedLeftSpeed);
-    
   }
 
   @Override
   public void simulationPeriodic() {
+    //REVPhysicsSim.getInstance().run();
   }
+
+
+  // =========================================================================================================================================
+  // Functions to fake encoder values for the purposes of testing if periodic logic works.
+  // Functions are heavily gaurded to ensure there is no way encoder values are messed up on the real robot.
+  public void simulateEncoderAtTop(){
+    if(RobotBase.isSimulation()){
+      rightPositionEncoder.setPosition(Constants.climberSubsystem.kUpperPosition);
+      leftPositionEncoder.setPosition(Constants.climberSubsystem.kUpperPosition);
+    }
+  }
+
+  public void simulateEncoderInRange(){
+    if(RobotBase.isSimulation()){
+      rightPositionEncoder.setPosition(0);
+      leftPositionEncoder.setPosition(0);
+    }
+  }
+  // =========================================================================================================================================
 }

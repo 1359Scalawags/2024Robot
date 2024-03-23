@@ -12,6 +12,8 @@ import frc.robot.commands.ArmCommands.HomeClimberCommand;
 import frc.robot.commands.ArmCommands.LockClimberCommand;
 import frc.robot.commands.ArmCommands.MoveClimberArms;
 import frc.robot.commands.ArmCommands.RetractArmCommand;
+import frc.robot.commands.ArmCommands.SimUpperLimit;
+import frc.robot.commands.ArmCommands.SimValidRange;
 import frc.robot.commands.ArmCommands.UnlockClimberCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
 import frc.robot.commands.IntakeCommands.TimedCommands.IntakeAmpTimedShoot;
@@ -57,6 +59,7 @@ import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -322,4 +325,14 @@ SendableChooser<Command> autoChooser;
     return new SetDefaultPipelineCommand(m_VisionSubsystem);
   }
   
+  // Add commands to the smart dashboard so they can be executed from the sim GUI
+  public void addSimCommands(){
+    if(RobotBase.isSimulation()){
+      SimUpperLimit simLimitCommand = new SimUpperLimit(m_ClimberSubsystem);
+      SimValidRange simValidRange = new SimValidRange(m_ClimberSubsystem);
+      SmartDashboard.putData("Simulate Arm Reach", simLimitCommand);
+      SmartDashboard.putData("Simulate Arm In Range", simValidRange);
+    }
+  }
+
 }
