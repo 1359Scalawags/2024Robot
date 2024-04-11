@@ -160,9 +160,9 @@ public final class Constants {
     // public static final double kTargetPositionUp = 10.0; //Zero is the home position; this is inside the robot.  );
     // public static final double kTargetPositionDown = 170;
 
-    public static final int kTopWheelMotorPortID = 23;
+    public static final int kTopWheelMotorPortID = 22; //23
     public static final int kPositionMotorPortID = 24;
-    public static final int kBottomStarMotorPortID = 22;
+    public static final int kBottomStarMotorPortID = 23; //22
 
     public static final double kPositionRateLimit = 240.0;
     //public static final double kPositionInitialValue = 0.0;
