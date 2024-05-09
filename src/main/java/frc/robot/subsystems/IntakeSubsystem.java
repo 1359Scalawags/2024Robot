@@ -72,8 +72,8 @@ public class IntakeSubsystem extends SubsystemBase {
     //safeMode = true;
     setHomingState(true);
 
-    topSushiMotor.setInverted(false);
-    bottomStarMotor.setInverted(false);
+    topSushiMotor.setInverted(true);
+    bottomStarMotor.setInverted(true);
 
     topSushiMotor.setIdleMode(IdleMode.kCoast);
     bottomStarMotor.setIdleMode(IdleMode.kCoast);
