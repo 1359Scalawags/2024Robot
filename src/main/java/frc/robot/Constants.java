@@ -20,7 +20,7 @@ import com.pathplanner.lib.util.PIDConstants;
  */
 public final class Constants {
 
-  public static final String robotName = "Siren";
+  public static final String robotName = "Clawdia";
   public static final boolean kDebug = true;
   public static int kDefaultPipeline;
 

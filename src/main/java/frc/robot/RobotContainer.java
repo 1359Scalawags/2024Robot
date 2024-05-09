@@ -82,26 +82,26 @@ SendableChooser<Command> autoChooser;
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_SwerveSubsystem = new SwerveSubsystem(
     new File(Filesystem.getDeployDirectory(), "YAGSLConfigJSON/swerve/" + Constants.robotName));
-  private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
-  private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
-  private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-  private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
+  // private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
+  // private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
+  // private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  // private final VisionSubsystem m_VisionSubsystem = new VisionSubsystem();
   private final Joystick driverJoystick = new Joystick(Constants.DriverJoystick.joystick);
   private final Joystick assistantJoystick = new Joystick(Constants.AssistantJoystick.joystick);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // this is how you add commands to be used in auto routeine
-    NamedCommands.registerCommand("ShootCommand", new ShootCommand(m_shooterSubsystem));
-    NamedCommands.registerCommand("ShootTimedCommand", new ShootTimedCommand(m_shooterSubsystem));
-    NamedCommands.registerCommand("IntakeNoteOutTimedShoot", new IntakeNoteOutTimedShoot(m_IntakeSubsystem));
-    NamedCommands.registerCommand("IntakeExtendCommand", new IntakeExtendCommand(m_IntakeSubsystem));
-    NamedCommands.registerCommand("IntakeNoteInTimedShoot", new IntakeNoteInTimedShoot(m_IntakeSubsystem));
-    NamedCommands.registerCommand("IntakeRetractCommand", new IntakeRetractCommand(m_IntakeSubsystem));
-    NamedCommands.registerCommand("AutoCommunity2Command", new AutoCommunity2Command(m_SwerveSubsystem));
+    // NamedCommands.registerCommand("ShootCommand", new ShootCommand(m_shooterSubsystem));
+    // NamedCommands.registerCommand("ShootTimedCommand", new ShootTimedCommand(m_shooterSubsystem));
+    // NamedCommands.registerCommand("IntakeNoteOutTimedShoot", new IntakeNoteOutTimedShoot(m_IntakeSubsystem));
+    // NamedCommands.registerCommand("IntakeExtendCommand", new IntakeExtendCommand(m_IntakeSubsystem));
+    // NamedCommands.registerCommand("IntakeNoteInTimedShoot", new IntakeNoteInTimedShoot(m_IntakeSubsystem));
+    // NamedCommands.registerCommand("IntakeRetractCommand", new IntakeRetractCommand(m_IntakeSubsystem));
+    // NamedCommands.registerCommand("AutoCommunity2Command", new AutoCommunity2Command(m_SwerveSubsystem));
     NamedCommands.registerCommand("AutoCommunity1Command", new AutoCommunity1Command(m_SwerveSubsystem));
-    NamedCommands.registerCommand("SecondShootTimedCommand", new SecondShootTimedCommand(m_shooterSubsystem));
-    NamedCommands.registerCommand("SecondIntakeNoteOutTimedShoot", new SecondIntakeNoteOutTimedShoot(m_IntakeSubsystem));
+    // NamedCommands.registerCommand("SecondShootTimedCommand", new SecondShootTimedCommand(m_shooterSubsystem));
+    // NamedCommands.registerCommand("SecondIntakeNoteOutTimedShoot", new SecondIntakeNoteOutTimedShoot(m_IntakeSubsystem));
 
 
     // Configure the trigger bindings
@@ -150,10 +150,10 @@ SendableChooser<Command> autoChooser;
       false
       ));
 
-    m_ClimberSubsystem.setDefaultCommand(
-      new MoveClimberArms(m_ClimberSubsystem,
-      this::assistantGetY
-      ));
+    // m_ClimberSubsystem.setDefaultCommand(
+    //   new MoveClimberArms(m_ClimberSubsystem,
+    //   this::assistantGetY
+    //   ));
     // m_VisionSubsystem.setDefaultCommand() {
     //   new setDefaultPipeline();
     // };
@@ -204,44 +204,44 @@ SendableChooser<Command> autoChooser;
     // new JoystickButton(assistantJoystick,Constants.AssistantJoystick.shootButton)
     //   .onFalse(new StopAmpShootingCommand(m_shooterSubsystem));
 
-    new JoystickButton(assistantJoystick, Constants.AssistantJoystick.ampShootingButton)
-      .onTrue(new AmpShootCommand(m_shooterSubsystem));
+    // new JoystickButton(assistantJoystick, Constants.AssistantJoystick.ampShootingButton)
+    //   .onTrue(new AmpShootCommand(m_shooterSubsystem));
     
-    new JoystickButton(assistantJoystick, Constants.AssistantJoystick.ampShootingButton)
-      .onFalse(new StopAmpShootingCommand(m_shooterSubsystem));
+    // new JoystickButton(assistantJoystick, Constants.AssistantJoystick.ampShootingButton)
+    //   .onFalse(new StopAmpShootingCommand(m_shooterSubsystem));
 
 
-    //Climber commands/binds above
-    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.extendClimberArmButton)
-      .onTrue(new ExtendArmCommand(m_ClimberSubsystem));
+    // //Climber commands/binds above
+    // new JoystickButton(assistantJoystick,Constants.AssistantJoystick.extendClimberArmButton)
+    //   .onTrue(new ExtendArmCommand(m_ClimberSubsystem));
 
-    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.retractClimberArmButton)
-      .onTrue(new RetractArmCommand(m_ClimberSubsystem));
+    // new JoystickButton(assistantJoystick,Constants.AssistantJoystick.retractClimberArmButton)
+    //   .onTrue(new RetractArmCommand(m_ClimberSubsystem));
       
-    // intake commands/binds above
-    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeExtendButton)
-      .onTrue(new IntakeExtendCommand(m_IntakeSubsystem));
+    // // intake commands/binds above
+    // new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeExtendButton)
+    //   .onTrue(new IntakeExtendCommand(m_IntakeSubsystem));
 
-    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeRetractButton)
-      .onTrue(new IntakeRetractCommand(m_IntakeSubsystem));
+    // new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeRetractButton)
+    //   .onTrue(new IntakeRetractCommand(m_IntakeSubsystem));
 
-    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteInbutton)
-      .onTrue(new IntakeNoteInCommand(m_IntakeSubsystem));
+    // new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteInbutton)
+    //   .onTrue(new IntakeNoteInCommand(m_IntakeSubsystem));
 
-      new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteInbutton)
-      .onFalse(new IntakeWheelsOffCommand(m_IntakeSubsystem));
+    //   new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteInbutton)
+    //   .onFalse(new IntakeWheelsOffCommand(m_IntakeSubsystem));
 
-    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteOutbutton)
-    .onTrue(new IntakeNoteOutCommand(m_IntakeSubsystem));
+    // new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteOutbutton)
+    // .onTrue(new IntakeNoteOutCommand(m_IntakeSubsystem));
 
-    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteOutbutton)
-    .onFalse(new IntakeWheelsOffCommand(m_IntakeSubsystem));
+    // new JoystickButton(assistantJoystick,Constants.AssistantJoystick.intakeNoteOutbutton)
+    // .onFalse(new IntakeWheelsOffCommand(m_IntakeSubsystem));
 
-    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.lockClimberButton)
-    .onTrue(new LockClimberCommand(m_ClimberSubsystem));
+    // new JoystickButton(assistantJoystick,Constants.AssistantJoystick.lockClimberButton)
+    // .onTrue(new LockClimberCommand(m_ClimberSubsystem));
 
-    new JoystickButton(assistantJoystick,Constants.AssistantJoystick.unlockClimberButtom)
-    .onTrue(new UnlockClimberCommand(m_ClimberSubsystem));
+    // new JoystickButton(assistantJoystick,Constants.AssistantJoystick.unlockClimberButtom)
+    // .onTrue(new UnlockClimberCommand(m_ClimberSubsystem));
 
     // new JoystickButton(assistantJoystick,Constants.AssistantJoystick.ampShootingButton)
     // .onTrue(Commands.sequence(new IntakeExtendAmpCommand(m_IntakeSubsystem), new IntakeAmpTimedShoot(m_IntakeSubsystem)));
@@ -256,8 +256,8 @@ SendableChooser<Command> autoChooser;
     new JoystickButton(driverJoystick,Constants.DriverJoystick.toggleRobotCentricButton)
       .onTrue(new RobotCentricCommand(m_SwerveSubsystem));
     
-    new JoystickButton(assistantJoystick, Constants.AssistantJoystick.shootLoadedNote)
-      .onTrue(Commands.parallel(new ShootTimedCommand(m_shooterSubsystem), new IntakeNoteOutTimedShoot(m_IntakeSubsystem)));
+    // new JoystickButton(assistantJoystick, Constants.AssistantJoystick.shootLoadedNote)
+    //   .onTrue(Commands.parallel(new ShootTimedCommand(m_shooterSubsystem), new IntakeNoteOutTimedShoot(m_IntakeSubsystem)));
 
     new JoystickButton(driverJoystick, Constants.DriverJoystick.reverseDrive)
       .onTrue(new ReverseDriveCommand(m_SwerveSubsystem));
@@ -313,17 +313,17 @@ SendableChooser<Command> autoChooser;
   // public Command Path(String examplePath){
   //   return new PathPlannerAuto(examplePath);
   // }
-  public Command getClimberHomingCommand() {
-    return new HomeClimberCommand(m_ClimberSubsystem);
-  }
+  // public Command getClimberHomingCommand() {
+  //   return new HomeClimberCommand(m_ClimberSubsystem);
+  // }
 
 
-  public Command getIntakeHomingCommand() {
-    return new HomeIntakeCommand(m_IntakeSubsystem);
-  }
+  // public Command getIntakeHomingCommand() {
+  //   return new HomeIntakeCommand(m_IntakeSubsystem);
+  // }
 
-  public Command getStartingVisionPipe() {
-    return new SetDefaultPipelineCommand(m_VisionSubsystem);
-  }
+  // public Command getStartingVisionPipe() {
+  //   return new SetDefaultPipelineCommand(m_VisionSubsystem);
+  // }
   
 }
