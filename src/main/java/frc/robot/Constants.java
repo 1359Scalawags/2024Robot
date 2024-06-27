@@ -150,7 +150,7 @@ public final class Constants {
 
     public static final double kStopNoteMotors = 0.0;
     public static final double kpositionUp = 14.4;
-    public static final double kpositionDown = 174;
+    public static final double kpositionDown = 173; //174
     public static final double kPositionAmp = 115;
     // public static final double kMaxIntakePosition = 170.0;
     // public static final double kMinIntakePosition = 5.0;
