@@ -67,7 +67,12 @@ public class IntakeSubsystem extends SubsystemBase {
     topSushiMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kTopWheelMotorPortID, MotorType.kBrushless);
     bottomStarMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kBottomStarMotorPortID, MotorType.kBrushless);
     
-    
+     //fixed the arm going to fast on start
+    positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit);//,
+   //positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit, -Constants.intakeSubsystem.kPositionRateLimit, absolutePositionEncoder.getPosition());
+    homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/8);//2
+    //homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/80, -Constants.intakeSubsystem.kPositionRateLimit/80, absolutePositionEncoder.getPosition());
+    activeLimiter = homingLimiter;
 
     //safeMode = true;
     setHomingState(true);
@@ -104,10 +109,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     positionPID.setFeedbackDevice(absolutePositionEncoder);
 
-
-    positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit);//,
-    homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/2);
-    activeLimiter = homingLimiter;
+ 
      //-Constants.intakeSubsystem.kPositionRateLimit,
       //Constants.intakeSubsystem.kPositionInitialValue);
       //absolutePositionEncoder.getPosition());
