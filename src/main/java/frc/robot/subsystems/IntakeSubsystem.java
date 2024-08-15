@@ -68,7 +68,7 @@ public class IntakeSubsystem extends SubsystemBase {
     bottomStarMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kBottomStarMotorPortID, MotorType.kBrushless);
     
      //fixed the arm going to fast on start
-    positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit);//,
+    positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/8);//,
    //positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit, -Constants.intakeSubsystem.kPositionRateLimit, absolutePositionEncoder.getPosition());
     homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/8);//2
     //homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/80, -Constants.intakeSubsystem.kPositionRateLimit/80, absolutePositionEncoder.getPosition());
