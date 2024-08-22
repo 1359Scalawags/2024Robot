@@ -53,6 +53,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   private DigitalInput intakeHomeLimit;
   private boolean homingState;
+  private boolean isInitialized;
 
  // private boolean safeMode;
 
@@ -63,29 +64,10 @@ public class IntakeSubsystem extends SubsystemBase {
  
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
-    //intakePosition = IntakePositions.Up;S
-    topSushiMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kTopWheelMotorPortID, MotorType.kBrushless);
-    bottomStarMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kBottomStarMotorPortID, MotorType.kBrushless);
-    
-     //fixed the arm going to fast on start
-    positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/8);//,
-   //positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit, -Constants.intakeSubsystem.kPositionRateLimit, absolutePositionEncoder.getPosition());
-    homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/8);//2
-    //homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/80, -Constants.intakeSubsystem.kPositionRateLimit/80, absolutePositionEncoder.getPosition());
-    activeLimiter = homingLimiter;
 
-    //safeMode = true;
-    setHomingState(true);
+    isInitialized = true;
 
-    topSushiMotor.setInverted(false);
-    bottomStarMotor.setInverted(false);
-
-    topSushiMotor.setIdleMode(IdleMode.kCoast);
-    bottomStarMotor.setIdleMode(IdleMode.kCoast);
-
-
-
-    intakeHomeLimit = new DigitalInput(Constants.intakeSubsystem.kHomeLimitID);
+     intakeHomeLimit = new DigitalInput(Constants.intakeSubsystem.kHomeLimitID);
 
     positionMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kPositionMotorPortID, MotorType.kBrushless);
 
@@ -94,11 +76,46 @@ public class IntakeSubsystem extends SubsystemBase {
     positionMotor.setIdleMode(IdleMode.kBrake);
 
     motorEncoder = positionMotor.getEncoder();
-    // positionEncoder = positionMotor.getEncoder();
-    // positionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
-    absolutePositionEncoder = positionMotor.getAbsoluteEncoder();
+
+    //intakePosition = IntakePositions.Up;S
+    topSushiMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kTopWheelMotorPortID, MotorType.kBrushless);
+    bottomStarMotor = new SendableCANSparkMax(Constants.intakeSubsystem.kBottomStarMotorPortID, MotorType.kBrushless);
+    
+absolutePositionEncoder = positionMotor.getAbsoluteEncoder();
     absolutePositionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
     absolutePositionEncoder.setZeroOffset(Constants.intakeSubsystem.kPositionEncoderOffset);
+
+    //positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/8);//,
+    positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit, -Constants.intakeSubsystem.kPositionRateLimit, absolutePositionEncoder.getPosition());
+    //homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/8);//2
+    homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/100, -Constants.intakeSubsystem.kPositionRateLimit/100, absolutePositionEncoder.getPosition());
+   System.out.println("Intake subsystem consructor-absolute position:"+absolutePositionEncoder.getPosition());
+    activeLimiter = homingLimiter;
+
+    //checks if values are the values we think they are
+    for(int i = 0; i < 10; i++) {
+        positionLimiter.calculate(absolutePositionEncoder.getPosition());
+        homingLimiter.calculate(absolutePositionEncoder.getPosition());
+        System.out.println("Last value-position: "+positionLimiter.lastValue());
+         System.out.println("Last value-position: "+homingLimiter.lastValue());
+    }
+
+
+    //safeMode = true;
+    setHomingState(true);
+
+    topSushiMotor.setInverted(true);
+    bottomStarMotor.setInverted(true);
+
+    topSushiMotor.setIdleMode(IdleMode.kCoast);
+    bottomStarMotor.setIdleMode(IdleMode.kCoast);
+
+
+
+   
+    // positionEncoder = positionMotor.getEncoder();
+    // positionEncoder.setPositionConversionFactor(Constants.intakeSubsystem.kIntakeConversionFactor);
+    
     targetPosition = Constants.intakeSubsystem.kpositionUp;
     positionPID = positionMotor.getPIDController();
     positionPID.setP(Constants.intakeSubsystem.kIntakeP);
@@ -196,6 +213,7 @@ public class IntakeSubsystem extends SubsystemBase {
       activeLimiter = homingLimiter;
     } else {
       activeLimiter = positionLimiter;
+      
     }
   //   targetPosition = 5;
   }
@@ -212,7 +230,7 @@ public class IntakeSubsystem extends SubsystemBase {
   //int counter = 0;
   @Override
   public void periodic() {
-    if(!DriverStation.isTest()) {
+    if(!DriverStation.isTest()  && isInitialized==true) {
 
       // if(intakeHomeLimit.get() == Constants.intakeSubsystem.kHomeLimitPressed){
       //   absolutePositionEncoder.setZeroOffset(-absolutePositionEncoder.getPosition() + Constants.intakeSubsystem.kZeroOffsetBuffer);
