@@ -281,8 +281,8 @@ SendableChooser<Command> pipelineChooser;
       new JoystickButton(driverJoystick,Constants.DriverJoystick.driveRightButton)
         .onTrue(new DriveRightCommand(m_SwerveSubsystem));
 
-      new JoystickButton(driverJoystick,Constants.DriverJoystick.rotateCCWButton)
-        .onTrue(new RotateCCWCommand(m_SwerveSubsystem));    
+      // new JoystickButton(driverJoystick,Constants.DriverJoystick.rotateCCWButton)
+      //   .onTrue(new RotateCCWCommand(m_SwerveSubsystem));    
     }
 
   }
