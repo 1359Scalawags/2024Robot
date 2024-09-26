@@ -6,13 +6,13 @@ package frc.robot;
 
 import frc.robot.commands.SwerveCommands.FieldCentricCommand;
 import frc.robot.Constants.swerveSubsystem;
-import frc.robot.commands.SetDefaultPipelineCommand;
 import frc.robot.commands.ArmCommands.ExtendArmCommand;
 import frc.robot.commands.ArmCommands.HomeClimberCommand;
 import frc.robot.commands.ArmCommands.LockClimberCommand;
 import frc.robot.commands.ArmCommands.MoveClimberArms;
 import frc.robot.commands.ArmCommands.RetractArmCommand;
 import frc.robot.commands.ArmCommands.UnlockClimberCommand;
+import frc.robot.commands.CameraCommands.SetDefaultPipelineCommand;
 import frc.robot.commands.IntakeCommands.IntakeWheelsOffCommand;
 import frc.robot.commands.IntakeCommands.TimedCommands.IntakeAmpTimedShoot;
 import frc.robot.commands.IntakeCommands.TimedCommands.IntakeNoteInTimedShoot;
@@ -67,6 +67,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 // import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.CameraCommands.SetPipeline;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -78,7 +79,7 @@ public class RobotContainer {
 
 
 SendableChooser<Command> autoChooser;
-    
+SendableChooser<Command> pipelineChooser;  
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_SwerveSubsystem = new SwerveSubsystem(
     new File(Filesystem.getDeployDirectory(), "YAGSLConfigJSON/swerve/" + Constants.robotName));
@@ -109,6 +110,7 @@ SendableChooser<Command> autoChooser;
     setDefaultCommands(); 
 
     autoChooser = AutoBuilder.buildAutoChooser();
+    pipelineChooser = new SendableChooser<Command>();
 
     // autoChooser.addOption("Test Auto", getAutonomousCommand("Test Auto"));
     autoChooser.addOption("Test Auto Two", getAutonomousCommand("Test Auto Two"));
@@ -124,10 +126,13 @@ SendableChooser<Command> autoChooser;
     //autoChooser.addOption("Test Auto", getAutonomousCommand("Test Auto"));
     //autoChooser.addOption("Two Note Auto pos 2", getAutonomousCommand("Two Note Auto pos 2"));
 
+    pipelineChooser.setDefaultOption("Driver Camera", new SetPipeline(m_VisionSubsystem, 0));
+    pipelineChooser.addOption("Pipeline 1", new SetPipeline(m_VisionSubsystem, 1));
 
     //autoChooser.addOption("Example Path", Path("example Path"));
     //autoChooser.addOption("New Auto", Auto("New Auto"));
-     SmartDashboard.putData("Auto Chooser ", autoChooser);
+    SmartDashboard.putData("Pipeline Chooser", pipelineChooser);
+    SmartDashboard.putData("Auto Chooser ", autoChooser);
     // SmartDashboard.putData("Second Chooser ", autoChooser);
   }
     /*

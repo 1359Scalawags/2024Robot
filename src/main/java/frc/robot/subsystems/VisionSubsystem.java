@@ -88,7 +88,7 @@ public class VisionSubsystem extends SubsystemBase {
     NetworkTableEntry camMode = getLimelightEntry("camMode");
     NetworkTableEntry pipeline = getLimelightEntry("pipeline");
     NetworkTableEntry botPoseEntry = table.getEntry("botpose");
-    private HttpCamera camera = new HttpCamera("limelight", "http://limelight.local:5800/stream.mjpeg", HttpCameraKind.kMJPGStreamer);
+    HttpCamera camera = new HttpCamera("limelight", "http://limelight.local:5800/stream.mjpeg", HttpCameraKind.kMJPGStreamer);
     private double[] botPose;
 
 
@@ -138,6 +138,10 @@ public class VisionSubsystem extends SubsystemBase {
         getLimelightEntry("camMode").setNumber(mode.ordinal());
     }
 
+  public void setPipeline(int pipelineNumber){
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipelineNumber);
+    }
+
     public void setDefaultPipeline(){
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(Constants.kDefaultPipeline);
     }
@@ -156,6 +160,7 @@ public class VisionSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("LimelightX", x);
         SmartDashboard.putNumber("LimelightY", y);
         SmartDashboard.putNumber("LimelightArea", area);
+        SmartDashboard.putNumberArray("Limelight", pose);
 
         //TODO: we are puting the same numbers to the dashboard on the delay and before it.
 
