@@ -145,12 +145,12 @@ public final class Constants {
     public static final double kStarMotorFeedShooterSpeed = 0.8;
     public static final double kStarMotorFeedAmpSpeed = 0.8;
     public static final double kSushiMotorFeedAmpSpeed = 0.95;
-    public static final double kSushiMotorDrawInSpeed = 0.8;
-    public static final double kStarMotorDrawInSpeed = 0.3;
+    public static final double kSushiMotorDrawInSpeed = 0.3;
+    public static final double kStarMotorDrawInSpeed = 0.8;
 
     public static final double kStopNoteMotors = 0.0;
     public static final double kpositionUp = 15.0; //15.5,  14.4
-    public static final double kpositionDown = 178.5; //182.0,  174
+    public static final double kpositionDown = 178.3; // 182.0,  174
     public static final double kPositionAmp = 115;
     // public static final double kMaxIntakePosition = 170.0;
     // public static final double kMinIntakePosition = 5.0;
@@ -187,7 +187,7 @@ public final class Constants {
     public static final double kPositionEncoderOffset = 100.0; //approximately sets 0 to rear-facing horizontal //avoids meridian flip
     public static final double kPositionTolerance = 0.5; // in degrees
     public static final double kZeroOffsetBuffer = 10.0;
-    public static final double kInjectNoteCorrectionStopTime = 0.44;
+    public static final double kInjectNoteCorrectionStopTime = 0.465;
     public static final double kInjectNoteCorrectionStartTime = 0.3;
 
 
@@ -230,7 +230,7 @@ public final class Constants {
     public static final int reverseDrive = 11;    
     public static final int driveForwardButton = 12;
     public static final int driveRightButton = 13;
-    public static final int rotateCCWButton = 14;
+    //public static final int rotateCCWButton = 14;
     public static final int unReverseDrive = 16;
     // public static final int auto2driveForwardButton = 0;
 

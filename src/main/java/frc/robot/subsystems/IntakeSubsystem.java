@@ -88,7 +88,7 @@ absolutePositionEncoder = positionMotor.getAbsoluteEncoder();
     //positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/8);//,
     positionLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit, -Constants.intakeSubsystem.kPositionRateLimit, absolutePositionEncoder.getPosition());
     //homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/8);//2
-    homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit/100, -Constants.intakeSubsystem.kPositionRateLimit/100, absolutePositionEncoder.getPosition());
+    homingLimiter = new SlewRateLimiter(Constants.intakeSubsystem.kPositionRateLimit, -Constants.intakeSubsystem.kPositionRateLimit, absolutePositionEncoder.getPosition());
    System.out.println("Intake subsystem consructor-absolute position:"+absolutePositionEncoder.getPosition());
     activeLimiter = homingLimiter;
 
