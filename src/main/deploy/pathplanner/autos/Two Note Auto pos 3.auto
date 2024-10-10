@@ -10,7 +10,46 @@
   "command": {
     "type": "sequential",
     "data": {
-      "commands": []
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeNoteOutTimedShoot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShootTimedCommand"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": null
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": null
+                }
+              }
+            ]
+          }
+        }
+      ]
     }
   },
   "folder": "Two Note Autos",

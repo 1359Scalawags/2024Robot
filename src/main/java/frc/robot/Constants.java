@@ -98,9 +98,9 @@ public final class Constants {
     public static final int kShootingmotorRPort = 28;
     public static final double kAmpshootingspeed = 385; //originally 500
     public static final double kstopshootingspeed = 0.0;
-    public static final double kShootingspeed = 2070; 
+    public static final double kShootingspeed = 2484; 
     // public static final double kShootingspeed = 3000; For only one working
-    public static final double kShootingspeedlimit = 2300;
+    public static final double kShootingspeedlimit = 2760;
     // public static final double kShootingspeedlimit = 3500; 3500 for one working side
 
     public static final double kRightMotorP = 0.0004; //0.0002
@@ -187,7 +187,7 @@ public final class Constants {
     public static final double kPositionEncoderOffset = 100.0; //approximately sets 0 to rear-facing horizontal //avoids meridian flip
     public static final double kPositionTolerance = 0.5; // in degrees
     public static final double kZeroOffsetBuffer = 10.0;
-    public static final double kInjectNoteCorrectionStopTime = 0.465;
+    public static final double kInjectNoteCorrectionStopTime = 0.427; // 0.42
     public static final double kInjectNoteCorrectionStartTime = 0.3;
 
 

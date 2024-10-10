@@ -12,15 +12,22 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "IntakeNoteOutTimedShoot"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootTimedCommand"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeNoteInTimedShoot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShootTimedCommand"
+                }
+              }
+            ]
           }
         },
         {
