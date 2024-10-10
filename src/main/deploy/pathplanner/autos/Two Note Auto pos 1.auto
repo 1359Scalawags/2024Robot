@@ -2,15 +2,104 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2,
-      "y": 2
+      "x": 0.84,
+      "y": 6.6
     },
-    "rotation": 0
+    "rotation": -121.88999999999999
   },
   "command": {
     "type": "sequential",
     "data": {
-      "commands": []
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeNoteOutTimedShoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootTimedCommand"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "1 Get note from top"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeExtendCommand"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeNoteInTimedShoot"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "1 Get note"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "1 Return to speaker"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeRetractCommand"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "SecondIntakeNoteOutTimedShoot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SecondShootTimedCommand"
+                }
+              }
+            ]
+          }
+        }
+      ]
     }
   },
   "folder": "Two Note Autos",

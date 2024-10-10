@@ -115,7 +115,7 @@ SendableChooser<Command> pipelineChooser;
     // autoChooser.addOption("Test Auto", getAutonomousCommand("Test Auto"));
     autoChooser.addOption("Test Auto Two", getAutonomousCommand("Test Auto Two"));
     autoChooser.addOption("Shooting Auto", getAutonomousCommand("Shooting Auto"));
-    autoChooser.addOption("Nothing Auto", getAutonomousCommand("Nothing Auto"));
+    autoChooser.setDefaultOption("Nothing Auto", getAutonomousCommand("Nothing Auto"));
     autoChooser.addOption("Basic Pos 2", getAutonomousCommand("Basic Pos 2"));
     autoChooser.addOption("Basic Pos 3", getAutonomousCommand("Basic Pos 3"));
     autoChooser.addOption("Basic Pos 1", getAutonomousCommand("Basic Pos 1"));

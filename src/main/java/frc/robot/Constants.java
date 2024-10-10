@@ -21,7 +21,7 @@ import com.pathplanner.lib.util.PIDConstants;
 public final class Constants {
 
   public static final String robotName = "Siren";
-  public static final boolean kDebug = true;
+  public static final boolean kDebug = false;
   public static int kDefaultPipeline;
 
 
@@ -98,9 +98,9 @@ public final class Constants {
     public static final int kShootingmotorRPort = 28;
     public static final double kAmpshootingspeed = 385; //originally 500
     public static final double kstopshootingspeed = 0.0;
-    public static final double kShootingspeed = 1800;
+    public static final double kShootingspeed = 2070; 
     // public static final double kShootingspeed = 3000; For only one working
-    public static final double kShootingspeedlimit = 2000;
+    public static final double kShootingspeedlimit = 2300;
     // public static final double kShootingspeedlimit = 3500; 3500 for one working side
 
     public static final double kRightMotorP = 0.0004; //0.0002

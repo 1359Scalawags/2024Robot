@@ -2,41 +2,35 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.CameraCommands;
+package frc.robot.commands.IntakeCommands.TimedCommands;
 
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.VisionSubsystem;
-import edu.wpi.first.vision.VisionPipeline;
+import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class SetPipeline extends Command {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final VisionSubsystem m_visionSubsystem;
- private int pipelineNumber;
+public class IntakeNoteInTimedCommand extends Command {
+  private final IntakeSubsystem m_IntakeSubsystem;
 
   /**
-   * Creates a new ExampleCommand.
-   *
+   *command to turn belt on
+   * 
    * @param subsystem The subsystem used by this command.
    */
-  public SetPipeline(VisionSubsystem subsystem, int pipelineNumber) {
-    m_visionSubsystem = subsystem;
+  public IntakeNoteInTimedCommand(IntakeSubsystem subsystem) {
+    m_IntakeSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
-    this.pipelineNumber = pipelineNumber;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_visionSubsystem.setPipeline(this.pipelineNumber);
+    m_IntakeSubsystem.injectNote();
   }
 
   // Called once the command ends or is interrupted.

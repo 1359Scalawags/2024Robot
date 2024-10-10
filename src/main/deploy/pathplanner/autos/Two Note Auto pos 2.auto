@@ -37,7 +37,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "get Note from Center"
+                  "pathName": "2 Get Note from bottom"
                 }
               },
               {
@@ -62,7 +62,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Get Note"
+                  "pathName": "2 Get Note"
                 }
               }
             ]
@@ -81,7 +81,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Return to Speaker"
+                  "pathName": "2 Return to Speaker"
                 }
               }
             ]
