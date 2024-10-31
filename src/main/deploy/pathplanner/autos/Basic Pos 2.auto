@@ -16,6 +16,12 @@
           "data": {
             "commands": [
               {
+                "type": "path",
+                "data": {
+                  "pathName": "shoot Comunity from pos 2"
+                }
+              },
+              {
                 "type": "named",
                 "data": {
                   "name": "ShootTimedCommand"
@@ -33,7 +39,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Leave Comunity from Speaker"
+            "pathName": "leave community from pos 2"
           }
         }
       ]
