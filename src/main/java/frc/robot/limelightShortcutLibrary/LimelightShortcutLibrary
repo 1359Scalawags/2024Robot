@@ -37,4 +37,10 @@ public class LimelightShortcutLibrary extends SubsystemBase {
     public void setLEDMode(double value) {
      limelightNT.getEntry("ledMode").setNumber(value);
     }
+
+    public double getTx() {
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble();
+    }
+
+    
 }
