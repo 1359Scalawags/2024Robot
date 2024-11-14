@@ -34,13 +34,37 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LimelightShortcutLibrary extends SubsystemBase {
 
-    public void setLEDMode(double value) {
-     limelightNT.getEntry("ledMode").setNumber(value);
-    }
+    public double getTy() {
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+    } 
 
     public double getTx() {
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble();
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
     }
 
+    public double getTv(){
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+    } 
     
+    public int getPipe() {
+`       NetworkTableInstance.getDefault().getTable("limelight").getEntry("getpipe").getint();
+    }
+    
+    public double getDistance() {
+        double x = getTx();
+        double y = getTy();
+            // This is the pythagorean therorom, this gets the distance from the camera to the targeted object.
+        double Distance = Math.sqrt((x*x) + (y*y));
+        return Distance
+    }
+
+    public double getTheta() {
+        double x = getTx();
+        double y = getTy();
+        double c = getDistance();
+
+        double Theta = math.asin(y/c);
+        return Theta 
+    }    
+
 }
