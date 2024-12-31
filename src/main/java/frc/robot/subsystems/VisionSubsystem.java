@@ -4,6 +4,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.LimelightLibrary.LimelightShortcuts;
 import frc.robot.Constants.swerveSubsystem;
 
 import java.io.IOException;
@@ -41,26 +42,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionSubsystem extends SubsystemBase {
 
-    // //TODO: Uncommnet when drive train is completed
-    // private final SwereSubsystem SwereSubsystem;
-    // //TODO: intialize april tag feild map
-    // public final AprilTagFieldLayout aprilTagFieldLayout;
+    LimelightShortcuts LimelightShortcuts = new LimelightShortcuts();
 
-    // private final SwerveSubsystem SwerveSubsystem;
-
-    // private static final Vector<N3> stateStdDevs = VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5));
-
-    // private static final Vector<N3> visionMeasurementStdDevs = VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(10));
-
-    // private final SwerveDrivePoseEstimator poseEstimator;
-
-    // private final Field2d field2d = new Field2d();
-
-    // private double previousPipelineTimestamp = 0;
-
-
-
-    
     public enum LimelightModes {
         vision,
         driver
@@ -72,12 +55,7 @@ public class VisionSubsystem extends SubsystemBase {
     }
     
 
-    // variables for USB Cams
-    // private UsbCamera camera1;
-    // private VideoSink server;
-
-    // variables for Limelight
-
+   
     double x, y, area;
     static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     NetworkTableEntry tx = getLimelightEntry("tx");
@@ -147,6 +125,51 @@ public class VisionSubsystem extends SubsystemBase {
     }
 
     int counter = 0;
+    int timer = 0;
+
+//*********************************************************************************
+        // Functions for LL library.
+        
+    public void testTy() {
+        double ty = LimelightShortcuts.getTy();
+        System.out.println("------------------getTy() output---------------------------" + ty);
+    }
+    
+    public void testTx() {
+        double tx = LimelightShortcuts.getTx();
+        System.out.println("------------------getTx() output---------------------------" + tx);
+    }
+
+    public void testTv() {
+        double tv = LimelightShortcuts.getTv();
+        System.out.println("------------------getTv() output---------------------------" + tv);
+    }
+
+    public void getPipe() {
+        double pipeline = LimelightShortcuts.getPipeline();
+        System.out.println("------------------getPipeline() output-----------------------" + pipeline);
+    }
+
+    public void testTagID() {
+        int tid = LimelightShortcuts.getAprilTagID();
+        System.out.println("-------------------AprilTag ID output---------------------------" + (int) tid);
+    }
+
+    public void getBasicValues() {
+        double ty = LimelightShortcuts.getTy();
+        double tx = LimelightShortcuts.getTx();
+        double tv = LimelightShortcuts.getTv();
+        double pipeline = LimelightShortcuts.getPipeline();
+        int tid = LimelightShortcuts.getAprilTagID();
+
+        System.out.println("------------------getTy() output---------------------------" + ty);
+        System.out.println("------------------getTx() output---------------------------" + tx);
+        System.out.println("------------------getTv() output---------------------------" + tv);
+        System.out.println("------------------getPipeline() output-----------------------" + pipeline);
+        System.out.println("-------------------AprilTag ID output---------------------------" + (int) tid);
+}
+
+//**************************************************************************************
 
     @Override
     public void periodic() {
@@ -156,11 +179,13 @@ public class VisionSubsystem extends SubsystemBase {
         double area = ta.getDouble(0.0);
         double[] pose = botPoseEntry.getDoubleArray(new double[6]);
 
+
         // post to smart dashboard periodically
         SmartDashboard.putNumber("LimelightX", x);
         SmartDashboard.putNumber("LimelightY", y);
         SmartDashboard.putNumber("LimelightArea", area);
         SmartDashboard.putNumberArray("Limelight", pose);
+    
 
         //TODO: we are puting the same numbers to the dashboard on the delay and before it.
 
@@ -173,6 +198,28 @@ public class VisionSubsystem extends SubsystemBase {
             counter = 0;
         }
         counter++;
+
+        //*******************************************************
+        double ty = LimelightShortcuts.getTy();
+        double tx = LimelightShortcuts.getTx();
+        double tv = LimelightShortcuts.getTv();
+        int pipeline = LimelightShortcuts.getPipeline();
+        int tid = LimelightShortcuts.getAprilTagID();
+
+        if (timer >= 5) {
+            System.out.println("------------------getTy() output---------------------------" + ty);
+            System.out.println("------------------getTx() output---------------------------" + tx);
+            System.out.println("------------------getTv() output---------------------------" + tv);
+            System.out.println("------------------getPipeline() output---------------------" + (int) pipeline);
+            System.out.println("------------------AprilTag ID output-----------------------" + (int) tid);
+
+            timer = 0;
+        }
+        timer++;
+        // loop by Gavan and kavi :)
+
+
+        //********************************************************      
     }
 
     // poseEstimator.update(
