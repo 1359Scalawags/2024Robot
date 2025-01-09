@@ -5,15 +5,15 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 
 public class LimelightShortcuts {
-
+        //vertical offset angle, up and down.
     public double getTy() {
         return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
     } 
-
+        //horizontal offset, left and right.
     public double getTx() {
         return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
     }
-
+        
     public double getTv(){
         return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     } 
@@ -25,5 +25,4 @@ public class LimelightShortcuts {
     public int getPipeline() {
        return (int) NetworkTableInstance.getDefault().getTable("limelight").getEntry("getpipe").getInteger(0);
     }
-    
 }
